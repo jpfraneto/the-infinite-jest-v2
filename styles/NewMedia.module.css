@@ -1,0 +1,25 @@
+.mainContainer {
+  height: 100vh;
+  width: 777px;
+  margin: 0 auto;
+  background-color: palevioletred;
+  text-align: center;
+  color: white;
+  padding: 8px;
+}
+
+.formElement {
+  width: 100%;
+}
+
+.formElement > * {
+  display: block;
+  margin: 0 auto;
+  width: 88%;
+  height: 33px;
+  border-radius: 8px;
+}
+
+.mediaDescription {
+  height: 222px;
+}
