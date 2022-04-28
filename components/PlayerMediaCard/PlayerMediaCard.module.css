@@ -1,0 +1,43 @@
+.topicContainer {
+  cursor: pointer;
+  width: 273px;
+  border-radius: 5px;
+  aspect-ratio: 16/9;
+  background-color: #292932;
+  margin: 8px;
+  color: white;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.topicContainer h3 {
+  margin: 3px;
+}
+
+.playerWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.gridPlayerWrapper {
+  pointer-events: none;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.reactPlayer video {
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+}
+
+@media only screen and (max-width: 777px) {
+  .playerWrapper {
+    width: 100%;
+  }
+}

@@ -1,55 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connectToDatabase } from '../../../lib/mongodb';
 import { useRouter } from 'next/router';
+import styles from '../../../styles/NewMedia.module.css';
+import NewMedia from '../../../components/NewMedia';
 
-const NewMedia = () => {
-  const router = useRouter();
-  const [mediaName, setMediaName] = useState('');
-  const [url, setUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [loading, setLoading] = useState(false);
-  const handleNewMediaSubmit = async () => {
-    if (!url) return alert('please add the url for the first video!');
-    if (!description) return alert('please add a description!');
-    setLoading(true);
-    const reqParams = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        mediaName,
-        url,
-        username: router.query.username,
-        description,
-      }),
-    };
-    const response = await fetch(
-      `/api/${router.query.username}/newmedia`,
-      reqParams
-    );
-    console.log('in here!');
-    router.push(`/u/${router.query.username}`);
-  };
-  if (loading) return <h2>Loading!!</h2>;
-  return (
-    <div>
-      <h3>Add new media type to your profile</h3>
-      <label>Media Name</label>
-      <input
-        type='text'
-        onChange={e => setMediaName(e.target.value)}
-        name='newmedia'
-      />
-      <br />
-      <label>First Url</label>
-      <input type='text' onChange={e => setUrl(e.target.value)} name='url' />
-      <br />
-      <label>Description</label>
-      <textarea
-        onChange={e => setDescription(e.target.value)}
-        name='description'
-      />
-      <button onClick={handleNewMediaSubmit}>Handle submit</button>
-    </div>
-  );
+// export async function getStaticPaths() {
+//   const { db } = await connectToDatabase();
+//   const users = await db.collection('users').find({}).toArray();
+//   const paths = users.map(user => {
+//     return { params: { username: user.username.toString() } };
+//   });
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+
+export async function getServerSideProps({ params }) {
+  const { db } = await connectToDatabase();
+  const thisUser = await db
+    .collection('users')
+    .findOne({ username: params.username });
+  return { props: { user: JSON.parse(JSON.stringify(thisUser)) } };
+}
+
+const NewMedia2 = ({ user }) => {
+  return <NewMedia user={user} />;
 };
 
-export default NewMedia;
+export default NewMedia2;

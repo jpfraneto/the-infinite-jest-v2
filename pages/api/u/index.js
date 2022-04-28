@@ -12,9 +12,8 @@ export default async function handler(req, res) {
         .collection('users')
         .updateOne(
           { username: req.body.username },
-          { $pull: { presentMedia: { mediaType: req.body.type } } }
+          { $pull: { presentMedia: { mediatype: req.body.type } } }
         );
-      console.log('the repsonse is: ', response);
       res.json({ message: 'The user was updated!' });
     } catch (error) {
       console.log('the error is: ', error);

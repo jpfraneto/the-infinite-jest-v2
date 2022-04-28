@@ -1,0 +1,49 @@
+.newMediaContainer {
+  max-width: 777px;
+  background-color: teal;
+  margin: 0 auto;
+  padding: 1px 8px;
+  text-align: center;
+}
+
+.formElementContainer {
+  background-color: rebeccapurple;
+  margin: 4px auto;
+  border: solid black 1px;
+  box-shadow: 2px 2px black;
+  padding: 4px;
+}
+
+.formElementContainer label {
+  display: block;
+  font-size: 1.3rem;
+  font-style: oblique;
+  margin: 0 8px;
+  text-align: left;
+}
+
+.formElementContainer input {
+  padding-left: 8px;
+}
+
+.formElementContainer input::placeholder {
+  color: white;
+}
+
+.formElement {
+  margin: 3px 0;
+  width: 333px;
+  height: 33px;
+  background-color: transparent;
+  color: white;
+  border: solid black 1px;
+  box-shadow: 2px 2px black;
+}
+
+.formElementContainer textarea {
+  height: 222px;
+  color: white;
+}
+
+@media only screen and (max-width: 777px) {
+}

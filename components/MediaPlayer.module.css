@@ -1,0 +1,48 @@
+.container {
+  max-width: 777px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mainPlayerOuterWrapper {
+  height: auto;
+  padding: 8px;
+  max-width: 100vw;
+  aspect-ratio: 16/9;
+}
+
+.mainPlayerOuterWrapper h3 {
+  margin: 3px;
+  text-transform: uppercase;
+}
+
+.playerWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.gridPlayerWrapper {
+  pointer-events: none;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.reactPlayer video {
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+}
+
+@media only screen and (max-width: 777px) {
+  .container {
+    width: 98%;
+  }
+  .playerWrapper {
+    width: 100%;
+  }
+}

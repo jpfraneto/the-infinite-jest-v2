@@ -22,7 +22,33 @@ const Home = () => {
       signIn();
     }
   };
-  return <div>THis is the landing page</div>;
+  return (
+    <div>
+      Users:
+      <ul>
+        <li>
+          <Link href='/u/jpfraneto'>
+            <a>jpfraneto</a>
+          </Link>
+        </li>
+        <li>
+          <Link href='/u/ffraneto'>
+            <a>ffraneto</a>
+          </Link>
+        </li>
+        <li>
+          <Link href='/u/nachita'>
+            <a>nachita</a>
+          </Link>
+        </li>
+        <li>
+          <Link href='/u/jorge.franetovic'>
+            <a>jorge.franetovic</a>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default Home;

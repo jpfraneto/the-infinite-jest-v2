@@ -1,0 +1,32 @@
+.topicsMainContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 98%;
+  margin: 0 auto;
+  background-color: aliceblue;
+  padding: 8px;
+  border-radius: 8px;
+}
+.topicContainer {
+  text-align: center;
+  cursor: pointer;
+  width: 273px;
+  border-radius: 5px;
+  aspect-ratio: 16/9;
+  background-color: rgb(105, 201, 201);
+  margin: 8px;
+  padding: 2px 4px;
+}
+
+.newMediaTypeContainer {
+  text-transform: uppercase;
+}
+
+.selectNewMedia {
+  background-color: transparent;
+  font-size: 2rem;
+  width: 100%;
+  border: none;
+  text-transform: uppercase;
+}

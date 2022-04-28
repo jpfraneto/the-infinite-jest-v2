@@ -1,0 +1,32 @@
+.mediaTypeSelector {
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 100%;
+  height: calc((100vh - 44px) / 10);
+  cursor: pointer;
+}
+.mediaTypeSelector:hover {
+  background-color: black;
+  color: white;
+}
+
+.topicContainer {
+  background-color: purple;
+  color: white;
+}
+
+.selectNewMedia {
+  background-color: transparent;
+  border: none;
+  opacity: 0.8;
+  text-transform: uppercase;
+  margin: 0 8px;
+  font-size: 2rem;
+  color: white;
+  transform: translateY(1px);
+}

@@ -1,6 +1,12 @@
 .mainTitle {
   margin: 10px;
+  padding: 2px 0;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-bottom: 1px solid black;
+  margin: 0;
 }
+
 .topicsMainContainer {
   display: flex;
   flex-wrap: wrap;
@@ -10,6 +16,17 @@
   background-color: aliceblue;
   padding: 8px;
   border-radius: 8px;
+}
+
+.newMedia {
+  background-color: purple;
+  border: solid black 1px;
+  padding: 1px 2px 1px 1px;
+  cursor: pointer;
+}
+
+.newMedia:hover {
+  background-color: orange;
 }
 
 .topicContainer {
@@ -23,7 +40,8 @@
 }
 
 .newMediaTypeContainer {
-  background-color: greenyellow;
+  background-color: #292932;
+  text-transform: uppercase;
 }
 
 .newMediaTypeContainer:hover {
