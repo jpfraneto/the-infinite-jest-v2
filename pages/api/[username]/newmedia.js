@@ -1,11 +1,9 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../lib/mongodb';
-import { connectToDatabase2 } from '../../../lib/mongodb2';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
-    let { db2 } = await connectToDatabase2();
     try {
       const newMediaElement = {
         url: req.body.url,
@@ -15,7 +13,6 @@ export default async function handler(req, res) {
         duration: Number(req.body.duration),
         status: 'future',
       };
-      const added = await db2.collection('infinity').insertOne(newMediaElement);
       const thisUser = await db
         .collection('users')
         .findOne({ username: req.body.username });
