@@ -16,6 +16,7 @@ const MediaPlayer = ({
         <button onClick={() => setGridView(true)}>Back</button>
         <Link
           href={`/u/${router.query.username}/${chosenMediaForDisplay.mediatype}`}
+          passHref
         >
           <h3>{chosenMediaForDisplay.mediatype}</h3>
         </Link>

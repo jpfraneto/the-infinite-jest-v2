@@ -31,8 +31,8 @@ export default function Mediatype({ elements }) {
         This are all the videos within the {router.query.mediatype} category{' '}
       </h4>
       <div className={styles.topicsContainer}>
-        {elements.map(x => (
-          <div className={styles.topicContainer}>
+        {elements.map((x, index) => (
+          <div key={index} className={styles.topicContainer}>
             {' '}
             <div
               className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
