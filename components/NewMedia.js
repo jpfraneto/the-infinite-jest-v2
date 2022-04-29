@@ -5,13 +5,12 @@ import Link from 'next/link';
 
 const NewMedia = ({ user }) => {
   const router = useRouter();
-  const [mediatypes, setMediatypes] = useState(user.mediatypes);
+  const [mediatypes, setMediatypes] = useState(user.mediatypes || []);
   const [mediatype, setMediatype] = useState(router.query.type || '');
   const [newMediaName, setNewMediaName] = useState('');
   const [createNewMediaType, setCreateNewMediaType] = useState(false);
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,7 +22,6 @@ const NewMedia = ({ user }) => {
     if (!mediatype) return alert('please choose a media type!');
     if (!url) return alert('please add the url for the first video!');
     if (!description) return alert('please add a description!');
-    if (!duration) return alert('please add the duration of the media');
     setLoading(true);
     const reqParams = {
       method: 'POST',
@@ -33,13 +31,17 @@ const NewMedia = ({ user }) => {
         url,
         username: router.query.username,
         description,
-        duration,
       }),
     };
     const response = await fetch(
       `/api/${router.query.username}/newmedia`,
       reqParams
     );
+    const response2 = await fetch(
+      `https://the-infinite-jest-server.herokuapp.com/api/newmedia`,
+      reqParams
+    );
+    console.log('the response2 is: ', response2);
     router.push(`/u/${router.query.username}`);
   };
   const handleNewMediaName = e => {
@@ -73,11 +75,12 @@ const NewMedia = ({ user }) => {
           onChange={handleSelectChange}
         >
           <option>Choose media type...</option>
-          {mediatypes.map((x, index) => (
-            <option key={index} value={x}>
-              {x}
-            </option>
-          ))}
+          {mediatypes &&
+            mediatypes.map((x, index) => (
+              <option key={index} value={x}>
+                {x}
+              </option>
+            ))}
           <option value='new'>New media type...</option>
         </select>
         {createNewMediaType && (
@@ -108,16 +111,6 @@ const NewMedia = ({ user }) => {
         />
       </div>
 
-      <div className={styles.formElementContainer}>
-        <label>Duration (In milliseconds)</label>
-        <input
-          type='number'
-          min={0}
-          className={styles.formElement}
-          onChange={e => setDuration(e.target.value)}
-          name='duration'
-        />
-      </div>
       <div className={styles.formElementContainer}>
         <label>Description</label>
         <textarea

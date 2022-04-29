@@ -1,17 +1,21 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../lib/mongodb';
+import { connectToDatabase2 } from '../../../lib/mongodb2';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
+    let { db2 } = await connectToDatabase2();
     try {
       const newMediaElement = {
         url: req.body.url,
         mediatype: req.body.mediatype,
         description: req.body.description,
         dateAdded: new Date().getTime(),
-        duration: req.body.duration,
+        duration: Number(req.body.duration),
+        status: 'future',
       };
+      const added = await db2.collection('infinity').insertOne(newMediaElement);
       const thisUser = await db
         .collection('users')
         .findOne({ username: req.body.username });
@@ -19,7 +23,6 @@ export default async function handler(req, res) {
         thisUser.mediatypes &&
         thisUser.mediatypes.includes(req.body.mediatype)
       ) {
-        newMediaElement.status = 'future';
         const updatedUserMessage = await db.collection('users').updateOne(
           {
             username: req.body.username,
@@ -36,6 +39,7 @@ export default async function handler(req, res) {
           success: true,
         });
       }
+
       newMediaElement.status = 'present';
       newMediaElement.startingMediaTimestamp = newMediaElement.dateAdded;
       newMediaElement.endingMediaTimestamp =
@@ -54,7 +58,6 @@ export default async function handler(req, res) {
           },
         }
       );
-      console.log('in here!!,', updatedMessage);
       return res.json({
         message: `The media ${req.body.mediaName} was added to the user ${req.body.username}!`,
         success: true,

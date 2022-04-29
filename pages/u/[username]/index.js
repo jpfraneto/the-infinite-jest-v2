@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import ReactPlayer from 'react-player';
-import styles from '../../../styles/Home.module.css';
 import { connectToDatabase } from '../../../lib/mongodb';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -40,9 +39,6 @@ export default function UserJest({ user }) {
   const router = useRouter();
   return (
     <>
-      <h1 className={`${styles.headerSection} ${styles.mainTitle}`}>
-        The Infinite Jest · @{router.query.username}
-      </h1>
       <MainMediaView user={user} />
     </>
   );

@@ -26,7 +26,11 @@ const PlayerMediaCard = ({
       <div className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}>
         <ReactPlayer
           ref={ref}
-          playing={true}
+          playing={
+            !mediaContainer.presentElement.url.includes('soundcloud')
+              ? true
+              : false
+          }
           muted={true}
           className={styles.reactPlayer}
           url={mediaContainer.presentElement.url}

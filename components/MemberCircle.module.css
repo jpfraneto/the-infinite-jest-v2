@@ -1,0 +1,11 @@
+.memberImageContainer {
+  margin: 0 4px;
+  overflow: hidden;
+  border-radius: 100%;
+  cursor: pointer;
+  border: solid transparent 3px;
+}
+
+.memberImageContainer:hover {
+  border: solid white 3px;
+}

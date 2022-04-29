@@ -3,6 +3,7 @@ import { connectToDatabase } from '../../../lib/mongodb';
 import { useRouter } from 'next/router';
 import styles from '../../../styles/NewMedia.module.css';
 import NewMedia from '../../../components/NewMedia';
+import Link from 'next/link';
 
 // export async function getStaticPaths() {
 //   const { db } = await connectToDatabase();
@@ -25,7 +26,17 @@ export async function getServerSideProps({ params }) {
 }
 
 const NewMedia2 = ({ user }) => {
-  return <NewMedia user={user} />;
+  return (
+    <>
+      <h1 className={`${styles.headerSection} ${styles.mainTitle}`}>
+        The Infinite Jest ·{' '}
+        <Link href={`/u/${user.username}`}>
+          <a> @{user.username}</a>
+        </Link>
+      </h1>
+      <NewMedia user={user} />
+    </>
+  );
 };
 
 export default NewMedia2;

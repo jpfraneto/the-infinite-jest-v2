@@ -8,6 +8,26 @@
   padding: 8px;
 }
 
+.mainTitle {
+  margin: 10px;
+  padding: 2px 0;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-bottom: 1px solid black;
+  margin: 0;
+}
+
+.headerSection {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: purple;
+  color: white;
+  margin-bottom: 10px;
+}
+
 .formElement {
   width: 100%;
 }

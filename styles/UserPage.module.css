@@ -1,0 +1,147 @@
+.topicsMainContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 98%;
+  margin: 0 auto;
+  background-color: aliceblue;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.newMedia {
+  background-color: purple;
+  border: solid black 1px;
+  padding: 1px 2px 1px 1px;
+  cursor: pointer;
+}
+
+.newMedia:hover {
+  background-color: orange;
+}
+
+.topicContainer {
+  cursor: pointer;
+  width: 273px;
+  border-radius: 5px;
+  aspect-ratio: 16/9;
+  background-color: rgb(105, 201, 201);
+  margin: 8px;
+  padding: 2px 4px;
+}
+
+.newMediaTypeContainer {
+  background-color: #292932;
+  text-transform: uppercase;
+}
+
+.newMediaTypeContainer:hover {
+  color: white;
+  background-color: black;
+}
+
+.plusSign {
+  color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plusSign:hover {
+  color: white;
+}
+
+.plusSign > * {
+  height: 80%;
+  width: 80%;
+}
+
+.textContainer {
+  max-width: 666px;
+  margin: 11px auto;
+}
+
+.topicContainer h3 {
+  margin: 3px;
+}
+
+.mainPlayerOuterWrapper {
+  width: 70%;
+  aspect-ratio: 16/9;
+  margin: 10px auto;
+}
+
+.mainPlayerOuterWrapper h3 {
+  margin: 3px;
+}
+
+.playerWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.gridPlayerWrapper {
+  pointer-events: none;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.reactPlayer video {
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+}
+
+@media only screen and (max-width: 777px) {
+  .mainTitle {
+    margin: 0;
+  }
+  .mobileContainer {
+    text-align: center;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    min-width: 444px;
+  }
+  .mobileMediaDisplay {
+    height: auto;
+    padding: 8px;
+    max-width: 100vw;
+    aspect-ratio: 16/9;
+  }
+
+  .playerWrapper {
+    width: 100%;
+  }
+
+  .mediaTypeSelector {
+    background-color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    height: calc((100vh - 44px) / 10);
+    cursor: pointer;
+  }
+  .mediaTypeSelector:hover {
+    font-weight: bold;
+  }
+
+  .mobileSelectMediaType {
+    width: 100%;
+    font-weight: 800;
+    background-color: pink;
+    margin: 0;
+    padding: 0 55px;
+  }
+}

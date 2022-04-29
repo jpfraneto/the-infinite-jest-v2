@@ -23,18 +23,17 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
             />
           );
         })}
-      <div
-        className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
-      >
-        <Link href={`/u/${router.query.username}/newmedia`} passHref>
-          <>
-            {' '}
-            <BsPlusLg />
-            {'  '}
-            <span>NEW MEDIA:</span>
-          </>
-        </Link>
-      </div>
+
+      <Link href={`/u/${router.query.username}/newmedia`} passHref>
+        <div
+          className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
+        >
+          {' '}
+          <BsPlusLg />
+          {'  '}
+          <span>NEW MEDIA:</span>
+        </div>
+      </Link>
     </div>
   );
 };

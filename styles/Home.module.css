@@ -1,164 +1,69 @@
-.mainTitle {
-  margin: 10px;
-  padding: 2px 0;
-  text-align: center;
-  background-color: blanchedalmond;
-  border-bottom: 1px solid black;
-  margin: 0;
-}
-
-.topicsMainContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 98%;
-  margin: 0 auto;
-  background-color: aliceblue;
-  padding: 8px;
-  border-radius: 8px;
-}
-
-.newMedia {
-  background-color: purple;
-  border: solid black 1px;
-  padding: 1px 2px 1px 1px;
-  cursor: pointer;
-}
-
-.newMedia:hover {
-  background-color: orange;
-}
-
-.topicContainer {
-  cursor: pointer;
-  width: 273px;
-  border-radius: 5px;
-  aspect-ratio: 16/9;
-  background-color: rgb(105, 201, 201);
-  margin: 8px;
-  padding: 2px 4px;
-}
-
-.newMediaTypeContainer {
-  background-color: #292932;
-  text-transform: uppercase;
-}
-
-.newMediaTypeContainer:hover {
-  color: white;
-  background-color: black;
-}
-
-.plusSign {
-  color: black;
+.firstSection {
+  height: calc(100vh - 60px);
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: url('https://images.unsplash.com/photo-1627844642684-9b08a538573c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  color: white;
+  padding-top: 40px;
 }
 
-.plusSign:hover {
+.firstSection > * {
+  margin: 0 auto;
+}
+
+.firstSection h4 {
+  min-width: 333px;
+  margin: 0 auto;
+}
+
+.firstSection h2 {
+  font-size: 3rem;
+  width: 60%;
+  margin: 30px auto;
+}
+
+.locationsContainer {
+  display: flex;
+  margin: 0 auto;
+  max-width: 777px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.secondSection {
+  height: 100vh;
+  width: 100%;
+  background: url('https://images.unsplash.com/photo-1562504208-03d85cc8c23e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  text-align: center;
   color: white;
 }
 
-.plusSign > * {
-  height: 80%;
-  width: 80%;
+.secondSection h1 {
+  padding-top: 22px;
+  font-family: 'Indie Flower', cursive;
+  letter-spacing: 1.1rem;
 }
 
-.textContainer {
-  max-width: 666px;
-  margin: 11px auto;
+.membersContainer {
+  display: flex;
+  margin-top: 16px;
+  justify-content: center;
 }
 
-.topicContainer h3 {
-  margin: 3px;
-}
-
-.mainPlayerOuterWrapper {
-  width: 70%;
-  aspect-ratio: 16/9;
-  margin: 10px auto;
-}
-
-.mainPlayerOuterWrapper h3 {
-  margin: 3px;
-}
-
-.playerWrapper {
-  position: relative;
-  height: 100%;
-}
-
-.gridPlayerWrapper {
-  pointer-events: none;
-}
-
-.reactPlayer {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.reactPlayer video {
-  position: relative;
-  left: 0;
-  top: 0;
-  transform: none;
-}
-
-@media only screen and (max-width: 777px) {
-  .mainTitle {
-    margin: 0;
-  }
-  .mobileContainer {
-    text-align: center;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    min-width: 444px;
-  }
-  .mobileMediaDisplay {
-    height: auto;
-    padding: 8px;
-    max-width: 100vw;
-    aspect-ratio: 16/9;
+@media only screen and (max-width: 666px) {
+  .firstSection > * {
+    width: 90%;
   }
 
-  .playerWrapper {
-    width: 100%;
-  }
-  .headerSection {
-    width: 100%;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: purple;
-    color: white;
-  }
-  .mediaTypeSelector {
-    background-color: orange;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .firstSection h2 {
+    margin: 0 auto;
     font-size: 2rem;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    width: 100%;
-    height: calc((100vh - 44px) / 10);
-    cursor: pointer;
-  }
-  .mediaTypeSelector:hover {
-    font-weight: bold;
-  }
-
-  .mobileSelectMediaType {
-    width: 100%;
-    font-weight: 800;
-    background-color: pink;
-    margin: 0;
-    padding: 0 55px;
   }
 }
