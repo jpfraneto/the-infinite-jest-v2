@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
 import { TiThMenu } from 'react-icons/ti';
 import Link from 'next/link';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
@@ -37,15 +39,19 @@ export default function Navbar() {
           <Link href='/'>
             <a>Home</a>
           </Link>
-          <Link href='/locations'>
-            <a>Locations</a>
-          </Link>
-          <Link href='/project'>
+          <Link href='/about'>
             <a>About</a>
           </Link>
-          <Link href='/coworking'>
-            <a>CoWorking</a>
-          </Link>
+
+          {session ? (
+            <button onClick={() => signOut()} className={styles.loginBtn}>
+              Logout
+            </button>
+          ) : (
+            <button onClick={() => signIn()} className={styles.loginBtn}>
+              Login
+            </button>
+          )}
         </ul>
       </div>
     </nav>

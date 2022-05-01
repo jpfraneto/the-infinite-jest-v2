@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React, { createRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './PlayerMediaCard.module.css';
 
@@ -10,14 +10,18 @@ const PlayerMediaCard = ({
   setPlayerVisibility,
   setPlayerElement,
 }) => {
-  const ref = createRef();
+  const rlvRef = createRef();
+  const [refVisible, setRefVisible] = useState(false);
+
   return (
     <div
       onClick={() => {
         setGridView(false);
         setPlayerVisibility(true);
         setChosenMediaForDisplay(mediaContainer.presentElement);
-        setPlayerElement({ ref, msg: '123' });
+        setPlayerElement(() => {
+          return { player: rlvRef.current };
+        });
       }}
       key={index}
       className={styles.topicContainer}
@@ -25,12 +29,10 @@ const PlayerMediaCard = ({
       <h3>{mediaContainer.mediatype}</h3>{' '}
       <div className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}>
         <ReactPlayer
-          ref={ref}
-          playing={
-            !mediaContainer.presentElement.url.includes('soundcloud')
-              ? true
-              : false
-          }
+          ref={el => {
+            if (el) return (rlvRef.current = el);
+          }}
+          playing={true}
           muted={true}
           className={styles.reactPlayer}
           url={mediaContainer.presentElement.url}

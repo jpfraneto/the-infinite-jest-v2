@@ -26,8 +26,8 @@ export default function Mediatype({ elements }) {
   console.log('the elements are: ', elements);
   return (
     <>
-      <h1>The Infinite Jest · @{router.query.username}</h1>
-      <h4>
+      {' '}
+      <h4 style={{ textAlign: 'center' }}>
         This are all the videos within the {router.query.mediatype} category{' '}
       </h4>
       <div className={styles.topicsContainer}>
@@ -63,7 +63,7 @@ export default function Mediatype({ elements }) {
         </Link>
       </div>
       <Link href={`/u/${router.query.username}`}>
-        <a>Go back</a>
+        <a className={styles.backBtn}>Go back</a>
       </Link>
     </>
   );

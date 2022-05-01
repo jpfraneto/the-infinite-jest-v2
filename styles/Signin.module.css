@@ -1,0 +1,47 @@
+.mainContainer {
+  width: 400px;
+  height: fit-content;
+  padding: 88px 0;
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto 0;
+  text-align: center;
+  border: solid black 1px;
+  border-radius: 8px;
+}
+
+.providerBtnContainer {
+  margin: 12px;
+}
+
+.googleIcon {
+  font-size: 1.5rem;
+  margin-right: 4px;
+}
+
+.providerBtnContainer .signInBtn {
+  border: solid black 1px;
+  background: rgb(207, 207, 207);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.signInBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signInBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(85%);
+}
+
+.signInBtn:active {
+  transform: translateY(-1px);
+}

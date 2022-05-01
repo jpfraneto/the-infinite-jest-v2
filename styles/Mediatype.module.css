@@ -1,5 +1,8 @@
 .topicsContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
 }
 
 .topicContainer {
@@ -49,4 +52,19 @@
   background-color: aliceblue;
   padding: 8px;
   border-radius: 8px;
+}
+
+.backBtn {
+  background-color: palevioletred;
+  padding: 4px 8px;
+  border: solid black 1px;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
+}
+
+.backBtn:hover {
+  background-color: blueviolet;
+  box-shadow: 1px 1px black;
 }

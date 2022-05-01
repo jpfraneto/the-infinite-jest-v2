@@ -1,19 +1,37 @@
 import '../styles/globals.css';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import Navbar from '../components/layout/Navbar';
+import Loader from '../components/layout/Loader';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [isRouteChanging, setIsRouteChanging] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const routeChangeStartHandler = () => setIsRouteChanging(true);
+
+    const routeChangeEndHandler = () => setIsRouteChanging(false);
+
+    router.events.on('routeChangeStart', routeChangeStartHandler);
+    router.events.on('routeChangeComplete', routeChangeEndHandler);
+    router.events.on('routeChangeError', routeChangeEndHandler);
+    return () => {
+      router.events.off('routeChangeStart', routeChangeStartHandler);
+      router.events.off('routeChangeComplete', routeChangeEndHandler);
+      router.events.off('routeChangeError', routeChangeEndHandler);
+    };
+  }, [router.events]);
   return (
-    <>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
       <Head>
         <title>The Infinite Jest</title>
       </Head>
-      <SessionProvider>
-        <Navbar />
-        <Component {...pageProps} />
-      </SessionProvider>
-    </>
+      <Navbar />
+      {isRouteChanging ? <Loader /> : <Component {...pageProps} />}
+    </SessionProvider>
   );
 }
 

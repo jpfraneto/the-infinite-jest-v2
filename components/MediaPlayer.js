@@ -10,6 +10,10 @@ const MediaPlayer = ({
   setGridView = { setGridView },
 }) => {
   const router = useRouter();
+  console.log(
+    'inside the media player and the player element is: ',
+    playerElement.player
+  );
   return (
     <div className={styles.container}>
       <div className={styles.mainPlayerOuterWrapper}>
@@ -21,14 +25,7 @@ const MediaPlayer = ({
           <h3>{chosenMediaForDisplay.mediatype}</h3>
         </Link>
         <div className={styles.playerWrapper}>
-          <ReactPlayer
-            className={styles.reactPlayer}
-            url={chosenMediaForDisplay.url}
-            width='100%'
-            height='100%'
-            controls={true}
-            playing={true}
-          />
+          <ReactPlayer {...playerElement.player.props} />
         </div>
         <div className={styles.textContainer}>
           <h3>Why is this video here?</h3>

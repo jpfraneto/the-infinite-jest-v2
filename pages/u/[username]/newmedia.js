@@ -28,12 +28,6 @@ export async function getServerSideProps({ params }) {
 const NewMedia2 = ({ user }) => {
   return (
     <>
-      <h1 className={`${styles.headerSection} ${styles.mainTitle}`}>
-        The Infinite Jest ·{' '}
-        <Link href={`/u/${user.username}`}>
-          <a> @{user.username}</a>
-        </Link>
-      </h1>
       <NewMedia user={user} />
     </>
   );
