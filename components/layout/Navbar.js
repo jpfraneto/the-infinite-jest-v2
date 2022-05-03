@@ -46,13 +46,30 @@ export default function Navbar() {
 
           {session ? (
             <>
+              <Link href='/dashboard'>
+                <a>Dashboard</a>
+              </Link>
+              {session.user.username ? (
+                <button
+                  onClick={() => router.push(`/u/${session.user.username}`)}
+                  className={styles.loginBtn}
+                >
+                  {session.user.username}
+                </button>
+              ) : (
+                <button
+                  onClick={() => router.push(`/newusername`)}
+                  className={styles.loginBtn}
+                >
+                  Get Username!
+                </button>
+              )}
+
               <button
-                onClick={() => console.log(session)}
+                onClick={() => signOut()}
                 className={styles.loginBtn}
+                style={{ backgroundColor: 'red' }}
               >
-                console
-              </button>
-              <button onClick={() => signOut()} className={styles.loginBtn}>
                 Logout
               </button>
             </>

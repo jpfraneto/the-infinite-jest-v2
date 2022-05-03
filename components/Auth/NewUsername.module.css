@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 888px;
+  margin: 0 auto;
+}
+
+.container input {
+  background-color: aqua;
+  border: dashed 2px black;
+  width: 222px;
+  height: 44px;
+  border-radius: 8px;
+  padding: 0 8px;
+  font-size: 2rem;
+  margin: 22px;
+}

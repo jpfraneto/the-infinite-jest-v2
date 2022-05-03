@@ -16,6 +16,10 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
   // secret: process.env.NEXTAUTH_SECRET,
   // async jwt(token, account) {
@@ -28,19 +32,13 @@ export default NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       console.log('inside the signIn callback', user, account, profile);
-      const { db } = await connectToDatabase();
-      await db
-        .collection('users')
-        .updateOne(
-          { _id: ObjectId(user.id) },
-          { $push: { username: profile.login, githubId: profile.id } }
-        );
       return true;
     },
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
     async session({ session, user, token }) {
+      session.user.username = user.username;
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {

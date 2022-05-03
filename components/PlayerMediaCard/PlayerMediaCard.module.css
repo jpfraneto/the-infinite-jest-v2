@@ -9,6 +9,13 @@
   padding: 2px 4px;
   text-transform: uppercase;
   text-align: center;
+  display: inline-block;
+  box-shadow: 4px 4px black;
+}
+
+.topicContainer:hover {
+  box-shadow: 8px 8px black;
+  transform: translateY(-2px, -2px);
 }
 .topicContainer h3 {
   margin: 3px;

@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player';
 import { connectToDatabase } from '../../../lib/mongodb';
 import Link from 'next/link';
 import styles from '../../../styles/Mediatype.module.css';
+import { useSession } from 'next-auth/react';
 
 export async function getServerSideProps({ params }) {
   const { db } = await connectToDatabase();
@@ -23,10 +24,10 @@ export async function getServerSideProps({ params }) {
 
 export default function Mediatype({ elements }) {
   const router = useRouter();
-  console.log('the elements are: ', elements);
+  const { data: session, status } = useSession();
+
   return (
     <>
-      {' '}
       <h4 style={{ textAlign: 'center' }}>
         This are all the videos within the {router.query.mediatype} category{' '}
       </h4>
@@ -48,19 +49,21 @@ export default function Mediatype({ elements }) {
             </div>
           </div>
         ))}
-        <Link
-          href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}
-          passHref
-        >
-          <div className={styles.topicContainer}>
-            {' '}
-            <div
-              className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
-            >
-              <h2>Add new {`${router.query.mediatype}`}</h2>
+        {session && session.user.username === router.query.username && (
+          <Link
+            href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}
+            passHref
+          >
+            <div className={styles.topicContainer}>
+              {' '}
+              <div
+                className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
+              >
+                <h2>Add new {`${router.query.mediatype}`}</h2>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        )}
       </div>
       <Link href={`/u/${router.query.username}`}>
         <a className={styles.backBtn}>Go back</a>

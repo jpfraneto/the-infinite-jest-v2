@@ -4,9 +4,12 @@ import PlayerMediaCard from './PlayerMediaCard/PlayerMediaCard';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { BsPlusLg } from 'react-icons/bs';
+import { useSession } from 'next-auth/react';
 
 const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   return (
     <div className={styles.topicsMainContainer}>
       {mediaElements &&
@@ -23,17 +26,18 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
             />
           );
         })}
-
-      <Link href={`/u/${router.query.username}/newmedia`} passHref>
-        <div
-          className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
-        >
-          {' '}
-          <BsPlusLg />
-          {'  '}
-          <span>NEW MEDIA:</span>
-        </div>
-      </Link>
+      {session && router.query.username === session.user.username && (
+        <Link href={`/u/${router.query.username}/newmedia`} passHref>
+          <div
+            className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
+          >
+            {' '}
+            <BsPlusLg />
+            {'  '}
+            <span>NEW MEDIA:</span>
+          </div>
+        </Link>
+      )}
     </div>
   );
 };

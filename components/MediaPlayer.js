@@ -10,20 +10,24 @@ const MediaPlayer = ({
   setGridView = { setGridView },
 }) => {
   const router = useRouter();
-  console.log(
-    'inside the media player and the player element is: ',
-    playerElement.player
-  );
+
   return (
     <div className={styles.container}>
       <div className={styles.mainPlayerOuterWrapper}>
-        <button onClick={() => setGridView(true)}>Back</button>
-        <Link
-          href={`/u/${router.query.username}/${chosenMediaForDisplay.mediatype}`}
-          passHref
-        >
-          <h3>{chosenMediaForDisplay.mediatype}</h3>
-        </Link>
+        <div className={styles.btnsContainer}>
+          <button className={styles.btn} onClick={() => setGridView(true)}>
+            Back
+          </button>
+          <Link
+            href={`/u/${router.query.username}/${chosenMediaForDisplay.mediatype}`}
+            passHref
+          >
+            <button className={`${styles.allElementsBtn} ${styles.btn}`}>
+              All {chosenMediaForDisplay.mediatype} elements
+            </button>
+          </Link>
+        </div>
+
         <div className={styles.playerWrapper}>
           <ReactPlayer {...playerElement.player.props} />
         </div>

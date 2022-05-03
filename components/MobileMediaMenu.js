@@ -3,9 +3,12 @@ import styles from './MobileMediaMenu.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { BsPlusLg } from 'react-icons/bs';
+import { useSession } from 'next-auth/react';
 
 const MobileMediaMenu = ({ input, mediaElements }) => {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   return (
     <>
       {mediaElements &&
@@ -24,12 +27,14 @@ const MobileMediaMenu = ({ input, mediaElements }) => {
             </div>
           );
         })}
-      <Link href={`/u/${router.query.username}/newmedia`} passHref>
-        <div className={styles.mediaTypeSelector}>
-          <BsPlusLg />
-          <span>NEW</span>
-        </div>
-      </Link>
+      {session && router.query.username === session.user.username && (
+        <Link href={`/u/${router.query.username}/newmedia`} passHref>
+          <div className={styles.mediaTypeSelector}>
+            <BsPlusLg />
+            <span>NEW</span>
+          </div>
+        </Link>
+      )}
     </>
   );
 };
