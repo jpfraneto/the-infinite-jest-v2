@@ -34,13 +34,7 @@ export default NextAuth({
       return true;
     },
     async redirect({ url, baseUrl }) {
-      console.log(
-        'inside the redirect, the url is',
-        url,
-        ' the baseurl is',
-        baseUrl
-      );
-      return url;
+      return baseUrl;
     },
     async session({ session, user, token }) {
       session.user.username = user.username;
