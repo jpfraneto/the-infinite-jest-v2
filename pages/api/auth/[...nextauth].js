@@ -31,11 +31,16 @@ export default NextAuth({
   debug: false,
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log('inside the signIn callback', user, account, profile);
       return true;
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl;
+      console.log(
+        'inside the redirect, the url is',
+        url,
+        ' the baseurl is',
+        baseUrl
+      );
+      return url;
     },
     async session({ session, user, token }) {
       session.user.username = user.username;
