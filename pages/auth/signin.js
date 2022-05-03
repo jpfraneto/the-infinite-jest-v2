@@ -19,7 +19,7 @@ export default function SignIn({ providers }) {
             <span className={styles.googleIcon}>
               <FaTwitter />
             </span>{' '}
-            LOG IN With {provider.name}
+            Log In With {provider.name}
           </button>
         </div>
       ))}

@@ -7,6 +7,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Navbar() {
   const { data: session } = useSession();
+
   const router = useRouter();
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
@@ -44,9 +45,17 @@ export default function Navbar() {
           </Link>
 
           {session ? (
-            <button onClick={() => signOut()} className={styles.loginBtn}>
-              Logout
-            </button>
+            <>
+              <button
+                onClick={() => console.log(session)}
+                className={styles.loginBtn}
+              >
+                console
+              </button>
+              <button onClick={() => signOut()} className={styles.loginBtn}>
+                Logout
+              </button>
+            </>
           ) : (
             <button onClick={() => signIn()} className={styles.loginBtn}>
               Login

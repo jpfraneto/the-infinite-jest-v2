@@ -1,32 +1,50 @@
 import NextAuth from 'next-auth';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import TwitterProvider from 'next-auth/providers/twitter';
+import GoogleProvider from 'next-auth/providers/google';
+import GitHubProvider from 'next-auth/providers/github';
 import clientPromise from '../../../lib/mongodb';
+import { ObjectId } from 'mongodb';
+import { connectToDatabase } from '../../../lib/mongodb';
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
-  pages: {
-    signIn: '/auth/signin',
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  // },
   providers: [
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      version: '2.0',
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  // secret: process.env.NEXTAUTH_SECRET,
+  // async jwt(token, account) {
+  //   if (account?.accessToken) {
+  //     token.accessToken = account.accessToken;
+  //   }
+  //   return token;
+  // },
+  debug: false,
   callbacks: {
-    redirect: async (url, _baseUrl) => {
-      if (url === '/profile') {
-        return Promise.resolve('/');
-      }
-      return Promise.resolve('/');
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log('inside the signIn callback', user, account, profile);
+      const { db } = await connectToDatabase();
+      await db
+        .collection('users')
+        .updateOne(
+          { _id: ObjectId(user.id) },
+          { $push: { username: profile.login, githubId: profile.id } }
+        );
+      return true;
     },
-    session: async session => {
-      session.session.id = session.user.id;
-      session.session.username = session.user.username;
-      return Promise.resolve(session.session);
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+    async session({ session, user, token }) {
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token;
     },
   },
 });
