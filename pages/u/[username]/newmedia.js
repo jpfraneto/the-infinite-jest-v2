@@ -5,18 +5,6 @@ import styles from '../../../styles/NewMedia.module.css';
 import NewMedia from '../../../components/NewMedia';
 import Link from 'next/link';
 
-// export async function getStaticPaths() {
-//   const { db } = await connectToDatabase();
-//   const users = await db.collection('users').find({}).toArray();
-//   const paths = users.map(user => {
-//     return { params: { username: user.username.toString() } };
-//   });
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
   const { db } = await connectToDatabase();
   const thisUser = await db

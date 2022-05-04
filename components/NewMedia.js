@@ -41,7 +41,6 @@ const NewMedia = ({ user }) => {
       `https://the-infinite-jest-server.herokuapp.com/api/newmedia`,
       reqParams
     );
-    console.log('the response2 is: ', response2);
     router.push(`/u/${router.query.username}`);
   };
   const handleNewMediaName = e => {
