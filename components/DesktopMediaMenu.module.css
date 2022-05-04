@@ -19,6 +19,14 @@
   padding: 2px 4px;
 }
 
+.topicContainer:hover {
+  background-color: rgb(67, 134, 134);
+}
+
+.topicContainer:hover span {
+  font-size: 2rem;
+}
+
 .newMediaTypeContainer {
   text-transform: uppercase;
 }

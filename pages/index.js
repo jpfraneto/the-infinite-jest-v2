@@ -41,8 +41,8 @@ export default function Home() {
           <TheInfiniteJest />
         </div>
       </section>
-      <section className={styles.secondSection}></section>
-      <section className={styles.thirdSection}></section>
+      {/* <section className={styles.secondSection}></section>
+      <section className={styles.thirdSection}></section> */}
     </div>
   );
 }

@@ -10,6 +10,7 @@ const NewUsername = () => {
   const [newUsername, setNewUsername] = useState('');
   const [serverResponse, setServerResponse] = useState('');
   const [usernameAvailability, setUsernameAvailability] = useState(false);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [availabilityMessage, setAvailabilityMessage] = useState('');
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -18,10 +19,12 @@ const NewUsername = () => {
     return <p>Access Denied</p>;
   }
   const checkUsernameAvailability = async () => {
+    setAvailabilityLoading(true);
     const response = await fetch(`/api/newusername/${newUsername}`);
     const data = await response.json();
     setUsernameAvailability(data.available);
     setAvailabilityMessage(data.message);
+    setAvailabilityLoading(false);
   };
   const handleNewUsername = async () => {
     setServerResponse('Loading...');
@@ -35,7 +38,7 @@ const NewUsername = () => {
     };
     const response = await fetch(`/api/newusername`, reqParams);
     const data = await response.json();
-    router.push(`/u/${newUsername}`);
+    setTimeout(() => router.replace(`/u/${newUsername}`), 0);
   };
   if (session.user.username) {
     return (
@@ -63,14 +66,14 @@ const NewUsername = () => {
           type='text'
           placeholder='username'
         />
-        {availabilityMessage && <p>{availabilityMessage}</p>}
         {!usernameAvailability ? (
           <button onClick={checkUsernameAvailability}>
-            Check if available
+            {availabilityLoading ? 'Loading...' : 'Check if available'}
           </button>
         ) : (
           <>
             <button onClick={handleNewUsername}>Update my username</button>
+            {availabilityMessage && <p>{availabilityMessage}</p>}
           </>
         )}
       </>
