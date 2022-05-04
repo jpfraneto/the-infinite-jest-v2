@@ -23,7 +23,7 @@ const MediaPlayer = ({
             passHref
           >
             <button className={`${styles.allElementsBtn} ${styles.btn}`}>
-              All {chosenMediaForDisplay.mediatype} elements
+              All {chosenMediaForDisplay.mediatype}
             </button>
           </Link>
         </div>

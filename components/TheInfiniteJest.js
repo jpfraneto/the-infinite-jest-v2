@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './TheInfiniteJest.module.css';
+import Link from 'next/link';
 
 const TheInfiniteJest = () => {
   const reactPlayerRef = useRef();
@@ -30,33 +31,46 @@ const TheInfiniteJest = () => {
       reactPlayerRef.current.seekTo(0, 'seconds');
     }
   };
-  if (!presentRecommendation) return <></>;
   return (
-    <div className={styles.playerWrapper}>
-      {loading ? (
-        <p>Loading</p>
-      ) : (
-        <ReactPlayer
-          ref={reactPlayerRef}
-          className={styles.reactPlayer}
-          controls
-          onReady={() => {
-            reactPlayerRef.current.seekTo(
-              presentRecommendation.elapsedSeconds,
-              'seconds'
-            );
-          }}
-          onEnded={() => {
-            queryNextRecommendation();
-          }}
-          width='100%'
-          height='100%'
-          playing
-          muted={true}
-          url={presentRecommendation.presentRecommendation.url}
-        />
+    <>
+      <div className={styles.playerWrapper}>
+        {loading || !presentRecommendation ? (
+          <div className={styles.reactPlayer}></div>
+        ) : (
+          <ReactPlayer
+            ref={reactPlayerRef}
+            className={styles.reactPlayer}
+            controls
+            onReady={() => {
+              reactPlayerRef.current.seekTo(
+                presentRecommendation.elapsedSeconds,
+                'seconds'
+              );
+            }}
+            onEnded={() => {
+              queryNextRecommendation();
+            }}
+            width='100%'
+            height='100%'
+            playing
+            muted={true}
+            url={presentRecommendation.presentRecommendation.url}
+          />
+        )}
+      </div>
+      {presentRecommendation && (
+        <h1>
+          This piece was added by{' '}
+          <Link
+            href={`/u/${presentRecommendation.presentRecommendation.username}`}
+          >
+            <a className={styles.linkBtn}>
+              {presentRecommendation.presentRecommendation.username}
+            </a>
+          </Link>
+        </h1>
       )}
-    </div>
+    </>
   );
 };
 

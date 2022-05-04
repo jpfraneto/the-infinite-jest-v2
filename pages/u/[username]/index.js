@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import MainMediaView from '../../../components/MainMediaView';
+import UserNonExistent from '../../../components/UserNonExistent';
 
 export async function getServerSideProps({ params }) {
   let dev = process.env.NODE_ENV !== 'production';
@@ -13,6 +14,7 @@ export async function getServerSideProps({ params }) {
 
 export default function UserJest({ user }) {
   const router = useRouter();
+  if (!user) return <UserNonExistent />;
   return (
     <>
       <MainMediaView user={user} />

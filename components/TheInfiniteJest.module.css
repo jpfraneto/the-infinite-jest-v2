@@ -11,6 +11,11 @@
   animation-duration: 2s;
 }
 
+.linkBtn:hover {
+  color: red;
+  text-shadow: 1px 1px yellow;
+}
+
 @keyframes fadeInOpacity {
   0% {
     opacity: 0;

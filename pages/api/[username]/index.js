@@ -8,7 +8,12 @@ export default async function handler(req, res) {
       .collection('users')
       .findOne({ username: req.query.username });
     let presentMedia = [];
-    if (thisUser.media) {
+    if (!thisUser)
+      return res.json({
+        user: null,
+        message: 'User doesnt exist',
+      });
+    if (thisUser && thisUser.media) {
       presentMedia = thisUser.media.map(x => {
         const length = x.elements.length;
         const randomIndex = Math.floor(length * Math.random());

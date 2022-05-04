@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-image: url('/images/faceless.jpg');
+  background-position: center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container h1 {
+  margin: 0;
+  color: white;
+}
