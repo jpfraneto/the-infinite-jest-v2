@@ -22,17 +22,11 @@ import MainMediaView from '../../../components/MainMediaView';
 // }
 
 export async function getServerSideProps({ params }) {
-  let dev = process.env.NODE_ENV !== 'production';
-  let { DEV_URL, PROD_URL } = process.env;
   const { db } = await connectToDatabase();
   const thisUser = await db
     .collection('users')
     .findOne({ username: params.username });
-  const response = await fetch(
-    `${dev ? DEV_URL : PROD_URL}/api/${params.username}`
-  );
-  const data = await response.json();
-  return { props: { user: JSON.parse(JSON.stringify(data.user)) } };
+  return { props: { user: JSON.parse(JSON.stringify(thisUser)) } };
 }
 
 export default function UserJest({ user }) {
