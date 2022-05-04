@@ -36,9 +36,10 @@ export default function Mediatype({ elements }) {
           return (
             <Link
               passHref
+              key={index}
               href={`/u/${router.query.username}/${x.mediatype}/${x.id}`}
             >
-              <div key={index} className={styles.topicContainer}>
+              <div className={styles.topicContainer}>
                 <div
                   className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
                 >
