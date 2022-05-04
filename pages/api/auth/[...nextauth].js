@@ -3,8 +3,6 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
 import clientPromise from '../../../lib/mongodb';
-import { ObjectId } from 'mongodb';
-import { connectToDatabase } from '../../../lib/mongodb';
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -21,7 +19,7 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  // secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   // async jwt(token, account) {
   //   if (account?.accessToken) {
   //     token.accessToken = account.accessToken;

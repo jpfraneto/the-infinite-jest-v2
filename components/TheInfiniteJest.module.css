@@ -1,0 +1,27 @@
+.playerWrapper {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: solid white 2.2px;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

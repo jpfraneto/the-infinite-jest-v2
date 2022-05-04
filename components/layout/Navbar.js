@@ -17,68 +17,41 @@ export default function Navbar() {
         <a className={styles.brandName}>The Infinite Jest</a>
       </Link>
 
-      {router.query.username && (
+      {/* {router.query.username && (
         <h3 className={styles.userName}>· {router.query.username} ·</h3>
-      )}
-
-      <button
-        className={styles.hamburger}
-        onClick={() => {
-          setIsNavExpanded(!isNavExpanded);
-        }}
-      >
-        <TiThMenu />
-      </button>
-      <div
-        className={
-          isNavExpanded
-            ? `${styles.navigationMenu} ${styles.expanded}`
-            : `${styles.navigationMenu}`
-        }
-      >
-        <ul>
-          <Link href='/'>
-            <a>Home</a>
-          </Link>
-          <Link href='/about'>
-            <a>About</a>
-          </Link>
-
-          {session ? (
-            <>
-              <Link href='/dashboard'>
-                <a>Dashboard</a>
-              </Link>
-              {session.user.username ? (
-                <button
-                  onClick={() => router.push(`/u/${session.user.username}`)}
-                  className={styles.loginBtn}
-                >
-                  {session.user.username}
-                </button>
-              ) : (
-                <button
-                  onClick={() => router.push(`/newusername`)}
-                  className={styles.loginBtn}
-                >
-                  Get Username!
-                </button>
-              )}
-
+      )} */}
+      <div className={styles.userBtns}>
+        {session ? (
+          <>
+            {session.user.username ? (
               <button
-                onClick={() => signOut()}
+                onClick={() => router.push(`/u/${session.user.username}`)}
                 className={styles.loginBtn}
-                style={{ backgroundColor: 'red' }}
               >
-                Logout
+                {session.user.username}
               </button>
-            </>
-          ) : (
-            <button onClick={() => signIn()} className={styles.loginBtn}>
-              Login
+            ) : (
+              <button
+                onClick={() => router.push(`/newusername`)}
+                className={styles.loginBtn}
+              >
+                Get Username!
+              </button>
+            )}
+
+            <button
+              onClick={() => signOut()}
+              className={styles.loginBtn}
+              style={{ backgroundColor: 'red' }}
+            >
+              Logout
             </button>
-          )}
-        </ul>
+          </>
+        ) : (
+          <button onClick={() => signIn()} className={styles.loginBtn}>
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );

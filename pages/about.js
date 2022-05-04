@@ -6,8 +6,11 @@ const About = () => {
   useEffect(() => {
     const getInfo = async () => {
       const session = await getSession();
-      const userId = session.user.image;
-      setAloja(session);
+      console.log('the sesion is: ', session);
+      if (session) {
+        const userId = session.user.image;
+        setAloja(session);
+      }
     };
     getInfo();
   }, []);

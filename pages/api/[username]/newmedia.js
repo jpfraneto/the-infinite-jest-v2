@@ -1,11 +1,13 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../lib/mongodb';
+const crypto = require('crypto');
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
     try {
       const newMediaElement = {
+        id: crypto.randomBytes(16).toString('hex'),
         url: req.body.url,
         mediatype: req.body.mediatype,
         description: req.body.description,

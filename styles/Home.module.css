@@ -8,6 +8,14 @@
   text-align: center;
   color: white;
   padding-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.playerLayoutWrapper {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 888px;
 }
 
 .firstSection > * {
@@ -49,6 +57,12 @@
   padding-top: 22px;
   font-family: 'Indie Flower', cursive;
   letter-spacing: 1.1rem;
+}
+
+.thirdSection {
+  height: 100vh;
+  width: 100%;
+  border: solid black 33px;
 }
 
 .membersContainer {

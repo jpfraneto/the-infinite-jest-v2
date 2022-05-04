@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { quotes } from '../data/quotes';
 import MemberCircle from '../components/MemberCircle';
+import TheInfiniteJest from '../components/TheInfiniteJest';
 
 export default function Home() {
   const [aloja, setAloja] = useState(null);
@@ -36,28 +37,12 @@ export default function Home() {
   return (
     <div className={styles.mainContainer}>
       <section className={styles.firstSection}>
-        <h4>
-          <em>{randomQuote}</em>
-        </h4>
-        <h2>
-          We are a network of remote workers whose mission is to help develop
-          the community on which we live.
-        </h2>
-        <h5>
-          We share our offices, and we commit to create the coolest place in
-          town. Each office is a cultural center. A landmark.{' '}
-          <strong>The</strong> place to visit.{' '}
-        </h5>
-        <div className={styles.membersContainer}>
-          <MemberCircle />
-          <MemberCircle />
-          <MemberCircle />
-          <MemberCircle />
+        <div className={styles.playerLayoutWrapper}>
+          <TheInfiniteJest />
         </div>
       </section>
-      <section className={styles.secondSection}>
-        <h1>Locations:</h1>
-      </section>
+      <section className={styles.secondSection}></section>
+      <section className={styles.thirdSection}></section>
     </div>
   );
 }

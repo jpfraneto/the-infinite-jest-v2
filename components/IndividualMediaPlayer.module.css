@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+.mediaContainer {
+  max-width: 888px;
+  margin: 0 auto;
+  width: 98%;
+}
+
+.playerWrapper {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: solid white 2.2px;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -1,10 +1,10 @@
 import { Router, useRouter } from 'next/router';
 import React from 'react';
-import PlayerMediaCard from '../../../components/PlayerMediaCard/PlayerMediaCard';
+import PlayerMediaCard from '../../../../components/PlayerMediaCard/PlayerMediaCard';
 import ReactPlayer from 'react-player';
-import { connectToDatabase } from '../../../lib/mongodb';
+import { connectToDatabase } from '../../../../lib/mongodb';
 import Link from 'next/link';
-import styles from '../../../styles/Mediatype.module.css';
+import styles from '../../../../styles/Mediatype.module.css';
 import { useSession } from 'next-auth/react';
 
 export async function getServerSideProps({ params }) {
@@ -32,23 +32,29 @@ export default function Mediatype({ elements }) {
         This are all the videos within the {router.query.mediatype} category{' '}
       </h4>
       <div className={styles.topicsContainer}>
-        {elements.map((x, index) => (
-          <div key={index} className={styles.topicContainer}>
-            {' '}
-            <div
-              className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
+        {elements.map((x, index) => {
+          return (
+            <Link
+              passHref
+              href={`/u/${router.query.username}/${x.mediatype}/${x.id}`}
             >
-              <ReactPlayer
-                playing={true}
-                muted={true}
-                className={styles.reactPlayer}
-                url={x.url}
-                width='100%'
-                height='100%'
-              />
-            </div>
-          </div>
-        ))}
+              <div key={index} className={styles.topicContainer}>
+                <div
+                  className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
+                >
+                  <ReactPlayer
+                    playing={true}
+                    muted={true}
+                    className={styles.reactPlayer}
+                    url={x.url}
+                    width='100%'
+                    height='100%'
+                  />
+                </div>
+              </div>
+            </Link>
+          );
+        })}
         {session && session.user.username === router.query.username && (
           <Link
             href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}
