@@ -31,10 +31,7 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
           <div
             className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
           >
-            {' '}
-            <BsPlusLg />
-            {'  '}
-            <span>NEW MEDIA:</span>
+            <h3>ADD NEW</h3>
           </div>
         </Link>
       )}

@@ -1,6 +1,8 @@
 .container {
   width: 100%;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
+  padding: 20px;
+  text-align: center;
 }
 
 .mediaContainer {
@@ -21,4 +23,23 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.goBackBtn {
+  background-color: blueviolet;
+  border: solid black 2px;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  margin: 0 8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.shareBtn {
+  background-color: rgb(109, 38, 175);
+}
+
+.goBackBtn:hover {
+  filter: brightness(85%);
 }

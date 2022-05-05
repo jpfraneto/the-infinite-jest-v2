@@ -1,20 +1,26 @@
 .mainContainer {
   width: 400px;
-  height: fit-content;
-  padding: 88px 0;
-  background-color: var(--secondary);
+  padding: 8px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 30px auto 0;
+  margin: 10px auto;
   text-align: center;
   border: solid black 1px;
   border-radius: 8px;
 }
 
+.providerBtnsContainer {
+  display: flex;
+}
+
 .providerBtnContainer {
   margin: 12px;
+}
+
+.providerBtnContainer:hover {
+  filter: brightness(85%);
 }
 
 .googleIcon {
@@ -35,6 +41,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.signInBtn > * {
+  font-size: 2rem;
 }
 
 .signInBtn:hover {

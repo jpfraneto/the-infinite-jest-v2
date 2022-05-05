@@ -38,7 +38,7 @@ const NewUsername = () => {
     };
     const response = await fetch(`/api/newusername`, reqParams);
     const data = await response.json();
-    setTimeout(() => router.replace(`/u/${newUsername}`), 0);
+    setTimeout(() => router.reload(`/u/${newUsername}`), 0);
   };
   if (session.user.username) {
     return (

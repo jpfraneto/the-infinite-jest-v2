@@ -1,29 +1,58 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import Link from 'next/link';
 import styles from './IndividualMediaPlayer.module.css';
+import Head from 'next/head';
 
 const IndividualMediaPlayer = ({ media }) => {
-  console.log('the media is: ', media);
   const router = useRouter();
+  const [copyUrlMessage, setCopyUrlMessage] = useState('');
+  const handleShareBtn = () => {
+    navigator.clipboard.writeText(
+      `https://www.theinfinitejest.tv/${router.asPath}`
+    );
+    setCopyUrlMessage(
+      'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
+    );
+    setTimeout(() => setCopyUrlMessage(''), 2222);
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.mediaContainer}>
-        <div className={styles.playerWrapper}>
-          <ReactPlayer
-            className={styles.reactPlayer}
-            url={media.url}
-            width='100%'
-            height='100%'
-          />
+    <>
+      <Head>
+        <title>The Infinite Jest · {router.query.username}</title>
+        <meta name='description' content={media.description} />
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.mediaContainer}>
+          <div className={styles.playerWrapper}>
+            <ReactPlayer
+              className={styles.reactPlayer}
+              url={media.url}
+              width='100%'
+              height='100%'
+            />
+          </div>
+          <p>{media.description}</p>
+          <div>
+            <a
+              className={`${styles.goBackBtn} ${styles.shareBtn}`}
+              onClick={handleShareBtn}
+            >
+              Copy Link
+            </a>
+            <Link
+              href={`/u/${router.query.username}/${router.query.mediatype}`}
+            >
+              <a className={styles.goBackBtn}>Go Back!</a>
+            </Link>
+          </div>
+
+          {copyUrlMessage && <p>{copyUrlMessage}</p>}
         </div>
-        <p>{media.description}</p>
-        <Link href={`/u/${router.query.username}/${router.query.mediatype}`}>
-          <a>Go Back!</a>
-        </Link>
       </div>
-    </div>
+    </>
   );
 };
 

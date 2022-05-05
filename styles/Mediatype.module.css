@@ -1,3 +1,7 @@
+.container {
+  height: 100%;
+}
+
 .topicsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -8,7 +12,9 @@
 .topicContainer {
   cursor: pointer;
   width: 273px;
-  border-radius: 5px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: solid white 2px;
   aspect-ratio: 16/9;
   background-color: #292932;
   margin: 8px;
@@ -16,6 +22,10 @@
   padding: 2px 4px;
   text-transform: uppercase;
   text-align: center;
+}
+
+.newTopicContainer:hover {
+  filter: brightness(70%);
 }
 .topicContainer h3 {
   margin: 3px;

@@ -27,7 +27,7 @@ export default function Mediatype({ elements }) {
   const { data: session, status } = useSession();
 
   return (
-    <>
+    <div className={styles.container}>
       <h4 style={{ textAlign: 'center' }}>
         This are all the videos within the {router.query.mediatype} category{' '}
       </h4>
@@ -61,7 +61,9 @@ export default function Mediatype({ elements }) {
             href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}
             passHref
           >
-            <div className={styles.topicContainer}>
+            <div
+              className={`${styles.topicContainer} ${styles.newTopicContainer}`}
+            >
               {' '}
               <div
                 className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
@@ -75,6 +77,6 @@ export default function Mediatype({ elements }) {
       <Link href={`/u/${router.query.username}`}>
         <a className={styles.backBtn}>Go back</a>
       </Link>
-    </>
+    </div>
   );
 }

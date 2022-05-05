@@ -15,9 +15,5 @@ export async function getServerSideProps({ params }) {
 export default function UserJest({ user }) {
   const router = useRouter();
   if (!user) return <UserNonExistent />;
-  return (
-    <>
-      <MainMediaView user={user} />
-    </>
-  );
+  return <MainMediaView user={user} />;
 }

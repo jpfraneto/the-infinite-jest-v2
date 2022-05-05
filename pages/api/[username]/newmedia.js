@@ -60,6 +60,8 @@ export default async function handler(req, res) {
       return res.json({
         message: `The media ${req.body.mediaName} was added to the user ${req.body.username}!`,
         success: true,
+        id: newMediaElement.id,
+        mediatype: newMediaElement.mediatype,
       });
     } catch (error) {
       console.log('the error is: ', error);

@@ -1,15 +1,27 @@
 .newMediaContainer {
   max-width: 777px;
-  background-color: antiquewhite;
+  background: #4b79a1; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #5d88ad,
+    #28486e
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #5d88ad,
+    #28486e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -olinear-gradient(to top, #5d88ad, #28486e);
   border: solid black 1px;
   margin: 10px auto;
   padding: 1px 8px;
   text-align: center;
   box-shadow: 3px 3px black;
+  border-radius: 22px;
 }
 
 .formElementContainer {
-  background-color: palevioletred;
+  background-color: #28486e;
   margin: 4px auto;
   border: solid black 1px;
   box-shadow: 2px 2px black;
@@ -26,6 +38,7 @@
 
 .formElementContainer input {
   padding-left: 8px;
+  background-color: #5d88ad;
 }
 
 .formElementContainer input::placeholder {
@@ -42,9 +55,47 @@
   box-shadow: 2px 2px black;
 }
 
+.formElementContainer select {
+  background-color: #5d88ad;
+}
+
 .formElementContainer textarea {
   height: 222px;
   color: white;
+  background-color: #5d88ad;
+}
+
+.addBtn {
+  margin-top: 4px;
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+  width: 88px;
+  aspect-ratio: 16/9;
+  font-size: 2rem;
+  border-radius: 50px;
+  border: solid black 2px;
+  cursor: pointer;
+  transition: transform 100ms linear;
+}
+
+.addBtn:hover {
+  filter: brightness(85%);
+  box-shadow: 1px 1px black;
+  transform: translateY(-2px);
+}
+
+.goBackBtn:hover {
+  color: black;
+}
+
+.messageElement {
+  color: black;
+  margin: 0;
 }
 
 @media only screen and (max-width: 777px) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './NewMedia.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -13,15 +13,34 @@ const NewMedia = ({ user }) => {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [mediatypeMessage, setMediatypeMessage] = useState('');
+  const [urlMessage, setUrlMessage] = useState('');
+  const [newMediaNameMessage, setNewMediaNameMessage] = useState('');
+
+  const mediatypeRef = useRef();
+  const urlRef = useRef();
+  const newMediaNameRef = useRef();
+
   useEffect(() => {
     if (user.media)
       return setMediatypes(() => user.media.map(x => x.mediatype));
   }, [user.media]);
 
   const handleNewMediaSubmit = async () => {
-    if (!mediatype) return alert('please choose a media type!');
-    if (!url) return alert('please add the url for the first video!');
-    if (!description) return alert('please add a description!');
+    if (!mediatype) {
+      setMediatypeMessage('Please select a mediatype!');
+      return mediatypeRef.current.focus();
+    }
+    if (!url) {
+      setUrlMessage('Please add the url for the video');
+      return urlRef.current.focus();
+    }
+    const youtubeCheck =
+      /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
+    if (!youtubeCheck.test(url)) {
+      setUrlMessage('Please add a valid URL for the video');
+      return urlRef.current.focus();
+    }
     setLoading(true);
     const reqParams = {
       method: 'POST',
@@ -41,14 +60,20 @@ const NewMedia = ({ user }) => {
       `https://the-infinite-jest-server.herokuapp.com/api/newmedia`,
       reqParams
     );
-    router.push(`/u/${router.query.username}`);
+    const data = await response.json();
+    router.push(`/u/${router.query.username}/${data.mediatype}/${data.id}`);
   };
   const handleNewMediaName = e => {
+    if (!newMediaName) {
+      setNewMediaNameMessage('Please add a new media name!');
+      return newMediaNameRef.current.focus();
+    }
     setMediatypes(prev => [...prev, newMediaName]);
     setMediatype(newMediaName);
     setCreateNewMediaType(false);
   };
   const handleSelectChange = e => {
+    setMediatypeMessage('');
     if (e.target.value === 'new') {
       setMediatype(e.target.value);
       return setCreateNewMediaType(true);
@@ -61,69 +86,94 @@ const NewMedia = ({ user }) => {
     setNewMediaName(e.target.value);
   };
   if (!router.query) return <h2>loading</h2>;
-  if (loading) return <h2>Loading!!</h2>;
   return (
     <div className={styles.newMediaContainer}>
-      <h3>Add new media to your profile</h3>
-      <div className={styles.formElementContainer}>
-        <label>Media Type</label>
-        <select
-          name='mediatype'
-          className={styles.formElement}
-          value={mediatype}
-          onChange={handleSelectChange}
-        >
-          <option>Choose media type...</option>
-          {mediatypes &&
-            mediatypes.map((x, index) => (
-              <option key={index} value={x}>
-                {x}
-              </option>
-            ))}
-          <option value='new'>New media type...</option>
-        </select>
-        {createNewMediaType && (
-          <div>
-            <input
-              placeholder='new media name'
+      {!loading ? (
+        <>
+          {' '}
+          <h3>Add new media to your profile</h3>
+          <div className={styles.formElementContainer}>
+            <label>Media Type</label>
+            <select
+              ref={mediatypeRef}
+              name='mediatype'
               className={styles.formElement}
-              onChange={e => setNewMediaName(e.target.value)}
-            />
-            <div>
-              <button onClick={handleNewMediaName}>Add</button>
-              <button onClick={() => setCreateNewMediaType(false)}>
-                Close
-              </button>
-            </div>
+              value={mediatype}
+              onChange={handleSelectChange}
+            >
+              <option value='empty'>Choose media type...</option>
+              {mediatypes &&
+                mediatypes.map((x, index) => (
+                  <option key={index} value={x}>
+                    {x}
+                  </option>
+                ))}
+              <option value='new'>New media type...</option>
+            </select>
+            {createNewMediaType && (
+              <div>
+                <input
+                  placeholder='new media name'
+                  className={styles.formElement}
+                  onChange={e => setNewMediaName(e.target.value)}
+                  ref={newMediaNameRef}
+                />
+                {newMediaNameMessage && (
+                  <p className={styles.messageElement}>{newMediaNameMessage}</p>
+                )}
+                <div>
+                  <button onClick={handleNewMediaName}>Add</button>
+                  <button
+                    onClick={() => {
+                      setMediatype('empty');
+                      setCreateNewMediaType(false);
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+            {mediatypeMessage && (
+              <p className={styles.messageElement}>{mediatypeMessage}</p>
+            )}
           </div>
-        )}
-      </div>
-
-      <div className={styles.formElementContainer}>
-        <label>First Url</label>
-        <input
-          type='text'
-          className={styles.formElement}
-          placeholder='www.youtube.com'
-          onChange={e => setUrl(e.target.value)}
-          name='url'
-        />
-      </div>
-
-      <div className={styles.formElementContainer}>
-        <label>Description</label>
-        <textarea
-          className={styles.formElement}
-          onChange={e => setDescription(e.target.value)}
-          name='description'
-        />
-      </div>
-
-      <button onClick={handleNewMediaSubmit}>Add</button>
-      <br />
-      <Link href={`/u/${user.username}`}>
-        <a>Go back to {user.username}</a>
-      </Link>
+          <div className={styles.formElementContainer}>
+            <label>First Url</label>
+            <input
+              type='text'
+              ref={urlRef}
+              className={styles.formElement}
+              placeholder='www.youtube.com'
+              onChange={e => {
+                setUrlMessage('');
+                setUrl(e.target.value);
+              }}
+              name='url'
+            />
+            {urlMessage && (
+              <p className={styles.messageElement}>{urlMessage}</p>
+            )}
+          </div>
+          <div className={styles.formElementContainer}>
+            <label>Description</label>
+            <textarea
+              className={styles.formElement}
+              onChange={e => setDescription(e.target.value)}
+              name='description'
+            />
+          </div>
+          <button className={styles.addBtn} onClick={handleNewMediaSubmit}>
+            Add
+          </button>
+          <br />
+          <Link href={`/u/${user.username}`}>
+            <a className={styles.goBackBtn}>Go back to {user.username}</a>
+          </Link>
+        </>
+      ) : (
+        <p>Your new media is being added to the database...</p>
+      )}
     </div>
   );
 };

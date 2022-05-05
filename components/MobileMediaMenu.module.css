@@ -7,7 +7,7 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   width: 100%;
-  height: calc((100vh - 44px) / 10);
+  min-height: calc((100vh - 44px) / 10);
   cursor: pointer;
 }
 .mediaTypeSelector:hover {
