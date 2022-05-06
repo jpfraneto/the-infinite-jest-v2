@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSession, getSession } from 'next-auth/react';
 import styles from './NewUsername.module.css';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
+import Button from '../layout/Button';
 
 const NewUsername = () => {
   const router = useRouter();
@@ -12,6 +13,9 @@ const NewUsername = () => {
   const [usernameAvailability, setUsernameAvailability] = useState(false);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [availabilityMessage, setAvailabilityMessage] = useState('');
+
+  const usernameRef = useRef();
+
   if (status === 'loading') {
     return <p>Loading...</p>;
   }
@@ -24,6 +28,9 @@ const NewUsername = () => {
     const data = await response.json();
     setUsernameAvailability(data.available);
     setAvailabilityMessage(data.message);
+    if (!data.available) {
+      usernameRef.current.focus();
+    }
     setAvailabilityLoading(false);
   };
   const handleNewUsername = async () => {
@@ -43,7 +50,7 @@ const NewUsername = () => {
   if (session.user.username) {
     return (
       <div className={styles.container}>
-        <h2>You already have a username!</h2>
+        <h2>Your username is {session.user.username}</h2>
         <Link href={`/u/${session.user.username}`}>
           <a>Go to your universe</a>
         </Link>
@@ -61,21 +68,28 @@ const NewUsername = () => {
       <>
         <input
           onChange={e => {
+            setUsernameAvailability(false);
             setNewUsername(e.target.value);
+            setAvailabilityMessage('');
           }}
+          ref={usernameRef}
           type='text'
           placeholder='username'
         />
         {!usernameAvailability ? (
-          <button onClick={checkUsernameAvailability}>
-            {availabilityLoading ? 'Loading...' : 'Check if available'}
-          </button>
+          <>
+            {newUsername && (
+              <Button handler={checkUsernameAvailability}>
+                {availabilityLoading ? 'Loading...' : 'Check if available'}
+              </Button>
+            )}
+          </>
         ) : (
           <>
-            <button onClick={handleNewUsername}>Update my username</button>
-            {availabilityMessage && <p>{availabilityMessage}</p>}
+            <Button handler={handleNewUsername}>Update my username</Button>
           </>
         )}
+        {availabilityMessage && <p>{availabilityMessage}</p>}
       </>
     </div>
   );

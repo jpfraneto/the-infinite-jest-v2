@@ -15,7 +15,7 @@ const IndividualMediaPlayer = ({ media }) => {
     setCopyUrlMessage(
       'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
     );
-    setTimeout(() => setCopyUrlMessage(''), 2222);
+    setTimeout(() => setCopyUrlMessage(''), 4444);
   };
 
   return (
@@ -32,6 +32,7 @@ const IndividualMediaPlayer = ({ media }) => {
               url={media.url}
               width='100%'
               height='100%'
+              controls={true}
             />
           </div>
           <p>{media.description}</p>
@@ -49,7 +50,9 @@ const IndividualMediaPlayer = ({ media }) => {
             </Link>
           </div>
 
-          {copyUrlMessage && <p>{copyUrlMessage}</p>}
+          {copyUrlMessage && (
+            <p className={styles.copyUrlMessage}>{copyUrlMessage}</p>
+          )}
         </div>
       </div>
     </>

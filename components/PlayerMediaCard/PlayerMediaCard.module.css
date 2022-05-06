@@ -1,6 +1,6 @@
 .topicContainer {
   cursor: pointer;
-  width: 273px;
+  width: 400px;
   border-radius: 5px;
   aspect-ratio: 16/9;
   background-color: #292932;
@@ -8,10 +8,23 @@
   margin: 8px;
   color: white;
   padding: 8px 4px;
-  text-transform: uppercase;
   text-align: center;
   display: inline-block;
   box-shadow: 4px 4px black;
+  transition: width 3s;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 44px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+}
+
+.closeBtn:hover {
+  color: orange;
 }
 
 .topicContainer:hover {
@@ -20,12 +33,17 @@
 }
 .topicContainer h3 {
   margin: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.topicContainer h3:hover {
+  color: orange;
 }
 
 .playerWrapper {
   position: relative;
   height: 100%;
-
   border-radius: 22px;
   overflow: hidden;
   opacity: 1;
@@ -33,10 +51,23 @@
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 2s;
+  z-index: 1;
 }
 
-.gridPlayerWrapper {
-  pointer-events: none;
+.ghostDiv {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.ghostDiv:hover {
+  cursor: pointer;
+}
+
+.hiddenDiv {
+  display: none;
 }
 
 .reactPlayer {
@@ -50,6 +81,11 @@
   left: 0;
   top: 0;
   transform: none;
+}
+
+.descriptionContainer {
+  opacity: 1;
+  transition: opacity 4s;
 }
 
 @media only screen and (max-width: 777px) {

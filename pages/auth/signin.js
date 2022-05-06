@@ -5,7 +5,6 @@ import { AiFillGithub } from 'react-icons/ai';
 
 export default function SignIn({ providers }) {
   const getProviderIcon = provider => {
-    console.log(provider);
     switch (provider) {
       case 'Google':
         return <BsGoogle />;
