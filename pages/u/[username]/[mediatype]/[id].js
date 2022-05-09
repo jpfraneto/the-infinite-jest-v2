@@ -9,7 +9,7 @@ export async function getServerSideProps({ params }) {
     .findOne({ username: params.username });
   const thisMedia = thisUser.media
     .filter(x => x.mediatype === params.mediatype)[0]
-    .elements.filter(x => x.id === params.id)[0];
+    .elements.filter(x => x._id === params.id)[0];
   return {
     props: {
       media: thisMedia,

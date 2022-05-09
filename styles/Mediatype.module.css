@@ -1,5 +1,6 @@
 .container {
   height: 100%;
+  padding-bottom: 20px;
 }
 
 .topicsContainer {
@@ -34,10 +35,6 @@
 .playerWrapper {
   position: relative;
   height: 100%;
-}
-
-.gridPlayerWrapper {
-  pointer-events: none;
 }
 
 .reactPlayer {

@@ -14,17 +14,15 @@ const MobileMediaMenu = ({ input, mediaElements }) => {
       {mediaElements &&
         mediaElements.map((x, index) => {
           return (
-            <div
-              onClick={() => {
-                input.setGridView(false);
-                input.setPlayerVisibility(true);
-                input.setChosenMediaForDisplay(x.presentElement);
-              }}
-              className={styles.mediaTypeSelector}
+            <Link
+              href={`/u/${router.query.username}/${x.mediatype}`}
               key={index}
+              passHref
             >
-              {x.mediatype.toUpperCase()}
-            </div>
+              <span className={styles.mediaTypeSelector}>
+                {x.mediatype.toUpperCase()}
+              </span>
+            </Link>
           );
         })}
       {session && router.query.username === session.user.username && (

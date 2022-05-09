@@ -82,7 +82,6 @@ const PlayerMediaCard = ({
             setBigger(true);
             setDisplayedElementId(mediaContainer.presentElement.id);
           }}
-          style={{ display: !bigger ? 'block' : 'none' }}
         ></div>
       </div>
       {bigger && (

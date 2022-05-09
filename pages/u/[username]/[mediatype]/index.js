@@ -1,4 +1,4 @@
-import { Router, useRouter } from 'next/router';
+import { Router, useRouter, useRef } from 'next/router';
 import React from 'react';
 import PlayerMediaCard from '../../../../components/PlayerMediaCard/PlayerMediaCard';
 import ReactPlayer from 'react-player';
@@ -29,31 +29,27 @@ export default function Mediatype({ elements }) {
   return (
     <div className={styles.container}>
       <h4 style={{ textAlign: 'center' }}>
-        This are all the videos within the {router.query.mediatype} category{' '}
+        This are all {router.query.username}&apos;s videos within the{' '}
+        {router.query.mediatype} category{' '}
       </h4>
       <div className={styles.topicsContainer}>
         {elements.map((x, index) => {
           return (
-            <Link
-              passHref
-              key={index}
-              href={`/u/${router.query.username}/${x.mediatype}/${x.id}`}
-            >
-              <div className={styles.topicContainer}>
-                <div
-                  className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
-                >
-                  <ReactPlayer
-                    playing={true}
-                    muted={true}
-                    className={styles.reactPlayer}
-                    url={x.url}
-                    width='100%'
-                    height='100%'
-                  />
-                </div>
+            <div className={styles.topicContainer}>
+              <div
+                className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
+              >
+                <ReactPlayer
+                  playing={true}
+                  muted={true}
+                  className={styles.reactPlayer}
+                  url={x.url}
+                  controls={true}
+                  width='100%'
+                  height='100%'
+                />
               </div>
-            </Link>
+            </div>
           );
         })}
         {session && session.user.username === router.query.username && (

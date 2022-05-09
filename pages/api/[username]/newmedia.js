@@ -6,26 +6,19 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
     try {
-      const newMediaElement = {
-        id: crypto.randomBytes(16).toString('hex'),
-        url: req.body.url,
-        mediatype: req.body.mediatype,
-        description: req.body.description,
-        dateAdded: new Date().getTime(),
-        duration: Number(req.body.duration),
-        status: 'future',
-      };
+      const newMediaElement = req.body.newRecommendation;
+      console.log('the new media element is: ', newMediaElement);
       const thisUser = await db
         .collection('users')
-        .findOne({ username: req.body.username });
+        .findOne({ username: newMediaElement.author.username });
       if (
         thisUser.mediatypes &&
-        thisUser.mediatypes.includes(req.body.mediatype)
+        thisUser.mediatypes.includes(newMediaElement.mediatype)
       ) {
         const updatedUserMessage = await db.collection('users').updateOne(
           {
-            username: req.body.username,
-            'media.mediatype': req.body.mediatype,
+            username: newMediaElement.author.username,
+            'media.mediatype': newMediaElement.mediatype,
           },
           {
             $push: {
@@ -34,37 +27,39 @@ export default async function handler(req, res) {
           }
         );
         return res.json({
-          message: `The media ${req.body.mediaName} was UPDATED ${req.body.username}!`,
+          message: `The media ${newMediaElement.mediatype} of ${newMediaElement.author.username} was updated with the recommendation ${newMediaElement.name}!`,
+          id: newMediaElement._id,
+          mediatype: newMediaElement.mediatype,
           success: true,
         });
       }
-
-      newMediaElement.status = 'present';
-      newMediaElement.startingMediaTimestamp = newMediaElement.dateAdded;
-      newMediaElement.endingMediaTimestamp =
-        newMediaElement.dateAdded + req.body.duration;
-      const updatedMessage = await db.collection('users').updateOne(
+      const mediaToNewMediatype = await db.collection('users').updateOne(
         {
-          username: req.body.username,
+          username: newMediaElement.author.username,
         },
         {
           $push: {
-            mediatypes: req.body.mediatype,
+            mediatypes: newMediaElement.mediatype,
             media: {
               elements: [newMediaElement],
-              mediatype: req.body.mediatype,
+              mediatype: newMediaElement.mediatype,
             },
           },
         }
       );
       return res.json({
-        message: `The media ${req.body.mediaName} was added to the user ${req.body.username}!`,
+        message: `The media ${newMediaElement.name} was added to the user ${newMediaElement.username}!`,
         success: true,
-        id: newMediaElement.id,
+        id: newMediaElement._id,
         mediatype: newMediaElement.mediatype,
       });
     } catch (error) {
       console.log('the error is: ', error);
+      res.json({
+        success: false,
+        message:
+          'There was a problem adding the recommendation to the database. Please try again later',
+      });
     }
   }
 }

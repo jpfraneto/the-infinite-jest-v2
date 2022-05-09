@@ -37,38 +37,28 @@ const MainMediaView = ({ user }) => {
 
   return (
     <>
-      {gridView ? (
-        <>
-          {width < 777 ? (
-            <MobileMediaMenu
-              input={{
-                setGridView,
-                setPlayerVisibility,
-                setChosenMediaForDisplay,
-                handleNewMediaSelect,
-              }}
-              mediaElements={mediaElements}
-              setGridView={setGridView}
-            />
-          ) : (
-            <DesktopMediaMenu
-              input={{
-                setGridView,
-                setPlayerVisibility,
-                setChosenMediaForDisplay,
-                handleNewMediaSelect,
-                setPlayerElement,
-              }}
-              mediaElements={mediaElements}
-              setGridView={setGridView}
-            />
-          )}
-        </>
-      ) : (
-        <MediaPlayer
-          playerElement={playerElement}
+      {width < 777 ? (
+        <MobileMediaMenu
+          input={{
+            setGridView,
+            setPlayerVisibility,
+            setChosenMediaForDisplay,
+            handleNewMediaSelect,
+          }}
+          mediaElements={mediaElements}
           setGridView={setGridView}
-          chosenMediaForDisplay={chosenMediaForDisplay}
+        />
+      ) : (
+        <DesktopMediaMenu
+          input={{
+            setGridView,
+            setPlayerVisibility,
+            setChosenMediaForDisplay,
+            handleNewMediaSelect,
+            setPlayerElement,
+          }}
+          mediaElements={mediaElements}
+          setGridView={setGridView}
         />
       )}
     </>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './NewMedia.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const NewMedia = ({ user }) => {
   const router = useRouter();
@@ -37,8 +38,10 @@ const NewMedia = ({ user }) => {
     }
     const youtubeCheck =
       /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
-    if (!youtubeCheck.test(url)) {
-      setUrlMessage('Please add a valid URL for the video');
+    if (!youtubeCheck.test(url) || url.includes('shorts')) {
+      setUrlMessage(
+        'Please add a valid youtube URL for the video. No shorts are allowed :('
+      );
       return urlRef.current.focus();
     }
     setLoading(true);
@@ -52,15 +55,25 @@ const NewMedia = ({ user }) => {
         description,
       }),
     };
-    const response = await fetch(
-      `/api/${router.query.username}/newmedia`,
-      reqParams
-    );
-    const response2 = await fetch(
+
+    const serverResponse = await fetch(
       `https://the-infinite-jest-server.herokuapp.com/api/newmedia`,
       reqParams
     );
-    const data = await response.json();
+    const responseData = await serverResponse.json();
+    console.log('asdasd', responseData);
+    const reqParams2 = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        newRecommendation: responseData.newRecommendation,
+      }),
+    };
+    const frontEndServerResponse = await fetch(
+      `/api/${router.query.username}/newmedia`,
+      reqParams2
+    );
+    const data = await frontEndServerResponse.json();
     router.push(`/u/${router.query.username}/${data.mediatype}/${data.id}`);
   };
   const handleNewMediaName = e => {
@@ -87,94 +100,101 @@ const NewMedia = ({ user }) => {
   };
   if (!router.query) return <h2>loading</h2>;
   return (
-    <div className={styles.newMediaContainer}>
-      {!loading ? (
-        <>
-          {' '}
-          <h3>Add new media to your profile</h3>
-          <div className={styles.formElementContainer}>
-            <label>Media Type</label>
-            <select
-              ref={mediatypeRef}
-              name='mediatype'
-              className={styles.formElement}
-              value={mediatype}
-              onChange={handleSelectChange}
-            >
-              <option value='empty'>Choose media type...</option>
-              {mediatypes &&
-                mediatypes.map((x, index) => (
-                  <option key={index} value={x}>
-                    {x}
-                  </option>
-                ))}
-              <option value='new'>New media type...</option>
-            </select>
-            {createNewMediaType && (
-              <div>
-                <input
-                  placeholder='new media name'
-                  className={styles.formElement}
-                  onChange={e => setNewMediaName(e.target.value)}
-                  ref={newMediaNameRef}
-                />
-                {newMediaNameMessage && (
-                  <p className={styles.messageElement}>{newMediaNameMessage}</p>
-                )}
+    <>
+      <Head>
+        <title>The Infinite Jest · Add Media</title>
+      </Head>
+      <div className={styles.newMediaContainer}>
+        {!loading ? (
+          <>
+            {' '}
+            <h3>Add new media to your profile</h3>
+            <div className={styles.formElementContainer}>
+              <label>Media Type</label>
+              <select
+                ref={mediatypeRef}
+                name='mediatype'
+                className={styles.formElement}
+                value={mediatype}
+                onChange={handleSelectChange}
+              >
+                <option value='empty'>Choose media type...</option>
+                {mediatypes &&
+                  mediatypes.map((x, index) => (
+                    <option key={index} value={x}>
+                      {x}
+                    </option>
+                  ))}
+                <option value='new'>New media type...</option>
+              </select>
+              {createNewMediaType && (
                 <div>
-                  <button onClick={handleNewMediaName}>Add</button>
-                  <button
-                    onClick={() => {
-                      setMediatype('empty');
-                      setCreateNewMediaType(false);
-                    }}
-                  >
-                    Close
-                  </button>
+                  <input
+                    placeholder='new media name'
+                    className={styles.formElement}
+                    onChange={e => setNewMediaName(e.target.value)}
+                    ref={newMediaNameRef}
+                  />
+                  {newMediaNameMessage && (
+                    <p className={styles.messageElement}>
+                      {newMediaNameMessage}
+                    </p>
+                  )}
+                  <div>
+                    <button onClick={handleNewMediaName}>Add</button>
+                    <button
+                      onClick={() => {
+                        setMediatype('empty');
+                        setCreateNewMediaType(false);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-            {mediatypeMessage && (
-              <p className={styles.messageElement}>{mediatypeMessage}</p>
-            )}
-          </div>
-          <div className={styles.formElementContainer}>
-            <label>First Url</label>
-            <input
-              type='text'
-              ref={urlRef}
-              className={styles.formElement}
-              placeholder='www.youtube.com'
-              onChange={e => {
-                setUrlMessage('');
-                setUrl(e.target.value);
-              }}
-              name='url'
-            />
-            {urlMessage && (
-              <p className={styles.messageElement}>{urlMessage}</p>
-            )}
-          </div>
-          <div className={styles.formElementContainer}>
-            <label>Description</label>
-            <textarea
-              className={styles.formElement}
-              onChange={e => setDescription(e.target.value)}
-              name='description'
-            />
-          </div>
-          <button className={styles.addBtn} onClick={handleNewMediaSubmit}>
-            Add
-          </button>
-          <br />
-          <Link href={`/u/${user.username}`}>
-            <a className={styles.goBackBtn}>Go back to {user.username}</a>
-          </Link>
-        </>
-      ) : (
-        <p>Your new media is being added to the database...</p>
-      )}
-    </div>
+              )}
+              {mediatypeMessage && (
+                <p className={styles.messageElement}>{mediatypeMessage}</p>
+              )}
+            </div>
+            <div className={styles.formElementContainer}>
+              <label>First Url</label>
+              <input
+                type='text'
+                ref={urlRef}
+                className={styles.formElement}
+                placeholder='www.youtube.com'
+                onChange={e => {
+                  setUrlMessage('');
+                  setUrl(e.target.value);
+                }}
+                name='url'
+              />
+              {urlMessage && (
+                <p className={styles.messageElement}>{urlMessage}</p>
+              )}
+            </div>
+            <div className={styles.formElementContainer}>
+              <label>Description</label>
+              <textarea
+                className={styles.formElement}
+                onChange={e => setDescription(e.target.value)}
+                name='description'
+              />
+            </div>
+            <button className={styles.addBtn} onClick={handleNewMediaSubmit}>
+              Add
+            </button>
+            <br />
+            <Link href={`/u/${user.username}`}>
+              <a className={styles.goBackBtn}>Go back to {user.username}</a>
+            </Link>
+          </>
+        ) : (
+          <p>Your new media is being added to the database...</p>
+        )}
+      </div>
+    </>
   );
 };
 
