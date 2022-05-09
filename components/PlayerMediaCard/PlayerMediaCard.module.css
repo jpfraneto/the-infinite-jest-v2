@@ -31,13 +31,13 @@
   box-shadow: 8px 8px black;
   transform: translateY(-2px, -2px);
 }
-.topicContainer h3 {
+
+.mediatypeTitle {
   margin: 3px;
   text-transform: uppercase;
   cursor: pointer;
 }
-
-.topicContainer h3:hover {
+.mediatypeTitle:hover {
   color: orange;
 }
 

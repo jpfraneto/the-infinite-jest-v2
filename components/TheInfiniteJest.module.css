@@ -1,3 +1,8 @@
+.theInfiniteJestContainer {
+  height: 100%;
+  width: 100%;
+}
+
 .playerWrapper {
   position: relative;
   padding-top: 56.25%;
@@ -8,7 +13,7 @@
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
-  animation-duration: 2s;
+  animation-duration: 3s;
 }
 
 .linkBtn:hover {

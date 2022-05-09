@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 const MainMediaView = ({ user }) => {
   const router = useRouter();
-  const [width, setWidth] = useState(null);
+  const [width, setWidth] = useState(778);
   const [gridView, setGridView] = useState(true);
   const [loading, setLoading] = useState(false);
   const [playerElement, setPlayerElement] = useState(null);

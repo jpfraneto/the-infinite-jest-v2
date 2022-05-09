@@ -16,6 +16,7 @@
   margin: 0 auto;
   width: 90%;
   max-width: 888px;
+  border-radius: 22px;
 }
 
 .firstSection > * {

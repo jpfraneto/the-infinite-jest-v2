@@ -46,7 +46,7 @@ const PlayerMediaCard = ({
         href={`/u/${router.query.username}/${mediaContainer.mediatype}`}
         passHref
       >
-        <h3>{mediaContainer.mediatype}</h3>
+        <h3 className={styles.mediatypeTitle}>{mediaContainer.mediatype}</h3>
       </Link>
       {bigger && (
         <span

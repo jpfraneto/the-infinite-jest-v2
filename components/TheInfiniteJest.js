@@ -27,8 +27,8 @@ const TheInfiniteJest = () => {
     const data = await response.json();
     if (data) {
       setLoading(false);
+      data.recommendation.elapsedSeconds = 0;
       setPresentRecommendation(data.recommendation);
-      reactPlayerRef.current.seekTo(0, 'seconds');
     }
   };
   return (
@@ -48,7 +48,9 @@ const TheInfiniteJest = () => {
               );
             }}
             onEnded={() => {
+              console.log('inside the onEnded callback');
               queryNextRecommendation();
+              reactPlayerRef.current.seekTo(0, 'seconds');
             }}
             width='100%'
             height='100%'
