@@ -87,8 +87,9 @@ const NewMedia = ({ user }) => {
             <h3>Add new media to your profile</h3>
             <div className={styles.formElementContainer}>
               <label>Media Type: {mediatype}</label>
-              {mediatypes.map(x => (
+              {mediatypes.map((x, index) => (
                 <span
+                  key={index}
                   onClick={() => setMediatype(x)}
                   className={`${styles.mediatypeType} ${
                     mediatype === x && styles.selectedMediaType
