@@ -61,7 +61,7 @@ const TheInfiniteJest = () => {
         )}
       </div>
       {presentRecommendation && (
-        <h1>
+        <h3 className={styles.recommendationBottomMsg}>
           This piece was added by{' '}
           <Link
             href={`/u/${presentRecommendation.presentRecommendation.username}`}
@@ -70,7 +70,7 @@ const TheInfiniteJest = () => {
               {presentRecommendation.presentRecommendation.username}
             </a>
           </Link>
-        </h1>
+        </h3>
       )}
     </>
   );

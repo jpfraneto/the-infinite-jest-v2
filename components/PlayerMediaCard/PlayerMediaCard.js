@@ -17,9 +17,39 @@ const PlayerMediaCard = ({
   const router = useRouter();
   const rlvRef = createRef();
   const [refVisible, setRefVisible] = useState(false);
+  const [mediaForPlaying, setMediaForPlaying] = useState(
+    mediaContainer.presentMedia
+  );
   const [playerWidth, setPlayerWidth] = useState('');
   const [hideGhostDiv, setHideGhostDiv] = useState('');
+  const [alreadyPlayed, setAlreadyPlayed] = useState([]);
+  const [volume, setVolume] = useState(0.8);
+  const [muted, setMuted] = useState(true);
   const [bigger, setBigger] = useState(false);
+  const [loadingNext, setLoadingNext] = useState(false);
+
+  const fetchNextMedia = async () => {
+    setVolume(0.5);
+    setLoadingNext(true);
+    setAlreadyPlayed(x => [...x, mediaForPlaying._id]);
+    const reqParams = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        alreadyPlayedElements: [...alreadyPlayed, mediaForPlaying._id],
+        mediatype: mediaContainer.presentMedia.mediatype,
+      }),
+    };
+    const response = await fetch(
+      `/api/${router.query.username}/getNextMedia`,
+      reqParams
+    );
+    const data = await response.json();
+
+    setMediaForPlaying(data.data.nextMedia);
+    rlvRef.current.seekTo(0, 'seconds');
+    setLoadingNext(false);
+  };
 
   return (
     <div
@@ -36,7 +66,7 @@ const PlayerMediaCard = ({
       style={{
         width: bigger ? '60%' : '273px',
         display: displayedElementId
-          ? mediaContainer.presentElement.id === displayedElementId
+          ? mediaForPlaying.id === displayedElementId
             ? 'inline-block'
             : 'none'
           : 'inline-block',
@@ -64,30 +94,37 @@ const PlayerMediaCard = ({
         onClick={() => setPlayerWidth('70%')}
         className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
       >
-        <ReactPlayer
-          ref={el => {
-            if (el) return (rlvRef.current = el);
-          }}
-          playing={true}
-          muted={true}
-          controls={true}
-          className={styles.reactPlayer}
-          url={mediaContainer.presentElement.url}
-          width='100%'
-          height='100%'
-        />
+        {loadingNext ? (
+          <p>L O A D I N G N E X T</p>
+        ) : (
+          <ReactPlayer
+            ref={el => {
+              if (el) return (rlvRef.current = el);
+            }}
+            playing={true}
+            muted={muted}
+            controls={true}
+            className={styles.reactPlayer}
+            url={mediaForPlaying.url}
+            onEnded={fetchNextMedia}
+            width='100%'
+            volume={volume}
+            height='100%'
+          />
+        )}
         <div
           className={`${styles.ghostDiv} `}
           onClick={() => {
             setBigger(true);
-            setDisplayedElementId(mediaContainer.presentElement.id);
+            setDisplayedElementId(mediaForPlaying.id);
           }}
+          style={{ display: !bigger ? 'block' : 'none' }}
         ></div>
       </div>
       {bigger && (
         <div className={styles.descriptionContainer}>
           <h3>Why is this video here?</h3>
-          {mediaContainer.presentElement.description}
+          {mediaForPlaying.description}
         </div>
       )}
     </div>

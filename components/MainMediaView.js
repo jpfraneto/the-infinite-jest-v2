@@ -5,7 +5,10 @@ import MediaPlayer from './MediaPlayer';
 import styles from './MainMediaView.module.css';
 import { useRouter } from 'next/router';
 
-const MainMediaView = ({ user }) => {
+const MainMediaView = ({ presentMedia }) => {
+  console.log('IN HEREEEE', presentMedia);
+  const types = presentMedia.map(x => x.mediatype);
+
   const router = useRouter();
   const [width, setWidth] = useState(778);
   const [gridView, setGridView] = useState(true);
@@ -13,8 +16,8 @@ const MainMediaView = ({ user }) => {
   const [playerElement, setPlayerElement] = useState(null);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [chosenMediaForDisplay, setChosenMediaForDisplay] = useState({});
-  const [mediaTypes, setMediaTypes] = useState(user.mediatypes);
-  const [mediaElements, setMediaElements] = useState(user.presentMedia);
+  const [mediaTypes, setMediaTypes] = useState(types);
+  const [mediaElements, setMediaElements] = useState(presentMedia);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);

@@ -35,7 +35,7 @@ export default function Mediatype({ elements }) {
       <div className={styles.topicsContainer}>
         {elements.map((x, index) => {
           return (
-            <div className={styles.topicContainer}>
+            <div key={x._id} className={styles.topicContainer}>
               <div
                 className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
               >

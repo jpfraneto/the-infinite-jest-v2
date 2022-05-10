@@ -8,12 +8,17 @@ export async function getServerSideProps({ params }) {
   const response = await fetch(
     `${dev ? DEV_URL : PROD_URL}/api/${params.username}`
   );
-  const data = await response.json();
-  return { props: { user: JSON.parse(JSON.stringify(data.user)) } };
+  const presentMedia = await response.json();
+  console.log('the present media is: ', presentMedia);
+  return {
+    props: {
+      presentMedia: JSON.parse(JSON.stringify(presentMedia.presentMedia)),
+    },
+  };
 }
 
-export default function UserJest({ user }) {
+export default function UserJest({ presentMedia }) {
   const router = useRouter();
-  if (!user) return <UserNonExistent />;
-  return <MainMediaView user={user} />;
+  if (!presentMedia) return <UserNonExistent />;
+  return <MainMediaView presentMedia={presentMedia} />;
 }
