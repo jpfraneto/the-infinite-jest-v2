@@ -51,22 +51,20 @@ const PlayerMediaCard = ({
     setLoadingNext(false);
   };
 
+  const handleRandomize = () => {
+    const mediaDuration = rlvRef.current.getDuration();
+    const randomPlace = mediaDuration * [Math.random()];
+    rlvRef.current.seekTo(randomPlace, 'seconds');
+  };
+
   return (
     <div
-      onClick={() => {
-        // setGridView(false);
-        // setPlayerVisibility(true);
-        // setChosenMediaForDisplay(mediaContainer.presentElement);
-        // setPlayerElement(() => {
-        //   return { player: rlvRef.current };
-        // });
-      }}
       key={index}
       className={styles.topicContainer}
       style={{
         width: bigger ? '60%' : '273px',
         display: displayedElementId
-          ? mediaForPlaying.id === displayedElementId
+          ? mediaForPlaying._id === displayedElementId
             ? 'inline-block'
             : 'none'
           : 'inline-block',
@@ -104,6 +102,7 @@ const PlayerMediaCard = ({
             playing={true}
             muted={muted}
             controls={true}
+            onReady={handleRandomize}
             className={styles.reactPlayer}
             url={mediaForPlaying.url}
             onEnded={fetchNextMedia}
@@ -116,7 +115,7 @@ const PlayerMediaCard = ({
           className={`${styles.ghostDiv} `}
           onClick={() => {
             setBigger(true);
-            setDisplayedElementId(mediaForPlaying.id);
+            setDisplayedElementId(mediaForPlaying._id);
           }}
           style={{ display: !bigger ? 'block' : 'none' }}
         ></div>
@@ -125,6 +124,10 @@ const PlayerMediaCard = ({
         <div className={styles.descriptionContainer}>
           <h3>Why is this video here?</h3>
           {mediaForPlaying.description}
+          <br />
+          <button className={styles.randomBtn} onClick={handleRandomize}>
+            Random Spot
+          </button>
         </div>
       )}
     </div>

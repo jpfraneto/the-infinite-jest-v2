@@ -38,7 +38,6 @@
 
 .formElementContainer input {
   padding-left: 8px;
-  background-color: #5d88ad;
 }
 
 .formElementContainer input::placeholder {
@@ -55,8 +54,22 @@
   box-shadow: 2px 2px black;
 }
 
-.formElementContainer select {
-  background-color: #5d88ad;
+.mediatypeType {
+  border: solid white 2px;
+  background-color: white;
+  color: black;
+  padding: 4px 8px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mediatypeType:hover {
+  background-color: rgb(193, 193, 193);
+}
+
+.selectedMediaType {
+  background-color: rgb(193, 193, 193);
 }
 
 .formElementContainer textarea {
