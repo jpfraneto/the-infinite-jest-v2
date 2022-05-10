@@ -38,10 +38,13 @@
 
 .formElementContainer input {
   padding-left: 8px;
+  background-color: antiquewhite;
+  color: black;
+  border-radius: 8px;
 }
 
 .formElementContainer input::placeholder {
-  color: white;
+  color: black;
 }
 
 .formElement {
@@ -74,8 +77,8 @@
 
 .formElementContainer textarea {
   height: 222px;
-  color: white;
-  background-color: #5d88ad;
+  color: black;
+  background-color: antiquewhite;
 }
 
 .addBtn {

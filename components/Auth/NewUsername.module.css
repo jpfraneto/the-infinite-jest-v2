@@ -17,3 +17,25 @@
   margin-bottom: 8px;
   padding: 0 4px;
 }
+
+.newMediaBtn {
+  aspect-ratio: 16/9;
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+
+  border: solid white 0.2px;
+  margin: 8px auto;
+  font-size: 2rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 4px 4px black;
+}
+
+.newMediaBtn:hover {
+  filter: brightness(85%);
+}

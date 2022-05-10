@@ -11,6 +11,7 @@ const NewUsername = () => {
   const [newUsername, setNewUsername] = useState('');
   const [serverResponse, setServerResponse] = useState('');
   const [usernameAvailability, setUsernameAvailability] = useState(false);
+  const [secondLoading, setSecondLoading] = useState(false);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [availabilityMessage, setAvailabilityMessage] = useState('');
 
@@ -34,6 +35,8 @@ const NewUsername = () => {
     setAvailabilityLoading(false);
   };
   const handleNewUsername = async () => {
+    setAvailabilityMessage('');
+    setSecondLoading(true);
     setServerResponse('Loading...');
     const reqParams = {
       method: 'POST',
@@ -51,8 +54,9 @@ const NewUsername = () => {
     return (
       <div className={styles.container}>
         <h2>Your username is {session.user.username}</h2>
-        <Link href={`/u/${session.user.username}`}>
-          <a>Go to your universe</a>
+
+        <Link href={`/u/${session.user.username}/newmedia`}>
+          <a className={styles.newMediaBtn}>Add your first media</a>
         </Link>
       </div>
     );
@@ -86,7 +90,11 @@ const NewUsername = () => {
           </>
         ) : (
           <>
-            <Button handler={handleNewUsername}>Update my username</Button>
+            <Button handler={handleNewUsername}>
+              {!secondLoading
+                ? 'Update my username'
+                : `Hold on, ${newUsername}`}
+            </Button>
           </>
         )}
         {availabilityMessage && <p>{availabilityMessage}</p>}
