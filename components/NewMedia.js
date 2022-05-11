@@ -8,6 +8,7 @@ const NewMedia = ({ user }) => {
   const router = useRouter();
   const [mediatypes, setMediatypes] = useState(user.mediatypes || []);
   const [mediatype, setMediatype] = useState(router.query.type || '');
+  const [mediatypeMessage, setMediatypeMessage] = useState('');
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,7 @@ const NewMedia = ({ user }) => {
       return urlRef.current.focus();
     }
     setLoading(true);
+    console.log('in here, the mediatype is:', mediatype);
     const reqParams = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -70,10 +72,6 @@ const NewMedia = ({ user }) => {
     router.push(`/u/${router.query.username}/${data.mediatype}/${data.id}`);
   };
 
-  const handleNewMediaNameCreator = e => {
-    setMediatype(e.target.value);
-    setNewMediaName(e.target.value);
-  };
   if (!router.query) return <h2>loading</h2>;
   return (
     <>
@@ -85,25 +83,28 @@ const NewMedia = ({ user }) => {
           <>
             {' '}
             <h3>Add new media to your profile</h3>
-            <div className={styles.formElementContainer}>
+            <div className={`${styles.formElementContainer}`}>
               <label>Media Type: {mediatype}</label>
-              {mediatypes.map((x, index) => (
-                <span
-                  key={index}
-                  onClick={() => setMediatype(x)}
-                  className={`${styles.mediatypeType} ${
-                    mediatype === x && styles.selectedMediaType
-                  }`}
-                >
-                  {x}
-                </span>
-              ))}
-              <input
-                className={`${styles.mediatypeType}`}
-                placeholder='New'
-                onFocus={() => setMediatype('')}
-                onChange={e => setMediatype(e.target.value)}
-              />
+              <div className={styles.mediatypesOptions}>
+                {mediatypes.map((x, index) => (
+                  <span
+                    key={index}
+                    onClick={() => setMediatype(x)}
+                    className={`${styles.mediatypeType} ${
+                      mediatype === x && styles.selectedMediaType
+                    }`}
+                  >
+                    {x}
+                  </span>
+                ))}
+                <input
+                  className={`${styles.mediatypeType}`}
+                  placeholder='New'
+                  onFocus={() => setMediatype('')}
+                  onChange={e => setMediatype(e.target.value)}
+                />
+              </div>
+              {mediatypeMessage && <p>{mediatypeMessage}</p>}
             </div>
             <div className={styles.formElementContainer}>
               <label>First Url</label>

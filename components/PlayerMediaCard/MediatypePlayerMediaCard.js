@@ -37,7 +37,10 @@ const MediatypePlayerMediaCard = ({
     );
     setTimeout(() => setCopyUrlMessage(''), 4444);
   };
-
+  const handleDeleteMedia = async () => {
+    console.log('x', x);
+    alert(`the media should be deleted ${x._id}`);
+  };
   return (
     <div
       className={styles.topicContainer}
@@ -52,15 +55,20 @@ const MediatypePlayerMediaCard = ({
     >
       <h5>
         {bigger && (
-          <span
-            className={styles.closeBtn}
-            onClick={() => {
-              setTimeout(() => setDisplayedElementId(''), 3000);
-              setBigger(false);
-            }}
-          >
-            Close
-          </span>
+          <>
+            <span className={styles.deleteBtn} onClick={handleDeleteMedia}>
+              Delete
+            </span>
+            <span
+              className={styles.closeBtn}
+              onClick={() => {
+                setTimeout(() => setDisplayedElementId(''), 3000);
+                setBigger(false);
+              }}
+            >
+              Close
+            </span>
+          </>
         )}
       </h5>
 

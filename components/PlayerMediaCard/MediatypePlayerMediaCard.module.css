@@ -14,6 +14,19 @@
   position: relative;
 }
 
+.deleteBtn {
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  width: 10px;
+  cursor: pointer;
+  height: 10px;
+}
+
+.deleteBtn:hover {
+  color: red;
+}
+
 .closeBtn {
   position: absolute;
   right: 44px;
