@@ -20,10 +20,10 @@ const IndividualMediaPlayer = ({ media }) => {
   }, [rlvRef.current]);
 
   const handleShareBtn = () => {
-    // const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
-    //   '?timestamp'
-    // );
-    const newUrl = `http://localhost:3000/${router.asPath}`.split('?timestamp');
+    const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
+      '?timestamp'
+    );
+    // const newUrl = `http://localhost:3000/${router.asPath}`.split('?timestamp');
     const currentTime = Math.floor(rlvRef.current.getCurrentTime());
     navigator.clipboard.writeText(newUrl[0] + `?timestamp=${currentTime}`);
     setCopyUrlMessage(
