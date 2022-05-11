@@ -23,6 +23,11 @@ export default function Navbar() {
       <div className={styles.userBtns}>
         {session ? (
           <>
+            <Link href={`/u/${session.user.username}/newmedia`}>
+              <button className={`${styles.newMediaBtn} ${styles.loginBtn}`}>
+                +
+              </button>
+            </Link>
             {session.user.username ? (
               <button
                 onClick={() => router.push(`/u/${session.user.username}`)}
@@ -38,7 +43,6 @@ export default function Navbar() {
                 Get Username!
               </button>
             )}
-
             <button
               onClick={() => signOut()}
               className={styles.loginBtn}

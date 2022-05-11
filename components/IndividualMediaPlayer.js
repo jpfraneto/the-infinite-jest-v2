@@ -12,6 +12,7 @@ const IndividualMediaPlayer = ({ media }) => {
   const rlvRef = createRef();
 
   useEffect(() => {
+    console.log('the useEffect is running again', useEffect);
     if (rlvRef.current === null) return;
     if (router.query.timestamp) {
       if (rlvRef.current.getDuration > router.query.timestamp)
@@ -23,12 +24,12 @@ const IndividualMediaPlayer = ({ media }) => {
   }, [rlvRef, router.query.timestamp, media.duration]);
 
   const handleShareBtn = () => {
-    const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
-      '?timestamp'
-    );
     // const newUrl = `http://localhost:3000/${router.asPath}`.split('?timestamp');
     const currentTime = Math.floor(rlvRef.current.getCurrentTime());
-    navigator.clipboard.writeText(newUrl[0] + `?timestamp=${currentTime}`);
+    navigator.clipboard.writeText(
+      `https://www.theinfinitejest.tv/${router.query.username}/${media.mediatype}/${media._id}` +
+        `?timestamp=${currentTime}`
+    );
     setCopyUrlMessage(
       'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
     );
