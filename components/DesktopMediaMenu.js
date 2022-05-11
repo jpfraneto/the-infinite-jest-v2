@@ -7,7 +7,6 @@ import { BsPlusLg, BsZoomIn } from 'react-icons/bs';
 import { useSession } from 'next-auth/react';
 
 const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
-  console.log('aaaa', mediaElements);
   const router = useRouter();
   const { data: session, status } = useSession();
   const [displayedElementId, setDisplayedElementId] = useState('');

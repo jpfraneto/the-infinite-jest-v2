@@ -1,5 +1,5 @@
-import { Router, useRouter, useRef } from 'next/router';
-import React from 'react';
+import { Router, useRouter } from 'next/router';
+import React, { useRef } from 'react';
 import PlayerMediaCard from '../../../../components/PlayerMediaCard/PlayerMediaCard';
 import ReactPlayer from 'react-player';
 import { connectToDatabase } from '../../../../lib/mongodb';
@@ -34,22 +34,42 @@ export default function Mediatype({ elements }) {
       </h4>
       <div className={styles.topicsContainer}>
         {elements.map((x, index) => {
+          x.randomSecondsTimestamp = Math.floor(
+            (x.duration / 1000) * Math.random()
+          );
+          const thisRef = useRef();
           return (
-            <div key={x._id} className={styles.topicContainer}>
-              <div
-                className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
-              >
-                <ReactPlayer
-                  playing={true}
-                  muted={true}
-                  className={styles.reactPlayer}
-                  url={x.url}
-                  controls={true}
-                  width='100%'
-                  height='100%'
-                />
+            <>
+              <div className={styles.topicContainer}>
+                <div
+                  className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
+                >
+                  <ReactPlayer
+                    playing={true}
+                    muted={true}
+                    className={styles.reactPlayer}
+                    url={x.url}
+                    ref={thisRef}
+                    onReady={() =>
+                      thisRef.current.seekTo(
+                        x.randomSecondsTimestamp,
+                        'seconds'
+                      )
+                    }
+                    controls={true}
+                    width='100%'
+                    height='100%'
+                  />
+                  <Link
+                    key={x._id}
+                    passHref
+                    href={`/u/${router.query.username}/${router.query.mediatype}/${x._id}?timestamp=${x.randomSecondsTimestamp}`}
+                  >
+                    <div className={styles.ghostDiv}></div>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </>
           );
         })}
         {session && session.user.username === router.query.username && (

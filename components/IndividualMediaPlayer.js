@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Link from 'next/link';
 import styles from './IndividualMediaPlayer.module.css';
@@ -11,11 +11,21 @@ const IndividualMediaPlayer = ({ media }) => {
   const [timestamp, setTimestamp] = useState(router.query.timestamp || 0);
   const rlvRef = createRef();
 
+  useEffect(() => {
+    if (rlvRef.current === null) return;
+    if (router.query.timestamp) {
+      return rlvRef.current.seekTo(timestamp, 'seconds');
+    }
+    handleRandomize();
+  }, [rlvRef.current]);
+
   const handleShareBtn = () => {
-    const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
-      '?timestamp'
-    );
-    navigator.clipboard.writeText(newUrl + `?timestamp=${timestamp}`);
+    // const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
+    //   '?timestamp'
+    // );
+    const newUrl = `http://localhost:3000/${router.asPath}`.split('?timestamp');
+    const currentTime = Math.floor(rlvRef.current.getCurrentTime());
+    navigator.clipboard.writeText(newUrl[0] + `?timestamp=${currentTime}`);
     setCopyUrlMessage(
       'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
     );
@@ -23,15 +33,9 @@ const IndividualMediaPlayer = ({ media }) => {
   };
 
   const handleRandomize = () => {
-    console.log('adasd', rlvRef.current);
-    if (!rlvRef.current) {
-      console.log('lojsad');
-      return;
-    }
     const mediaDuration = rlvRef.current.getDuration();
-    const randomPlace = mediaDuration * [Math.random()];
-    setTimestamp(randomPlace);
-    console.log('HERE', rlvRef);
+    const randomPlace = Math.floor(mediaDuration * Math.random());
+    if (rlvRef.current === null) return;
     rlvRef.current.seekTo(randomPlace, 'seconds');
   };
 
@@ -49,7 +53,7 @@ const IndividualMediaPlayer = ({ media }) => {
               className={styles.reactPlayer}
               url={media.url}
               playing={true}
-              onReady={handleRandomize}
+              muted={true}
               width='100%'
               height='100%'
               controls={true}
