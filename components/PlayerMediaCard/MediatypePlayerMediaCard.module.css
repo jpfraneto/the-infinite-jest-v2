@@ -1,0 +1,165 @@
+.topicContainer {
+  width: 400px;
+  border-radius: 5px;
+  aspect-ratio: 16/9;
+  background-color: #292932;
+  border: solid white 0.2px;
+  margin: 8px;
+  color: white;
+  padding: 8px 4px;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 4px 4px black;
+  transition: width 3s;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 44px;
+  top: 6px;
+  width: 10px;
+  cursor: pointer;
+  height: 10px;
+}
+
+.closeBtn:hover {
+  color: orange;
+}
+
+.topicContainer:hover {
+  box-shadow: 8px 8px black;
+  transform: translateY(-2px, -2px);
+}
+
+.mediatypeTitle {
+  margin: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.mediatypeTitle:hover {
+  color: orange;
+}
+
+.playerWrapper {
+  position: relative;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+  z-index: 1;
+}
+
+.ghostDiv {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.ghostDiv:hover {
+  cursor: pointer;
+}
+
+.hiddenDiv {
+  display: none;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.reactPlayer video {
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+}
+
+.descriptionContainer {
+  opacity: 1;
+  height: fit-content;
+  animation: fadeIn 4s;
+}
+
+.randomBtn {
+  background-color: transparent;
+  color: white;
+  padding: 4px 8px;
+  margin-top: 10px;
+  border: solid white 1px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 8px 3px;
+  background-color: rgb(109, 38, 175);
+}
+
+.randomBtn:hover {
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  color: black;
+}
+
+.goBackBtn:hover {
+  filter: brightness(85%);
+}
+
+.copyUrlMessage {
+  -webkit-animation: fadeinout 4s linear forwards;
+  animation: fadeinout 4s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+  }
+  80% {
+    opacity: 0;
+    height: fit-content;
+  }
+
+  100% {
+    opacity: 1;
+    height: fit-content;
+  }
+}
+
+@media only screen and (max-width: 777px) {
+  .playerWrapper {
+    width: 100%;
+  }
+}

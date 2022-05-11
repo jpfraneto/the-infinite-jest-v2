@@ -14,10 +14,13 @@ const IndividualMediaPlayer = ({ media }) => {
   useEffect(() => {
     if (rlvRef.current === null) return;
     if (router.query.timestamp) {
-      return rlvRef.current.seekTo(timestamp, 'seconds');
+      if (rlvRef.current.getDuration > router.query.timestamp)
+        return rlvRef.current.seekTo(0, 'seconds');
+      return rlvRef.current.seekTo(router.query.timestamp, 'seconds');
     }
-    handleRandomize();
-  }, [rlvRef.current]);
+    const randomPlace = Math.floor((media.duration / 1000) * Math.random());
+    rlvRef.current.seekTo(randomPlace, 'seconds');
+  }, [rlvRef, router.query.timestamp, media.duration]);
 
   const handleShareBtn = () => {
     const newUrl = `https://www.theinfinitejest.tv/${router.asPath}`.split(
@@ -33,8 +36,9 @@ const IndividualMediaPlayer = ({ media }) => {
   };
 
   const handleRandomize = () => {
-    const mediaDuration = rlvRef.current.getDuration();
+    const mediaDuration = media.duration / 1000;
     const randomPlace = Math.floor(mediaDuration * Math.random());
+
     if (rlvRef.current === null) return;
     rlvRef.current.seekTo(randomPlace, 'seconds');
   };

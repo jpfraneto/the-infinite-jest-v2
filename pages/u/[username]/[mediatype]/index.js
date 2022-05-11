@@ -1,6 +1,6 @@
 import { Router, useRouter } from 'next/router';
-import React, { useRef } from 'react';
-import PlayerMediaCard from '../../../../components/PlayerMediaCard/PlayerMediaCard';
+import React, { useRef, useState } from 'react';
+import MediatypePlayerMediaCard from '../../../../components/PlayerMediaCard/MediatypePlayerMediaCard';
 import ReactPlayer from 'react-player';
 import { connectToDatabase } from '../../../../lib/mongodb';
 import Link from 'next/link';
@@ -15,6 +15,7 @@ export async function getServerSideProps({ params }) {
   const filteredElements = thisUser.media.filter(
     x => x.mediatype === params.mediatype
   );
+  console.log('the filtered elements are: ', filteredElements);
   return {
     props: {
       elements: JSON.parse(JSON.stringify(filteredElements[0].elements)),
@@ -25,6 +26,7 @@ export async function getServerSideProps({ params }) {
 export default function Mediatype({ elements }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [displayedElementId, setDisplayedElementId] = useState('');
 
   return (
     <div className={styles.container}>
@@ -33,45 +35,15 @@ export default function Mediatype({ elements }) {
         {router.query.mediatype} category{' '}
       </h4>
       <div className={styles.topicsContainer}>
-        {elements.map((x, index) => {
-          x.randomSecondsTimestamp = Math.floor(
-            (x.duration / 1000) * Math.random()
-          );
-          const thisRef = useRef();
-          return (
-            <>
-              <div className={styles.topicContainer}>
-                <div
-                  className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}
-                >
-                  <ReactPlayer
-                    playing={true}
-                    muted={true}
-                    className={styles.reactPlayer}
-                    url={x.url}
-                    ref={thisRef}
-                    onReady={() =>
-                      thisRef.current.seekTo(
-                        x.randomSecondsTimestamp,
-                        'seconds'
-                      )
-                    }
-                    controls={true}
-                    width='100%'
-                    height='100%'
-                  />
-                  <Link
-                    key={x._id}
-                    passHref
-                    href={`/u/${router.query.username}/${router.query.mediatype}/${x._id}?timestamp=${x.randomSecondsTimestamp}`}
-                  >
-                    <div className={styles.ghostDiv}></div>
-                  </Link>
-                </div>
-              </div>
-            </>
-          );
-        })}
+        {elements.map((x, index) => (
+          <MediatypePlayerMediaCard
+            key={x._id}
+            index={index}
+            x={x}
+            displayedElementId={displayedElementId}
+            setDisplayedElementId={setDisplayedElementId}
+          />
+        ))}
         {session && session.user.username === router.query.username && (
           <Link
             href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}

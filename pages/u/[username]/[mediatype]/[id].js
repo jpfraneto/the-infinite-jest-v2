@@ -18,7 +18,7 @@ export async function getServerSideProps({ params }) {
 }
 
 const MediaById = ({ media }) => {
-  if (!media) return <h3>That recommendation doesn't exist in the system!</h3>;
+  if (!media) return <h3>That recommendation doesnt exist in the system!</h3>;
   return <IndividualMediaPlayer media={media} />;
 };
 
