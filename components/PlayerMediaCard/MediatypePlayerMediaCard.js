@@ -9,10 +9,12 @@ const MediatypePlayerMediaCard = ({
   displayedElementId,
   setDisplayedElementId,
 }) => {
+  const sharedTextMessage =
+    'This moment got frozen as a link in your clipboard';
   const router = useRouter();
   const rlvRef = createRef();
   const [mediaForPlaying, setMediaForPlaying] = useState(x);
-  const [copyUrlMessage, setCopyUrlMessage] = useState('');
+  const [sharedText, setSharedText] = useState(false);
   const [playerWidth, setPlayerWidth] = useState('');
   const [volume, setVolume] = useState(0.8);
   const [muted, setMuted] = useState(true);
@@ -26,19 +28,16 @@ const MediatypePlayerMediaCard = ({
   };
 
   const handleShareBtn = () => {
-    // const newUrl = `https://www.theinfinitejest.tv${router.asPath}`;
-    const newUrl = `http://localhost:3000${router.asPath}`;
-    const currentTime = Math.floor(rlvRef.current.getCurrentTime());
+    const currentTimestamp = Math.floor(rlvRef.current.getCurrentTime());
     navigator.clipboard.writeText(
-      newUrl + `/${x._id}?timestamp=${currentTime}`
+      `${process.env.NEXT_PUBLIC_URL_PATH}/u/${x.author.username}/${x.mediatype}/${x._id}` +
+        `?timestamp=${currentTimestamp}`
     );
-    setCopyUrlMessage(
-      'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
-    );
-    setTimeout(() => setCopyUrlMessage(''), 4444);
+    setSharedText(true);
+    setTimeout(() => setSharedText(false), 4444);
   };
+
   const handleDeleteMedia = async () => {
-    console.log('x', x);
     alert(`the media should be deleted ${x._id}`);
   };
   return (
@@ -116,11 +115,11 @@ const MediatypePlayerMediaCard = ({
               className={`${styles.randomBtn} ${styles.shareBtn}`}
               onClick={handleShareBtn}
             >
-              Copy Link
+              Share this moment
             </button>
           </div>
-          {copyUrlMessage && (
-            <p className={styles.copyUrlMessage}>{copyUrlMessage}</p>
+          {sharedText && (
+            <p className={styles.copyUrlMessage}>{sharedTextMessage}</p>
           )}
         </>
       )}

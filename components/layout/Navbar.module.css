@@ -60,7 +60,11 @@
 }
 
 .loginBtn:hover {
-  background-color: teal;
+  filter: brightness(85%);
+}
+
+.logoutBtn {
+  background-color: red;
 }
 
 .hamburger > * {

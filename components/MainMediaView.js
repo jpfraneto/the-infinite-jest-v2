@@ -6,7 +6,6 @@ import styles from './MainMediaView.module.css';
 import { useRouter } from 'next/router';
 
 const MainMediaView = ({ presentMedia }) => {
-  console.log('IN HEREEEE', presentMedia);
   const types = presentMedia.map(x => x.mediatype);
 
   const router = useRouter();

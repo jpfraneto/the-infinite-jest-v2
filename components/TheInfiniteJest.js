@@ -4,9 +4,12 @@ import styles from './TheInfiniteJest.module.css';
 import Link from 'next/link';
 
 const TheInfiniteJest = () => {
+  const sharedTextMessage =
+    'This moment got frozen as a link in your clipboard';
   const reactPlayerRef = useRef();
   const [loading, setLoading] = useState(true);
   const [presentRecommendation, setPresentRecommendation] = useState(null);
+  const [sharedText, setSharedText] = useState(false);
   useEffect(() => {
     const fetchRecommendation = async () => {
       const response = await fetch(
@@ -31,6 +34,17 @@ const TheInfiniteJest = () => {
       setPresentRecommendation(data.recommendation);
     }
   };
+  const handleSharePresent = () => {
+    const currentTimestamp = Math.floor(
+      reactPlayerRef.current.getCurrentTime()
+    );
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL_PATH}/u/${presentRecommendation.presentRecommendation.username}/${presentRecommendation.presentRecommendation.mediatype}/${presentRecommendation.presentRecommendation._id}` +
+        `?timestamp=${currentTimestamp}`
+    );
+    setSharedText(true);
+    setTimeout(() => setSharedText(false), 4444);
+  };
   return (
     <>
       <div className={styles.playerWrapper}>
@@ -48,7 +62,6 @@ const TheInfiniteJest = () => {
               );
             }}
             onEnded={() => {
-              console.log('inside the onEnded callback');
               queryNextRecommendation();
               reactPlayerRef.current.seekTo(0, 'seconds');
             }}
@@ -61,16 +74,17 @@ const TheInfiniteJest = () => {
         )}
       </div>
       {presentRecommendation && (
-        <h3 className={styles.recommendationBottomMsg}>
-          This piece was added by{' '}
-          <Link
-            href={`/u/${presentRecommendation.presentRecommendation.username}`}
+        <>
+          <button
+            className={`${styles.goBackBtn} ${styles.randomBtn}`}
+            onClick={handleSharePresent}
           >
-            <a className={styles.linkBtn}>
-              {presentRecommendation.presentRecommendation.username}
-            </a>
-          </Link>
-        </h3>
+            Share the present moment
+          </button>
+          {sharedText && (
+            <p className={styles.sharedTextMessage}>{sharedTextMessage}</p>
+          )}
+        </>
       )}
     </>
   );

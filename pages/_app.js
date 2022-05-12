@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import Navbar from '../components/layout/Navbar';
 import Loader from '../components/layout/Loader';
+import Footer from 'components/layout/Footer';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [isRouteChanging, setIsRouteChanging] = useState(false);
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </Head>
       <Navbar />
       {isRouteChanging ? <Loader /> : <Component {...pageProps} />}
+      <Footer />
     </SessionProvider>
   );
 }

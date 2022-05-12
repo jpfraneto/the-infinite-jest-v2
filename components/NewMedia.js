@@ -39,7 +39,6 @@ const NewMedia = ({ user }) => {
       return urlRef.current.focus();
     }
     setLoading(true);
-    console.log('in here, the mediatype is:', mediatype);
     const reqParams = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -81,22 +80,24 @@ const NewMedia = ({ user }) => {
       <div className={styles.newMediaContainer}>
         {!loading ? (
           <>
-            {' '}
             <h3>Add new media to your profile</h3>
             <div className={`${styles.formElementContainer}`}>
               <label>Media Type: {mediatype}</label>
               <div className={styles.mediatypesOptions}>
-                {mediatypes.map((x, index) => (
-                  <span
-                    key={index}
-                    onClick={() => setMediatype(x)}
-                    className={`${styles.mediatypeType} ${
-                      mediatype === x && styles.selectedMediaType
-                    }`}
-                  >
-                    {x}
-                  </span>
-                ))}
+                {mediatypes.map((x, index) => {
+                  if (!x) return;
+                  return (
+                    <span
+                      key={index}
+                      onClick={() => setMediatype(x)}
+                      className={`${styles.mediatypeType} ${
+                        mediatype === x && styles.selectedMediaType
+                      }`}
+                    >
+                      {x}
+                    </span>
+                  );
+                })}
                 <input
                   className={`${styles.mediatypeType}`}
                   placeholder='New'
@@ -136,7 +137,7 @@ const NewMedia = ({ user }) => {
             </button>
             <br />
             <Link href={`/u/${user.username}`}>
-              <a className={styles.goBackBtn}>Go back to {user.username}</a>
+              <a className={styles.goBackBtn}>Go back to your profile</a>
             </Link>
           </>
         ) : (

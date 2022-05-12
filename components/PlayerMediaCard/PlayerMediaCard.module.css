@@ -34,6 +34,8 @@
 
 .mediatypeTitle {
   margin: 3px;
+  height: 20px;
+  margin-top: 0;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -93,7 +95,7 @@
   background-color: transparent;
   color: white;
   padding: 4px 8px;
-  margin-top: 10px;
+  margin: 10px 4px;
   border: solid white 1px;
   cursor: pointer;
   border-radius: 8px;
@@ -108,6 +110,32 @@
     #ffcc70 100%
   );
   color: black;
+}
+
+.copyUrlMessage {
+  margin: 0;
+  -webkit-animation: fadeinout 4s linear forwards;
+  animation: fadeinout 4s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {

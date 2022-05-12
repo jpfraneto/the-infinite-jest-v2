@@ -13,10 +13,15 @@ const PlayerMediaCard = ({
   setPlayerElement,
   setDisplayedElementId,
   displayedElementId,
+  bigger,
+  setBigger,
 }) => {
+  const sharedTextMessage =
+    'This moment got frozen as a link in your clipboard';
   const router = useRouter();
   const rlvRef = createRef();
   const [refVisible, setRefVisible] = useState(false);
+  const [sharedText, setSharedText] = useState(false);
   const [mediaForPlaying, setMediaForPlaying] = useState(
     mediaContainer.presentMedia
   );
@@ -25,7 +30,6 @@ const PlayerMediaCard = ({
   const [alreadyPlayed, setAlreadyPlayed] = useState([]);
   const [volume, setVolume] = useState(0.8);
   const [muted, setMuted] = useState(true);
-  const [bigger, setBigger] = useState(false);
   const [loadingNext, setLoadingNext] = useState(false);
 
   const fetchNextMedia = async () => {
@@ -55,6 +59,16 @@ const PlayerMediaCard = ({
     const mediaDuration = rlvRef.current.getDuration();
     const randomPlace = mediaDuration * [Math.random()];
     rlvRef.current.seekTo(randomPlace, 'seconds');
+  };
+
+  const handleShareBtn = () => {
+    const currentTimestamp = Math.floor(rlvRef.current.getCurrentTime());
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL_PATH}/u/${router.query.username}/${mediaContainer.mediatype}/${mediaContainer.presentMedia._id}` +
+        `?timestamp=${currentTimestamp}`
+    );
+    setSharedText(true);
+    setTimeout(() => setSharedText(false), 4444);
   };
 
   return (
@@ -128,6 +142,15 @@ const PlayerMediaCard = ({
           <button className={styles.randomBtn} onClick={handleRandomize}>
             Random Spot
           </button>
+          <button
+            className={`${styles.randomBtn} ${styles.shareBtn}`}
+            onClick={handleShareBtn}
+          >
+            Share this moment
+          </button>
+          {sharedText && (
+            <p className={styles.copyUrlMessage}>{sharedTextMessage}</p>
+          )}
         </div>
       )}
     </div>

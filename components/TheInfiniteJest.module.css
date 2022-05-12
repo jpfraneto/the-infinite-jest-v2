@@ -43,3 +43,55 @@
   animation-timing-function: ease-in;
   animation-duration: 3s;
 }
+
+.goBackBtn {
+  background-color: blueviolet;
+  border: solid black 2px;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.goBackBtn:hover {
+  filter: brightness(85%);
+}
+
+.randomBtn:hover {
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  color: black;
+}
+
+.sharedTextMessage {
+  margin: 0;
+  -webkit-animation: fadeinout 4s linear forwards;
+  animation: fadeinout 4s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

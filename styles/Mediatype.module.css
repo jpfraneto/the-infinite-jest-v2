@@ -3,11 +3,25 @@
   padding-bottom: 20px;
 }
 
+.container h4 {
+  margin: 22px 0 8px;
+}
+
 .topicsContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
+}
+
+.btnsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnsContainer > a {
+  margin: 8px;
 }
 
 .topicContainer {
@@ -16,7 +30,8 @@
   border-radius: 22px;
   overflow: hidden;
   border: solid white 2px;
-  aspect-ratio: 16/9;
+  height: 77px;
+
   background-color: #292932;
   margin: 8px;
   color: white;
@@ -67,7 +82,7 @@
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
-  margin: 0 auto;
+  margin: 3px auto;
   display: block;
   width: fit-content;
   text-transform: uppercase;
@@ -89,4 +104,15 @@
 
 .ghostDiv:hover {
   cursor: pointer;
+}
+
+.newMedia {
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  color: black;
 }

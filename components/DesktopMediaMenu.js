@@ -9,11 +9,24 @@ import { useSession } from 'next-auth/react';
 const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [bigger, setBigger] = useState(false);
   const [displayedElementId, setDisplayedElementId] = useState('');
+  const goToRandomMoment = () => {
+    setBigger(true);
+    const randomMedia =
+      mediaElements[Math.floor(mediaElements.length * Math.random())];
+    const randomTimestampOfThisRandomMedia = Math.floor(
+      (randomMedia.presentMedia.duration / 1000) * Math.random()
+    );
+    setDisplayedElementId(randomMedia.presentMedia._id);
+  };
 
   return (
     <>
-      <div className={styles.topicsMainContainer}>
+      <div
+        className={styles.topicsMainContainer}
+        style={{ marginBottom: displayedElementId ? '20px' : '0' }}
+      >
         {mediaElements &&
           mediaElements.map((x, index) => {
             return (
@@ -25,20 +38,32 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
                 setPlayerElement={input.setPlayerElement}
                 setPlayerVisibility={input.setPlayerVisibility}
                 setChosenMediaForDisplay={input.setChosenMediaForDisplay}
+                bigger={bigger}
+                setBigger={setBigger}
                 setDisplayedElementId={setDisplayedElementId}
                 displayedElementId={displayedElementId}
               />
             );
           })}
       </div>
-      {session && router.query.username === session.user.username && (
-        <Link href={`/u/${router.query.username}/newmedia`} passHref>
+      {!displayedElementId && (
+        <div className={styles.addNewButtonContainer}>
+          {session && router.query.username === session.user.username && (
+            <div
+              className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
+            >
+              <Link href={`/u/${router.query.username}/newmedia`} passHref>
+                <h3>ADD NEW MEDIA</h3>
+              </Link>
+            </div>
+          )}
+
           <div
             className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
           >
-            <h3>ADD NEW</h3>
+            <h3 onClick={goToRandomMoment}>RANDOM MOMENT</h3>
           </div>
-        </Link>
+        </div>
       )}
     </>
   );

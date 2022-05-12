@@ -8,6 +8,8 @@
   padding: 10px;
   width: 100%;
   height: calc(100vh - 60px);
+  max-width: 777px;
+  margin: 0 auto;
 }
 
 .loader {

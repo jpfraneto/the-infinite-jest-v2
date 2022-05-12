@@ -11,23 +11,10 @@ const IndividualMediaPlayer = ({ media }) => {
   const [timestamp, setTimestamp] = useState(router.query.timestamp || 0);
   const rlvRef = createRef();
 
-  useEffect(() => {
-    console.log('the useEffect is running again', useEffect);
-    if (rlvRef.current === null) return;
-    if (router.query.timestamp) {
-      if (rlvRef.current.getDuration > router.query.timestamp)
-        return rlvRef.current.seekTo(0, 'seconds');
-      return rlvRef.current.seekTo(router.query.timestamp, 'seconds');
-    }
-    const randomPlace = Math.floor((media.duration / 1000) * Math.random());
-    rlvRef.current.seekTo(randomPlace, 'seconds');
-  }, [rlvRef, router.query.timestamp, media.duration]);
-
   const handleShareBtn = () => {
-    // const newUrl = `http://localhost:3000/${router.asPath}`.split('?timestamp');
     const currentTime = Math.floor(rlvRef.current.getCurrentTime());
     navigator.clipboard.writeText(
-      `https://www.theinfinitejest.tv/${router.query.username}/${media.mediatype}/${media._id}` +
+      `${process.env.NEXT_PUBLIC_URL_PATH}/u/${router.query.username}/${media.mediatype}/${media._id}` +
         `?timestamp=${currentTime}`
     );
     setCopyUrlMessage(
@@ -44,11 +31,28 @@ const IndividualMediaPlayer = ({ media }) => {
     rlvRef.current.seekTo(randomPlace, 'seconds');
   };
 
+  const goToTimestamp = () => {
+    if (rlvRef.current === null) return;
+    if (router.query.timestamp) {
+      if (rlvRef.current.getDuration() < router.query.timestamp) {
+        return rlvRef.current.seekTo(0, 'seconds');
+      }
+      return rlvRef.current.seekTo(router.query.timestamp, 'seconds');
+    }
+    const randomPlace = Math.floor((media.duration / 1000) * Math.random());
+    rlvRef.current.seekTo(randomPlace, 'seconds');
+  };
+
   return (
     <>
       <Head>
-        <title>The Infinite Jest · {router.query.username}</title>
-        <meta name='description' content={media.description} />
+        <title>
+          The Infinite Jest · {router.query.username} · {media.name}
+        </title>
+        <meta
+          name='description'
+          content={`This is personal page of ${router.query.username} in The Infinite Jest. He shared with us the recommendation ${media.name}, and that is what is going on here.`}
+        />
       </Head>
       <div className={styles.container}>
         <div className={styles.mediaContainer}>
@@ -58,6 +62,7 @@ const IndividualMediaPlayer = ({ media }) => {
               className={styles.reactPlayer}
               url={media.url}
               playing={true}
+              onReady={goToTimestamp}
               muted={true}
               width='100%'
               height='100%'
@@ -70,7 +75,7 @@ const IndividualMediaPlayer = ({ media }) => {
               className={`${styles.goBackBtn} ${styles.shareBtn}`}
               onClick={handleShareBtn}
             >
-              Copy Link
+              Share this moment
             </a>
             <a
               className={`${styles.goBackBtn} ${styles.randomBtn}`}
@@ -81,7 +86,9 @@ const IndividualMediaPlayer = ({ media }) => {
             <Link
               href={`/u/${router.query.username}/${router.query.mediatype}`}
             >
-              <a className={styles.goBackBtn}>Go Back!</a>
+              <a className={styles.goBackBtn}>
+                ALL {router.query.mediatype.toUpperCase()}
+              </a>
             </Link>
           </div>
 

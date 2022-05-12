@@ -1,0 +1,19 @@
+.footerMainContainer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  border-top: 2px solid black;
+  font-family: 'Goudy Bookletter 1911', serif;
+}
+
+.footerContainer {
+  background-color: grey;
+  color: white;
+}
+
+.hoveredContainer {
+  background-color: black;
+  color: black;
+  border-top: 2px solid white;
+}

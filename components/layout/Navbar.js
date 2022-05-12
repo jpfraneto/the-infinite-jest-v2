@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
-import { TiThMenu } from 'react-icons/ti';
+import { IoMdLogOut } from 'react-icons/io';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className={styles.userBtns}>
         {session ? (
           <>
-            <Link href={`/u/${session.user.username}/newmedia`}>
+            <Link href={`/u/${session.user.username}/newmedia`} passHref>
               <button className={`${styles.newMediaBtn} ${styles.loginBtn}`}>
                 +
               </button>
@@ -45,10 +45,9 @@ export default function Navbar() {
             )}
             <button
               onClick={() => signOut()}
-              className={styles.loginBtn}
-              style={{ backgroundColor: 'red' }}
+              className={`${styles.loginBtn} ${styles.logoutBtn}`}
             >
-              Logout
+              <IoMdLogOut />
             </button>
           </>
         ) : (
