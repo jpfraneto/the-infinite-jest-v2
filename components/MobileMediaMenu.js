@@ -8,9 +8,8 @@ import { useSession } from 'next-auth/react';
 const MobileMediaMenu = ({ input, mediaElements }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
-
   return (
-    <>
+    <div className={styles.mediaMenuContainer}>
       {mediaElements &&
         mediaElements.map((x, index) => {
           return (
@@ -19,7 +18,14 @@ const MobileMediaMenu = ({ input, mediaElements }) => {
               key={index}
               passHref
             >
-              <span className={styles.mediaTypeSelector}>
+              <span
+                className={styles.mediaTypeSelector}
+                style={{
+                  height: `${
+                    (window.height - 44) / mediaElements.length + 1
+                  }px`,
+                }}
+              >
                 {x.mediatype.toUpperCase()}
               </span>
             </Link>
@@ -33,7 +39,7 @@ const MobileMediaMenu = ({ input, mediaElements }) => {
           </div>
         </Link>
       )}
-    </>
+    </div>
   );
 };
 

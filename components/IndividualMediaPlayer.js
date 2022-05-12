@@ -70,7 +70,7 @@ const IndividualMediaPlayer = ({ media }) => {
             />
           </div>
           <p>{media.description}</p>
-          <div>
+          <div className={styles.buttonsContainer}>
             <a
               className={`${styles.goBackBtn} ${styles.shareBtn}`}
               onClick={handleShareBtn}

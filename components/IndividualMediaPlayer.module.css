@@ -31,7 +31,7 @@
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
-  margin: 0 8px;
+  margin: 8px;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -78,4 +78,10 @@
   50% {
     opacity: 1;
   }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
