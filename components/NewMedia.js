@@ -55,7 +55,6 @@ const NewMedia = ({ user }) => {
       reqParams
     );
     const responseData = await serverResponse.json();
-    console.log('asdasd', responseData);
     const reqParams2 = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

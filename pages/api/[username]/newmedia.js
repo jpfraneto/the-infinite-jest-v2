@@ -1,13 +1,11 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../lib/mongodb';
-const crypto = require('crypto');
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
     try {
       const newMediaElement = req.body.newRecommendation;
-      console.log('the new media element is: ', newMediaElement);
       const thisUser = await db
         .collection('users')
         .findOne({ username: newMediaElement.author.username });
