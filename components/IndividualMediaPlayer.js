@@ -4,8 +4,11 @@ import ReactPlayer from 'react-player';
 import Link from 'next/link';
 import styles from './IndividualMediaPlayer.module.css';
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
 
 const IndividualMediaPlayer = ({ media }) => {
+  const { data: session } = useSession();
+
   const router = useRouter();
   const [copyUrlMessage, setCopyUrlMessage] = useState('');
   const [timestamp, setTimestamp] = useState(router.query.timestamp || 0);
@@ -23,6 +26,38 @@ const IndividualMediaPlayer = ({ media }) => {
     );
     setTimeout(() => setCopyUrlMessage(''), 4444);
     urlMessageRef.current.focus();
+  };
+
+  const handleDeleteMedia = async () => {
+    setCopyUrlMessage('This media is being deleted...');
+    const reqParams = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        _id: media._id,
+        mediatype: media.mediatype,
+      }),
+    };
+    const deleteResponse = await fetch(
+      `/api/${router.query.username}`,
+      reqParams
+    );
+
+    const reqParams2 = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        _id: media._id,
+        mediatype: media.mediatype,
+        username: media.author.username,
+      }),
+    };
+    const deleteResponse2 = await fetch(
+      `https://the-infinite-jest-server.herokuapp.com/api/${media._id}`,
+      reqParams2
+    );
+
+    router.push(`/u/${router.query.username}/${router.query.mediatype}`);
   };
 
   const handleRandomize = () => {
@@ -73,24 +108,34 @@ const IndividualMediaPlayer = ({ media }) => {
           </div>
           <p className={styles.mediaDescription}>{media.description}</p>
           <div className={styles.buttonsContainer}>
-            <a
+            {session && media.author.username === session.user.username && (
+              <button
+                className={`${styles.goBackBtn} ${styles.shareBtn}`}
+                style={{ backgroundColor: 'red' }}
+                onClick={handleDeleteMedia}
+              >
+                DELETE
+              </button>
+            )}
+            <button
               className={`${styles.goBackBtn} ${styles.shareBtn}`}
               onClick={handleShareBtn}
             >
               Share this moment
-            </a>
-            <a
+            </button>
+            <button
               className={`${styles.goBackBtn} ${styles.randomBtn}`}
               onClick={handleRandomize}
             >
               Random Spot
-            </a>
+            </button>
             <Link
               href={`/u/${router.query.username}/${router.query.mediatype}`}
+              passHref
             >
-              <a className={styles.goBackBtn}>
+              <button className={styles.goBackBtn}>
                 ALL {router.query.mediatype.toUpperCase()}
-              </a>
+              </button>
             </Link>
             <div className={styles.copiedUrlContainer} ref={urlMessageRef}>
               {copyUrlMessage && (

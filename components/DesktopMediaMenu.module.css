@@ -43,6 +43,11 @@
   filter: brightness(60%);
 }
 
+.topicContainer:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
 .topicContainer:hover span {
   font-size: 2rem;
 }

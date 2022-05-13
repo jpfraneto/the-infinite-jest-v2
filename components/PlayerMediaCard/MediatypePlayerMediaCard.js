@@ -3,12 +3,15 @@ import React, { createRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './MediatypePlayerMediaCard.module.css';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const MediatypePlayerMediaCard = ({
   x,
   displayedElementId,
   setDisplayedElementId,
 }) => {
+  const { data: session } = useSession();
+
   const sharedTextMessage =
     'This moment got frozen as a link in your clipboard';
   const router = useRouter();
@@ -20,6 +23,7 @@ const MediatypePlayerMediaCard = ({
   const [muted, setMuted] = useState(true);
   const [bigger, setBigger] = useState(false);
   const [loadingNext, setLoadingNext] = useState(false);
+  const [deletingMessage, setDeletingMessage] = useState('');
 
   const handleRandomize = () => {
     const mediaDuration = rlvRef.current.getDuration();
@@ -38,7 +42,21 @@ const MediatypePlayerMediaCard = ({
   };
 
   const handleDeleteMedia = async () => {
-    alert(`the media should be deleted ${x._id}`);
+    setDeletingMessage('Deleting...');
+    const reqParams = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        _id: x._id,
+        mediatype: x.mediatype,
+      }),
+    };
+    const deleteResponse = await fetch(
+      `/api/${router.query.username}`,
+      reqParams
+    );
+    const data = await deleteResponse.json();
+    router.push(`/u/${router.query.username}/`);
   };
   return (
     <div
@@ -55,9 +73,12 @@ const MediatypePlayerMediaCard = ({
       <h5>
         {bigger && (
           <>
-            <span className={styles.deleteBtn} onClick={handleDeleteMedia}>
-              Delete
-            </span>
+            {session.user && session.user.username === x.author.username && (
+              <span className={styles.deleteBtn} onClick={handleDeleteMedia}>
+                {deletingMessage ? deletingMessage : 'Delete'}
+              </span>
+            )}
+
             <span
               className={styles.closeBtn}
               onClick={() => {
