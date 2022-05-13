@@ -39,3 +39,11 @@
 .newMediaBtn:hover {
   filter: brightness(85%);
 }
+
+.theInfiniteJest {
+  text-decoration: none;
+  font-family: 'Updock', cursive;
+  text-shadow: 1px 1px red;
+  font-size: 2rem;
+  margin-right: 4px;
+}

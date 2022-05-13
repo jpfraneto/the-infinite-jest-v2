@@ -4,17 +4,28 @@ import styles from './Navbar.module.css';
 import { IoMdLogOut } from 'react-icons/io';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import useWindowDimensions from '/lib/hooks/useWindowDimensions';
 
 export default function Navbar() {
   const { data: session } = useSession();
 
   const router = useRouter();
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
+
+  const handleNewMediaBtn = () => {
+    if (!session.user.username) {
+      return alert('Before you add media, please get a username!');
+    }
+    router.push(`/u/${session.user.username}/newmedia`);
+  };
 
   return (
     <nav className={styles.navigation}>
       <Link href='/'>
-        <a className={styles.brandName}>The Infinite Jest</a>
+        <a className={styles.brandName}>
+          T<span className={styles.restOfTitle}>he</span> I
+          <span className={styles.restOfTitle}>nfinite</span> J
+          <span className={styles.restOfTitle}>est</span>
+        </a>
       </Link>
 
       {/* {router.query.username && (
@@ -23,11 +34,12 @@ export default function Navbar() {
       <div className={styles.userBtns}>
         {session ? (
           <>
-            <Link href={`/u/${session.user.username}/newmedia`} passHref>
-              <button className={`${styles.newMediaBtn} ${styles.loginBtn}`}>
-                +
-              </button>
-            </Link>
+            <button
+              onClick={handleNewMediaBtn}
+              className={`${styles.newMediaBtn} ${styles.loginBtn}`}
+            >
+              +
+            </button>
             {session.user.username ? (
               <button
                 onClick={() => router.push(`/u/${session.user.username}`)}
@@ -38,7 +50,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={() => router.push(`/newusername`)}
-                className={styles.loginBtn}
+                className={`${styles.loginBtn} ${styles.getUsernameBtn}`}
               >
                 Get Username!
               </button>
@@ -47,7 +59,7 @@ export default function Navbar() {
               onClick={() => signOut()}
               className={`${styles.loginBtn} ${styles.logoutBtn}`}
             >
-              <IoMdLogOut />
+              Logout
             </button>
           </>
         ) : (

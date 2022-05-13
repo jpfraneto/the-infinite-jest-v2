@@ -20,6 +20,7 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
     );
     setDisplayedElementId(randomMedia.presentMedia._id);
   };
+  console.log('the media elements are: ', mediaElements);
 
   return (
     <>
@@ -58,11 +59,13 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
             </div>
           )}
 
-          <div
-            className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
-          >
-            <h3 onClick={goToRandomMoment}>RANDOM MOMENT</h3>
-          </div>
+          {mediaElements.length > 0 && (
+            <div
+              className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
+            >
+              <h3 onClick={goToRandomMoment}>RANDOM MOMENT</h3>
+            </div>
+          )}
         </div>
       )}
     </>

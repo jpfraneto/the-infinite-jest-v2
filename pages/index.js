@@ -36,13 +36,9 @@ export default function Home() {
   };
   return (
     <div className={styles.mainContainer}>
-      <section className={styles.firstSection}>
-        <div className={styles.playerLayoutWrapper}>
-          <TheInfiniteJest />
-        </div>
-      </section>
-      {/* <section className={styles.secondSection}></section>
-      <section className={styles.thirdSection}></section> */}
+      <div className={styles.playerLayoutWrapper}>
+        <TheInfiniteJest />
+      </div>
     </div>
   );
 }

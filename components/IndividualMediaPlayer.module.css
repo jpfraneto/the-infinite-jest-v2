@@ -56,8 +56,15 @@
 }
 
 .copyUrlMessage {
+  margin: 0;
+  margin-bottom: 22px;
+  padding: 0;
   -webkit-animation: fadeinout 4s linear forwards;
   animation: fadeinout 4s linear forwards;
+}
+
+.mediaDescription {
+  margin: 6px 0 3px;
 }
 
 @-webkit-keyframes fadeinout {
@@ -84,4 +91,5 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0;
 }

@@ -1,5 +1,5 @@
 .theInfiniteJestContainer {
-  height: 100%;
+  height: calc(100vh - 60px - 22px);
   width: 100%;
 }
 

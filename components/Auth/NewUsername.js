@@ -20,6 +20,7 @@ const NewUsername = () => {
   if (status === 'loading') {
     return <p>Loading...</p>;
   }
+
   if (status === 'unauthenticated') {
     return <p>Access Denied</p>;
   }
@@ -50,10 +51,14 @@ const NewUsername = () => {
     const data = await response.json();
     setTimeout(() => router.reload(`/u/${newUsername}`), 0);
   };
-  if (session.user.username) {
+  if (session.user && session.user.username) {
     return (
       <div className={styles.container}>
-        <h2>Your username is {session.user.username}</h2>
+        <h2>
+          Welcome to{' '}
+          <span className={styles.theInfiniteJest}>The Infinite Jest</span>,{' '}
+          {session.user.username}
+        </h2>
 
         <Link href={`/u/${session.user.username}/newmedia`}>
           <a className={styles.newMediaBtn}>Add your first media</a>

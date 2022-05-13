@@ -16,12 +16,14 @@ const Footer = () => {
         className={styles.dfwname}
         target='_blank'
         rel='noreferrer'
-        href='https://www.youtube.com/watch?v=2doZROwdte4'
+        href='https://www.youtube.com/watch?v=YlZhA61qtvQ'
         style={{ color: hovered ? 'white' : 'black' }}
       >
         David Foster Wallace
       </a>{' '}
-      and all the victims of depression.
+      <span className={styles.restOfText}>
+        and all the victims of depression.
+      </span>
     </nav>
   );
 };

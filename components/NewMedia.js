@@ -16,6 +16,7 @@ const NewMedia = ({ user }) => {
   const [urlMessage, setUrlMessage] = useState('');
 
   const urlRef = useRef();
+  const newMediatypeRef = useRef();
 
   useEffect(() => {
     if (user.media)
@@ -23,19 +24,20 @@ const NewMedia = ({ user }) => {
   }, [user.media]);
 
   const handleNewMediaSubmit = async () => {
+    setMediatypeMessage('');
+    setUrlMessage('');
     if (!mediatype) {
-      setMediatypeMessage('Please select a mediatype!');
+      setMediatypeMessage('Please select a mediatype.');
+      return newMediatypeRef.current.focus();
     }
     if (!url) {
-      setUrlMessage('Please add the url for the video');
+      setUrlMessage('Please add the url for the video.');
       return urlRef.current.focus();
     }
     const youtubeCheck =
       /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
     if (!youtubeCheck.test(url) || url.includes('shorts')) {
-      setUrlMessage(
-        'Please add a valid youtube URL for the video. No shorts are allowed :('
-      );
+      setUrlMessage('Please add a valid youtube URL for the video. ');
       return urlRef.current.focus();
     }
     setLoading(true);
@@ -100,14 +102,17 @@ const NewMedia = ({ user }) => {
                 <input
                   className={`${styles.mediatypeType}`}
                   placeholder='New'
+                  ref={newMediatypeRef}
                   onFocus={() => setMediatype('')}
                   onChange={e => setMediatype(e.target.value)}
                 />
               </div>
-              {mediatypeMessage && <p>{mediatypeMessage}</p>}
+              {mediatypeMessage && (
+                <p className={styles.messageElement}>{mediatypeMessage}</p>
+              )}
             </div>
             <div className={styles.formElementContainer}>
-              <label>First Url</label>
+              <label>Youtube Link to the video:</label>
               <input
                 type='text'
                 ref={urlRef}

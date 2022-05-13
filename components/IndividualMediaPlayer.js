@@ -10,6 +10,7 @@ const IndividualMediaPlayer = ({ media }) => {
   const [copyUrlMessage, setCopyUrlMessage] = useState('');
   const [timestamp, setTimestamp] = useState(router.query.timestamp || 0);
   const rlvRef = createRef();
+  const urlMessageRef = createRef();
 
   const handleShareBtn = () => {
     const currentTime = Math.floor(rlvRef.current.getCurrentTime());
@@ -21,6 +22,7 @@ const IndividualMediaPlayer = ({ media }) => {
       'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
     );
     setTimeout(() => setCopyUrlMessage(''), 4444);
+    urlMessageRef.current.focus();
   };
 
   const handleRandomize = () => {
@@ -69,7 +71,7 @@ const IndividualMediaPlayer = ({ media }) => {
               controls={true}
             />
           </div>
-          <p>{media.description}</p>
+          <p className={styles.mediaDescription}>{media.description}</p>
           <div className={styles.buttonsContainer}>
             <a
               className={`${styles.goBackBtn} ${styles.shareBtn}`}
@@ -90,11 +92,12 @@ const IndividualMediaPlayer = ({ media }) => {
                 ALL {router.query.mediatype.toUpperCase()}
               </a>
             </Link>
+            <div className={styles.copiedUrlContainer} ref={urlMessageRef}>
+              {copyUrlMessage && (
+                <p className={styles.copyUrlMessage}>{copyUrlMessage}</p>
+              )}
+            </div>
           </div>
-
-          {copyUrlMessage && (
-            <p className={styles.copyUrlMessage}>{copyUrlMessage}</p>
-          )}
         </div>
       </div>
     </>

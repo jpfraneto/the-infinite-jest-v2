@@ -12,8 +12,9 @@
   margin: 0 auto;
   padding: 8px;
   border-radius: 8px;
-  height: fit-content;
+  overflow-y: scroll;
 }
+
 .topicContainer {
   text-align: center;
   cursor: pointer;
