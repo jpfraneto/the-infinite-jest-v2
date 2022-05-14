@@ -1,5 +1,6 @@
 .newMediaContainer {
   max-width: 100vw;
+  width: 777px;
   background: #4b79a1; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,

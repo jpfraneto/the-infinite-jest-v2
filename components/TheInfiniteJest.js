@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './TheInfiniteJest.module.css';
 import Link from 'next/link';
+import { GoUnmute } from 'react-icons/go';
 
 const TheInfiniteJest = () => {
   const sharedTextMessage =
@@ -10,6 +11,7 @@ const TheInfiniteJest = () => {
   const [loading, setLoading] = useState(true);
   const [presentRecommendation, setPresentRecommendation] = useState(null);
   const [sharedText, setSharedText] = useState(false);
+  const [muted, setMuted] = useState(true);
   useEffect(() => {
     const fetchRecommendation = async () => {
       const response = await fetch(
@@ -45,6 +47,7 @@ const TheInfiniteJest = () => {
     setSharedText(true);
     setTimeout(() => setSharedText(false), 4444);
   };
+
   return (
     <>
       <div className={styles.playerWrapper}>
@@ -81,6 +84,7 @@ const TheInfiniteJest = () => {
           >
             Share the present moment
           </button>
+
           {sharedText && (
             <p className={styles.sharedTextMessage}>{sharedTextMessage}</p>
           )}

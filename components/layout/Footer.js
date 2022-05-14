@@ -14,9 +14,6 @@ const Footer = () => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={styles.dfwname}
-        target='_blank'
-        rel='noreferrer'
-        href='https://www.youtube.com/watch?v=YlZhA61qtvQ'
         style={{ color: hovered ? 'white' : 'black' }}
       >
         David Foster Wallace
