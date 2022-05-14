@@ -29,7 +29,7 @@ const IndividualMediaPlayer = ({ media }) => {
   };
 
   const handleDeleteMedia = async () => {
-    const deletable = confirm(
+    const deletable = window.confirm(
       'Are you sure you want to delete this media from The Infinite Jest?'
     );
     if (!deletable) return;
