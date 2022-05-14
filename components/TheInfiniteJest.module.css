@@ -46,6 +46,7 @@
 
 .goBackBtn {
   background-color: blueviolet;
+  color: white;
   border: solid black 2px;
   border-radius: 8px;
   padding: 8px;
