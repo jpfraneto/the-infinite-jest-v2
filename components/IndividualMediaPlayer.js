@@ -29,6 +29,10 @@ const IndividualMediaPlayer = ({ media }) => {
   };
 
   const handleDeleteMedia = async () => {
+    const deletable = confirm(
+      'Are you sure you want to delete this media from The Infinite Jest?'
+    );
+    if (!deletable) return;
     setCopyUrlMessage('This media is being deleted...');
     const reqParams = {
       method: 'DELETE',
