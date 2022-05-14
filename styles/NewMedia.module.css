@@ -5,7 +5,7 @@
   background-color: palevioletred;
   text-align: center;
   color: white;
-  padding: 8px;
+  max-width: 98%;
 }
 
 .mainTitle {

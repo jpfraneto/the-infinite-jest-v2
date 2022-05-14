@@ -28,10 +28,12 @@
 .goBackBtn {
   background-color: blueviolet;
   border: solid black 2px;
+  color: white;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
   margin: 8px;
+  text-align: center;
   text-transform: uppercase;
   cursor: pointer;
 }

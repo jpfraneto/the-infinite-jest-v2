@@ -87,6 +87,7 @@
   width: fit-content;
   text-transform: uppercase;
   cursor: pointer;
+  text-align: center;
 }
 
 .backBtn:hover {
