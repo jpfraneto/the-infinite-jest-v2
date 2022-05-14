@@ -22,6 +22,7 @@ body {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: -olinear-gradient(to top, #283e51, #0a2342);
   min-height: 100vh;
+  max-width: 100vw;
 }
 
 a {

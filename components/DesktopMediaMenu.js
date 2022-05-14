@@ -20,7 +20,6 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
     );
     setDisplayedElementId(randomMedia.presentMedia._id);
   };
-  console.log('the media elements are: ', mediaElements);
 
   return (
     <>

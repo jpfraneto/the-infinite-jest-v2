@@ -64,7 +64,7 @@ export default function Navbar() {
           </>
         ) : (
           <button onClick={() => signIn()} className={styles.loginBtn}>
-            Login
+            Login / Register
           </button>
         )}
       </div>

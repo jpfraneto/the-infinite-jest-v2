@@ -45,7 +45,7 @@ const NewMedia = ({ user }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        mediatype,
+        mediatype: mediatype.trim(),
         url,
         username: router.query.username,
         description,

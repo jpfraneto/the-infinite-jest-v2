@@ -1,5 +1,6 @@
 .mediaMenuContainer {
   overflow-y: scroll;
+  height: calc(100vh - 66px - 20px);
 }
 .mediaTypeSelector {
   background-color: transparent;
@@ -10,7 +11,7 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   width: 100%;
-  
+
   cursor: pointer;
 }
 .mediaTypeSelector:hover {
@@ -32,4 +33,17 @@
   font-size: 2rem;
   color: white;
   transform: translateY(1px);
+}
+
+.randomBtn {
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid grey;
+}
+
+.randomBtn:hover {
+  background-color: rgb(87, 87, 87);
 }

@@ -1,3 +1,9 @@
+.footerContainer {
+  background-color: grey;
+  color: white;
+  height: 22px;
+}
+
 .footerMainContainer {
   position: fixed;
   bottom: 0;
@@ -7,13 +13,14 @@
   font-family: 'Goudy Bookletter 1911', serif;
 }
 
-.footerContainer {
-  background-color: grey;
-  color: white;
-}
-
 .hoveredContainer {
   background-color: black;
   color: black;
   border-top: 2px solid white;
+}
+
+@media only screen and (max-width: 777px) {
+  .restOfText {
+    display: none;
+  }
 }

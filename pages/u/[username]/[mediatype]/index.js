@@ -12,9 +12,12 @@ export async function getServerSideProps({ params }) {
   const thisUser = await db
     .collection('users')
     .findOne({ username: params.username });
+  console.log('this user is: ', thisUser);
   const filteredElements = thisUser.media.filter(
-    x => x.mediatype === params.mediatype
+    x => x.mediatype.trim() === params.mediatype
   );
+  console.log('the filtered elements are: ', filteredElements);
+
   return {
     props: {
       elements: JSON.parse(JSON.stringify(filteredElements[0].elements)),
