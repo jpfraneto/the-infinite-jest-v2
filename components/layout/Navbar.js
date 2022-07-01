@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
 import { IoMdLogOut } from 'react-icons/io';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import useWindowDimensions from '/lib/hooks/useWindowDimensions';
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const [height, setHeight] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res1 = await fetch('https://api.blockcypher.com/v1/btc/main');
+      const data1 = await res1.json();
+      if (data1) setHeight(data1.height);
+    };
+    getData();
+  }, []);
 
   const router = useRouter();
 
@@ -29,6 +38,7 @@ export default function Navbar() {
       {/* {router.query.username && (
         <h3 className={styles.userName}>· {router.query.username} ·</h3>
       )} */}
+      {height && <span>{height}</span>}
       <div className={styles.userBtns}>
         {session ? (
           <>
