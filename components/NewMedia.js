@@ -77,7 +77,7 @@ const NewMedia = ({ user }) => {
   return (
     <>
       <Head>
-        <title>The Infinite Jest · Add Media</title>
+        <title>21tv · Agregar Contenido</title>
       </Head>
       <div className={styles.newMediaContainer}>
         {!loading ? (

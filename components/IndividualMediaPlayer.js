@@ -90,7 +90,7 @@ const IndividualMediaPlayer = ({ media }) => {
         </title>
         <meta
           name='description'
-          content={`This is personal page of ${router.query.username} in The Infinite Jest. He shared with us the recommendation ${media.name}, and that is what is going on here.`}
+          content={`Esta es la página personal de ${router.query.username} en 21tv.`}
         />
       </Head>
       <div className={styles.container}>

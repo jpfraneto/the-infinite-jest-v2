@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
       <Head>
-        <title>The Infinite Jest</title>
+        <title>21tv</title>
       </Head>
       <Navbar />
       {isRouteChanging ? <Loader /> : <Component {...pageProps} />}

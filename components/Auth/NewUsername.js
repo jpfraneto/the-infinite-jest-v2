@@ -65,10 +65,7 @@ const NewUsername = () => {
   return (
     <div className={styles.container}>
       <h2>Obtener nombre de usuario</h2>
-      <h4>
-        In the world of The Infinite Jest, we work with usernames. Which is the
-        one that you want?
-      </h4>
+      <h4>¿Cuál es el que quieres?</h4>
 
       <>
         <input
@@ -85,7 +82,9 @@ const NewUsername = () => {
           <>
             {newUsername && (
               <Button handler={checkUsernameAvailability}>
-                {availabilityLoading ? 'Loading...' : 'Check if available'}
+                {availabilityLoading
+                  ? 'Cargando...'
+                  : 'Verificar disponibilidad'}
               </Button>
             )}
           </>
@@ -93,8 +92,8 @@ const NewUsername = () => {
           <>
             <Button handler={handleNewUsername}>
               {!secondLoading
-                ? 'Update my username'
-                : `Hold on, ${newUsername}`}
+                ? 'Actualizar mi nombre de usuario'
+                : `Hodl, ${newUsername}`}
             </Button>
           </>
         )}
