@@ -16,7 +16,6 @@ export async function getServerSideProps({ params }) {
   const filteredElements = thisUser.media.filter(
     x => x.mediatype.trim() === params.mediatype
   );
-  console.log('the filtered elements are: ', filteredElements);
 
   return {
     props: {

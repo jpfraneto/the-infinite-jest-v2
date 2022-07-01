@@ -3,7 +3,6 @@
   border-radius: 5px;
   aspect-ratio: 16/9;
   background-color: black;
-  border: solid var(--orange) 0.2px;
   margin: 8px;
   color: var(--orange);
   padding: 8px 4px;
