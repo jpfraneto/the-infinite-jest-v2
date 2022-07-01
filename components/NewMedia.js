@@ -11,7 +11,8 @@ const NewMedia = ({ user }) => {
     'documental',
     'noticias',
     'mainstream-media',
-    'charla',
+    'conferencia',
+    'crafted-content',
   ]);
   const [mediatype, setMediatype] = useState(router.query.type || '');
   const [mediatypeMessage, setMediatypeMessage] = useState('');
