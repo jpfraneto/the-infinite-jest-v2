@@ -14,18 +14,36 @@ export default function SignIn({ providers }) {
         );
     }
   };
+  var o = {
+    english: 'Welcome',
+    czech: 'Vitejte',
+    danish: 'Velkomst',
+    dutch: 'Welkom',
+    estonian: 'Tere tulemast',
+    finnish: 'Tervetuloa',
+    flemish: 'Welgekomen',
+    french: 'Bienvenue',
+    german: 'Willkommen',
+    irish: 'Failte',
+    italian: 'Benvenuto',
+    latvian: 'Gaidits',
+    lithuanian: 'Laukiamas',
+    polish: 'Witamy',
+    spanish: 'Bienvenido',
+    swedish: 'Valkommen',
+    welsh: 'Croeso',
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.loginBox}>
         <div className={styles.topBox}>
-          <p>
+          {/* <p>
             Este es un flujo infinito de información en torno a la tecnología
             que va a revolucionar la forma en la que interactuamos como
             humanidad:
           </p>
-          <p className={styles.btcText}>BITCOIN</p>
+          <p className={styles.btcText}>BITCOIN</p> */}
           <p>The best way in is through.</p>
-          <p>Bienvenid@.</p>
         </div>
         <div className={styles.providerBtnsContainer}>
           {Object.values(providers).map(provider => (
