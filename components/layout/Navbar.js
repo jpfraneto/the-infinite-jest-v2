@@ -31,7 +31,8 @@ export default function Navbar() {
     <nav className={styles.navigation}>
       <Link href='/'>
         <a className={styles.brandName}>
-          21<span className={styles.restOfName}>tv</span>
+          21<span className={styles.restOfName}>tv </span>
+          <span className={styles.betaText}>(beta)</span>
         </a>
       </Link>
 

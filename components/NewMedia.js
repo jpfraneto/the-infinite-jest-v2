@@ -12,7 +12,7 @@ const NewMedia = ({ user }) => {
     'noticias',
     'mainstream-media',
     'conferencia',
-    'crafted-content',
+    'video-informativo',
   ]);
   const [mediatype, setMediatype] = useState(router.query.type || '');
   const [mediatypeMessage, setMediatypeMessage] = useState('');

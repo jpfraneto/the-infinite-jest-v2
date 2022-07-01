@@ -15,6 +15,9 @@ export default function SignIn({ providers }) {
         );
     }
   };
+  const handleLightningLogin = () => {
+    alert('Im working on this functionality...');
+  };
   var o = {
     english: 'Welcome',
     czech: 'Vitejte',
@@ -50,6 +53,7 @@ export default function SignIn({ providers }) {
         <p className={styles.btcText}>BITCOIN</p> */}
             <p>The best way in is through.</p>
           </div>
+
           <div className={styles.providerBtnsContainer}>
             {Object.values(providers).map(provider => (
               <button
@@ -59,15 +63,26 @@ export default function SignIn({ providers }) {
               >
                 {getProviderIcon(provider.name)}
               </button>
-            ))}
-            <a
-              className={`${styles.contributeBtn}`}
-              target='_blank'
-              rel='noreferrer'
-              href='https://github.com/jpfraneto/the-infinite-jest-v2/blob/main/pages/api/auth/%5B...nextauth%5D.js'
+            ))}{' '}
+            <button
+              onClick={handleLightningLogin}
+              className={styles.loginWithLightningBtn}
             >
-              Otro
-            </a>
+              <svg
+                class='mr-3'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M19 10.1907L8.48754 21L12.6726 12.7423H5L14.6157 3L11.5267 10.2835L19 10.1907Z'
+                  fill='black'
+                ></path>
+              </svg>
+              | Lightning Login
+            </button>
           </div>
         </div>
       </div>

@@ -81,3 +81,26 @@
 .signInBtn > * {
   font-size: 2rem;
 }
+
+.loginWithLightningBtn {
+  margin: 0 auto;
+  height: auto;
+  background-color: #fada5d;
+  color: #212529;
+  width: 100%;
+  font-weight: bold;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.loginWithLightningBtn:hover {
+  filter: brightness(85%);
+}
+
+.loginWithLightningBtn:active {
+  background-color: white;
+}
