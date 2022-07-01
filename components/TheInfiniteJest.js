@@ -6,7 +6,7 @@ import { GoUnmute } from 'react-icons/go';
 
 const TheInfiniteJest = () => {
   const sharedTextMessage =
-    'This moment got frozen as a link in your clipboard';
+    'Este momento fue congelado como un link en tu portapapeles';
   const reactPlayerRef = useRef();
   const [loading, setLoading] = useState(true);
   const [presentRecommendation, setPresentRecommendation] = useState(null);
@@ -82,7 +82,7 @@ const TheInfiniteJest = () => {
             className={`${styles.goBackBtn} ${styles.randomBtn}`}
             onClick={handleSharePresent}
           >
-            Share the present moment
+            Comparte este momento
           </button>
 
           {sharedText && (

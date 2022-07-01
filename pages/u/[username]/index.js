@@ -9,7 +9,6 @@ export async function getServerSideProps({ params }) {
     `${dev ? DEV_URL : PROD_URL}/api/${params.username}`
   );
   const presentMedia = await response.json();
-  console.log('in here, the present media is: ', presentMedia);
   if (presentMedia.user === null) {
     return {
       props: {

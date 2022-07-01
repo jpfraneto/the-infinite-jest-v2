@@ -50,10 +50,10 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
         <div className={styles.addNewButtonContainer}>
           {session && router.query.username === session.user.username && (
             <div
-              className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
+              className={` ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
             >
               <Link href={`/u/${router.query.username}/newmedia`} passHref>
-                <h3>ADD NEW MEDIA</h3>
+                <h3>Agregar Nuevo</h3>
               </Link>
             </div>
           )}
@@ -62,7 +62,7 @@ const DesktopMediaMenu = ({ input, setGridView, mediaElements }) => {
             <div
               className={`${styles.mediaTypeSelector} ${styles.topicContainer} ${styles.newMediaTypeContainer}`}
             >
-              <h3 onClick={goToRandomMoment}>RANDOM MOMENT</h3>
+              <h3 onClick={goToRandomMoment}>Momento Aleatorio</h3>
             </div>
           )}
         </div>

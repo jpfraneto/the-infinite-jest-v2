@@ -6,9 +6,16 @@ const Loader = () => {
   return (
     <div className={styles.main}>
       <h2>
-        I don&apos;t know how to make the process of loading this page faster.
-        I&apos;m sorry for that. But one day I will, or someone will help me,
-        and it will be awesome.
+        No sé cómo cargar esta página más rápido. Si quieres ayudarme, por favor
+        contribuye al proyecto en github{' '}
+        <a
+          className={`${styles.contributeBtn}`}
+          target='_blank'
+          rel='noreferrer'
+          href='https://github.com/jpfraneto/the-infinite-jest-v2'
+        >
+          acá
+        </a>
       </h2>
       <div className={styles.loader}></div>
     </div>

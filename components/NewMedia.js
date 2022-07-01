@@ -6,7 +6,13 @@ import Head from 'next/head';
 
 const NewMedia = ({ user }) => {
   const router = useRouter();
-  const [mediatypes, setMediatypes] = useState(user.mediatypes || []);
+  const [mediatypes, setMediatypes] = useState([
+    'podcast',
+    'documental',
+    'noticias',
+    'mainstream-media',
+    'charla',
+  ]);
   const [mediatype, setMediatype] = useState(router.query.type || '');
   const [mediatypeMessage, setMediatypeMessage] = useState('');
   const [url, setUrl] = useState('');
@@ -18,26 +24,21 @@ const NewMedia = ({ user }) => {
   const urlRef = useRef();
   const newMediatypeRef = useRef();
 
-  useEffect(() => {
-    if (user.media)
-      return setMediatypes(() => user.media.map(x => x.mediatype));
-  }, [user.media]);
-
   const handleNewMediaSubmit = async () => {
     setMediatypeMessage('');
     setUrlMessage('');
     if (!mediatype) {
-      setMediatypeMessage('Please select a mediatype.');
+      setMediatypeMessage('Selecciona un tipo de contenido.');
       return newMediatypeRef.current.focus();
     }
     if (!url) {
-      setUrlMessage('Please add the url for the video.');
+      setUrlMessage('Agrega una url para el video');
       return urlRef.current.focus();
     }
     const youtubeCheck =
       /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
     if (!youtubeCheck.test(url) || url.includes('shorts')) {
-      setUrlMessage('Please add a valid youtube URL for the video. ');
+      setUrlMessage('Agrega una url de youtube válida');
       return urlRef.current.focus();
     }
     setLoading(true);
@@ -81,9 +82,9 @@ const NewMedia = ({ user }) => {
       <div className={styles.newMediaContainer}>
         {!loading ? (
           <>
-            <h3>Add new media to your profile</h3>
+            <p>Agrega un Video A Tu Perfil</p>
             <div className={`${styles.formElementContainer}`}>
-              <label>Media Type: {mediatype}</label>
+              <h4>Tipo de Contenido: {mediatype}</h4>
               <div className={styles.mediatypesOptions}>
                 {mediatypes.map((x, index) => {
                   if (!x) return;
@@ -91,28 +92,20 @@ const NewMedia = ({ user }) => {
                     <span
                       key={index}
                       onClick={() => setMediatype(x)}
-                      className={`${styles.mediatypeType} ${
-                        mediatype === x && styles.selectedMediaType
-                      }`}
+                      id={mediatype === x && 'selectedMediaType'}
+                      className={`${styles.mediatypeType}`}
                     >
                       {x}
                     </span>
                   );
                 })}
-                <input
-                  className={`${styles.mediatypeType}`}
-                  placeholder='New'
-                  ref={newMediatypeRef}
-                  onFocus={() => setMediatype('')}
-                  onChange={e => setMediatype(e.target.value)}
-                />
               </div>
               {mediatypeMessage && (
                 <p className={styles.messageElement}>{mediatypeMessage}</p>
               )}
             </div>
             <div className={styles.formElementContainer}>
-              <label>Youtube Link to the video:</label>
+              <h4>Link de Youtube:</h4>
               <input
                 type='text'
                 ref={urlRef}
@@ -129,7 +122,7 @@ const NewMedia = ({ user }) => {
               )}
             </div>
             <div className={styles.formElementContainer}>
-              <label>Description</label>
+              <h4>Description</h4>
               <textarea
                 className={styles.formElement}
                 onChange={e => setDescription(e.target.value)}
@@ -140,12 +133,9 @@ const NewMedia = ({ user }) => {
               Add
             </button>
             <br />
-            <Link href={`/u/${user.username}`}>
-              <a className={styles.goBackBtn}>Go back to your profile</a>
-            </Link>
           </>
         ) : (
-          <p>Your new media is being added to the database...</p>
+          <p>Tu video se está agregando a la base de datos...</p>
         )}
       </div>
     </>

@@ -2,10 +2,10 @@
   width: 400px;
   border-radius: 5px;
   aspect-ratio: 16/9;
-  background-color: #292932;
-  border: solid white 0.2px;
+  background-color: black;
+  border: solid var(--orange) 0.2px;
   margin: 8px;
-  color: white;
+  color: var(--orange);
   padding: 8px 4px;
   text-align: center;
   display: inline-block;
@@ -49,6 +49,7 @@
   border-radius: 22px;
   overflow: hidden;
   opacity: 1;
+  margin-bottom: 10px;
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
@@ -92,24 +93,19 @@
 }
 
 .randomBtn {
-  background-color: transparent;
+  background-color: black;
   color: white;
-  padding: 4px 8px;
-  margin: 10px 4px;
-  border: solid white 1px;
-  cursor: pointer;
+  padding: 8px 12px;
+  margin: 8px 3px;
+  border: 1px var(--orange) solid;
   border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .randomBtn:hover {
-  background-color: #4158d0;
-  background-image: linear-gradient(
-    43deg,
-    #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
-  color: black;
+  color: var(--orange);
+  text-shadow: 0.1px 0.1px white;
 }
 
 .copyUrlMessage {

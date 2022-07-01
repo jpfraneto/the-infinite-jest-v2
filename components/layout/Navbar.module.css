@@ -8,8 +8,7 @@
   padding: 0.5rem 0rem;
   background-color: black;
   color: white;
-  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
-  border-bottom: solid white 0.2px;
+  box-shadow: 0 2px 2px 2px rgb(227, 105, 10);
 }
 
 .userBtns {
@@ -18,14 +17,15 @@
 
 .brandName {
   text-decoration: none;
-  font-family: 'Updock', cursive;
-  text-shadow: 1px 1px red;
+  font-family: 'Ubuntu', sans-serif;
+  text-shadow: 1px 1px rgb(227, 105, 10);
   font-size: 2rem;
   margin-left: 1rem;
 }
 
 .brandName:hover {
-  text-shadow: 1px 1px purple;
+  color: rgb(227, 105, 10);
+  text-shadow: none;
 }
 
 .navigationMenu {
@@ -50,17 +50,19 @@
 }
 
 .loginBtn {
-  background-color: blue;
+  background-color: black;
   color: white;
   padding: 8px 12px;
   margin: 0 3px;
-  border: solid white 2px;
+  border: 1px var(--orange) solid;
   border-radius: 8px;
   cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .loginBtn:hover {
-  filter: brightness(85%);
+  color: var(--orange);
+  text-shadow: 0.1px 0.1px white;
 }
 
 .logoutBtn {
@@ -85,27 +87,17 @@
 .newMediaBtn {
   display: inline-block;
   height: fit-content;
-  background-color: #ff3cac;
-  background-image: linear-gradient(
-    225deg,
-    #ff3cac 0%,
-    #784ba0 50%,
-    #2b86c5 100%
-  );
+  background-color: black;
+}
+
+.restOfName {
+  font-size: 1rem;
 }
 
 .newMediaBtn:hover {
-  filter: brightness(85%);
 }
 
 .getUsernameBtn {
-  box-shadow: inset 0 0 50px #fff, /* inner white */ inset 20px 0 80px #f0f,
-    /* inner left magenta short */ inset -20px 0 80px #0ff,
-    /* inner right cyan short */ inset 20px 0 300px #f0f,
-    /* inner left magenta broad */ inset -20px 0 300px #0ff,
-    /* inner right cyan broad */ 0 0 50px #fff,
-    /* outer white */ -10px 0 80px #f0f,
-    /* outer left magenta */ 10px 0 80px #0ff; /* outer right cyan */
 }
 
 @media screen and (max-width: 888px) {

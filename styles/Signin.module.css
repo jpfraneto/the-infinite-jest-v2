@@ -1,27 +1,43 @@
 .mainContainer {
+  overflow: hidden;
+  min-height: calc(100vh - 60px - 20px);
   max-width: 100vw;
-  width: 98%;
-  padding: 8px 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px auto;
   text-align: center;
   border: solid black 1px;
   border-radius: 8px;
+  margin: 8px;
+}
+
+.loginBox {
+  transform: translateY(-33px);
+  max-height: 444px;
+  width: 274px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  background-color: black;
+  border: var(--orange) 0.5px solid;
+}
+
+.topBox {
+  height: 88%;
+  padding: 8px;
+}
+
+.btcText {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2rem;
 }
 
 .providerBtnsContainer {
   display: flex;
-}
-
-.providerBtnContainer {
-  margin: 12px;
-}
-
-.providerBtnContainer:hover {
-  filter: brightness(85%);
+  width: 100%;
+  height: 12%;
 }
 
 .googleIcon {
@@ -29,13 +45,18 @@
   margin-right: 4px;
 }
 
-.providerBtnContainer .signInBtn {
-  border: solid black 1px;
-  background: rgb(207, 207, 207);
-  padding: 10px 20px;
-  border-radius: 20px;
+.providerBtnsContainer .signInBtn {
+  background: black;
+  height: 100%;
   font-size: 1.3rem;
+  padding: 10px;
+  width: 50px;
+  border: none;
   cursor: pointer;
+}
+
+.providerBtnsContainer .signInBtn:hover {
+  background-color: rgb(119, 55, 5);
 }
 
 .signInBtn {
@@ -44,15 +65,19 @@
   align-items: center;
 }
 
+.contributeBtn {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.contributeBtn:hover {
+  background-color: rgb(119, 55, 5);
+}
+
 .signInBtn > * {
   font-size: 2rem;
-}
-
-.signInBtn:hover {
-  transform: translateY(-2px);
-  filter: brightness(85%);
-}
-
-.signInBtn:active {
-  transform: translateY(-1px);
 }

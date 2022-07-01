@@ -14,12 +14,12 @@ const Footer = () => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={styles.dfwname}
-        style={{ color: hovered ? 'white' : 'black' }}
+        style={{ color: hovered ? 'var(--orange)' : 'white' }}
       >
         David Foster Wallace
       </a>{' '}
       <span className={styles.restOfText}>
-        and all the victims of depression.
+        y todas las víctimas de depresión.
       </span>
     </nav>
   );

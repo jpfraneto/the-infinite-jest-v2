@@ -1,45 +1,52 @@
 import { getProviders, signIn } from 'next-auth/react';
 import styles from '../../styles/Signin.module.css';
-import { BsGoogle } from 'react-icons/bs';
-import { AiFillGithub } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { FiGithub } from 'react-icons/fi';
 
 export default function SignIn({ providers }) {
   const getProviderIcon = provider => {
     switch (provider) {
       case 'Google':
-        return <BsGoogle />;
+        return <FcGoogle />;
       case 'GitHub':
-        return <AiFillGithub />;
+        return (
+          <FiGithub style={{ color: 'white' }} value={{ color: 'white' }} />
+        );
     }
   };
   return (
     <div className={styles.mainContainer}>
-      <h3>Welcome to The Infinite Jest</h3>
-      <p>Here you can sign in with the following providers:</p>
-      <div className={styles.providerBtnsContainer}>
-        {Object.values(providers).map(provider => (
-          <div key={provider.name} className={styles.providerBtnContainer}>
+      <div className={styles.loginBox}>
+        <div className={styles.topBox}>
+          <p>
+            Este es un flujo infinito de información en torno a la tecnología
+            que va a revolucionar la forma en la que interactuamos como
+            humanidad:
+          </p>
+          <p className={styles.btcText}>BITCOIN</p>
+          <p>The best way in is through.</p>
+          <p>Bienvenid@.</p>
+        </div>
+        <div className={styles.providerBtnsContainer}>
+          {Object.values(providers).map(provider => (
             <button
+              key={provider.name}
               className={styles.signInBtn}
               onClick={() => signIn(provider.id)}
             >
               {getProviderIcon(provider.name)}
             </button>
-          </div>
-        ))}
+          ))}
+          <a
+            className={`${styles.contributeBtn}`}
+            target='_blank'
+            rel='noreferrer'
+            href='https://github.com/jpfraneto/the-infinite-jest-v2'
+          >
+            Otro
+          </a>
+        </div>
       </div>
-
-      <p>
-        Adding the functionality for more providers was out of my reach, if you
-        can do it, please fork the github repo{' '}
-        <a
-          target='_blank'
-          rel='noreferrer'
-          href='https://github.com/jpfraneto/the-infinite-jest-v2'
-        >
-          here!
-        </a>
-      </p>
     </div>
   );
 }

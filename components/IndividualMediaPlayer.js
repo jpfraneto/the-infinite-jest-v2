@@ -22,18 +22,16 @@ const IndividualMediaPlayer = ({ media }) => {
         `?timestamp=${currentTime}`
     );
     setCopyUrlMessage(
-      'The link for this content was copied in the clipboard. Now you can paste it anywhere you want.'
+      'El link para este contenido fue copiado al portapapeles. Ahora puedes pegarlo donde quieras.'
     );
     setTimeout(() => setCopyUrlMessage(''), 4444);
     urlMessageRef.current.focus();
   };
 
   const handleDeleteMedia = async () => {
-    const deletable = window.confirm(
-      'Are you sure you want to delete this media from The Infinite Jest?'
-    );
+    const deletable = window.confirm('Seguro que quieres borrar este video?');
     if (!deletable) return;
-    setCopyUrlMessage('This media is being deleted...');
+    setCopyUrlMessage('Borrando...');
     const reqParams = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -88,7 +86,7 @@ const IndividualMediaPlayer = ({ media }) => {
     <>
       <Head>
         <title>
-          The Infinite Jest · {router.query.username} · {media.name}
+          21tv · {router.query.username} · {media.name}
         </title>
         <meta
           name='description'
@@ -118,27 +116,27 @@ const IndividualMediaPlayer = ({ media }) => {
                 style={{ backgroundColor: 'red' }}
                 onClick={handleDeleteMedia}
               >
-                DELETE
+                Borrar
               </button>
             )}
             <button
               className={`${styles.goBackBtn} ${styles.shareBtn}`}
               onClick={handleShareBtn}
             >
-              Share this moment
+              Compartir Este Momento
             </button>
             <button
               className={`${styles.goBackBtn} ${styles.randomBtn}`}
               onClick={handleRandomize}
             >
-              Random Spot
+              Serendipity
             </button>
             <Link
               href={`/u/${router.query.username}/${router.query.mediatype}`}
               passHref
             >
               <button className={styles.goBackBtn}>
-                ALL {router.query.mediatype.toUpperCase()}
+                {router.query.mediatype}
               </button>
             </Link>
             <div className={styles.copiedUrlContainer} ref={urlMessageRef}>

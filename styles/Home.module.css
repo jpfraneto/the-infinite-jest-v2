@@ -1,5 +1,5 @@
 .mainContainer {
-  height: calc(100vh - 60px - 22px);
+  max-height: calc(100vh - 60px - 22px);
 }
 
 .firstSection {

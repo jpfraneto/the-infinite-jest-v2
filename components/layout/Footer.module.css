@@ -1,7 +1,8 @@
 .footerContainer {
-  background-color: grey;
+  background-color: black;
   color: white;
   height: 22px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .footerMainContainer {
@@ -9,14 +10,13 @@
   bottom: 0;
   width: 100%;
   text-align: center;
-  border-top: 2px solid black;
-  font-family: 'Goudy Bookletter 1911', serif;
+  border-top: var(--orange) solid 0.3px;
 }
 
 .hoveredContainer {
-  background-color: black;
   color: black;
-  border-top: 2px solid white;
+  height: 22px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 777px) {

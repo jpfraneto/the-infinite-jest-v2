@@ -22,9 +22,7 @@ export default function Navbar() {
     <nav className={styles.navigation}>
       <Link href='/'>
         <a className={styles.brandName}>
-          T<span className={styles.restOfTitle}>he</span> I
-          <span className={styles.restOfTitle}>nfinite</span> J
-          <span className={styles.restOfTitle}>est</span>
+          21<span className={styles.restOfName}>tv</span>
         </a>
       </Link>
 
@@ -59,12 +57,12 @@ export default function Navbar() {
               onClick={() => signOut()}
               className={`${styles.loginBtn} ${styles.logoutBtn}`}
             >
-              Logout
+              Salir
             </button>
           </>
         ) : (
           <button onClick={() => signIn()} className={styles.loginBtn}>
-            Login / Register
+            Entrar / Registrarte
           </button>
         )}
       </div>

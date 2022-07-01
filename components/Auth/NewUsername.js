@@ -54,21 +54,17 @@ const NewUsername = () => {
   if (session.user && session.user.username) {
     return (
       <div className={styles.container}>
-        <h2>
-          Welcome to{' '}
-          <span className={styles.theInfiniteJest}>The Infinite Jest</span>,{' '}
-          {session.user.username}
-        </h2>
+        <h2>Bienvenido a 21tv , {session.user.username}</h2>
 
         <Link href={`/u/${session.user.username}/newmedia`}>
-          <a className={styles.newMediaBtn}>Add your first media</a>
+          <a className={styles.newMediaBtn}>Agrega contenido</a>
         </Link>
       </div>
     );
   }
   return (
     <div className={styles.container}>
-      <h2>Get username</h2>
+      <h2>Obtener nombre de usuario</h2>
       <h4>
         In the world of The Infinite Jest, we work with usernames. Which is the
         one that you want?

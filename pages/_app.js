@@ -32,7 +32,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </Head>
       <Navbar />
       {isRouteChanging ? <Loader /> : <Component {...pageProps} />}
-      <Footer />
     </SessionProvider>
   );
 }

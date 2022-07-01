@@ -26,35 +26,28 @@
 }
 
 .goBackBtn {
-  background-color: blueviolet;
-  border: solid black 2px;
+  background-color: black;
+  border: solid var(--orange) 0.3px;
   color: white;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
   margin: 8px;
   text-align: center;
-  text-transform: uppercase;
   cursor: pointer;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .shareBtn {
-  background-color: rgb(109, 38, 175);
+  background-color: black;
 }
 
 .goBackBtn:hover {
-  filter: brightness(85%);
+  color: var(--orange);
 }
 
 .randomBtn:hover {
-  background-color: #4158d0;
-  background-image: linear-gradient(
-    43deg,
-    #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
-  color: black;
+  color: var(--orange);
 }
 
 .copyUrlMessage {

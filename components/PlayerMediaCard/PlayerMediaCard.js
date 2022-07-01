@@ -17,7 +17,7 @@ const PlayerMediaCard = ({
   setBigger,
 }) => {
   const sharedTextMessage =
-    'This moment got frozen as a link in your clipboard';
+    'Este momento fue congelado como un link en tu portapapeles';
   const router = useRouter();
   const rlvRef = createRef();
   const [refVisible, setRefVisible] = useState(false);
@@ -98,7 +98,7 @@ const PlayerMediaCard = ({
             setBigger(false);
           }}
         >
-          Close
+          Cerrar
         </span>
       )}
 
@@ -136,17 +136,16 @@ const PlayerMediaCard = ({
       </div>
       {bigger && (
         <div className={styles.descriptionContainer}>
-          <h3>Why is this video here?</h3>
           {mediaForPlaying.description}
           <br />
           <button className={styles.randomBtn} onClick={handleRandomize}>
-            Random Spot
+            Serendipity
           </button>
           <button
             className={`${styles.randomBtn} ${styles.shareBtn}`}
             onClick={handleShareBtn}
           >
-            Share this moment
+            Compartir este momento
           </button>
           {sharedText && (
             <p className={styles.copyUrlMessage}>{sharedTextMessage}</p>

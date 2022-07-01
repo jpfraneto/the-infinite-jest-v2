@@ -34,13 +34,13 @@ export default function Mediatype({ elements }) {
     <>
       <Head>
         <title>
-          The Infinite Jest · {router.query.username} · {router.query.mediatype}
+          21tv · {router.query.username} · {router.query.mediatype}
         </title>
       </Head>
       <div className={styles.container}>
         <h4 style={{ textAlign: 'center' }}>
-          This are all {router.query.username}&apos;s videos within the{' '}
-          {router.query.mediatype} category{' '}
+          Estos son todos los videos de {router.query.mediatype} de{' '}
+          {router.query.username}
         </h4>
         <div className={styles.topicsContainer}>
           {elements.map((x, index) => (
@@ -59,12 +59,12 @@ export default function Mediatype({ elements }) {
               href={`/u/${router.query.username}/newmedia?type=${router.query.mediatype}`}
             >
               <a className={`${styles.backBtn} ${styles.newMedia}`}>
-                ADD NEW {router.query.mediatype}
+                Agregar Nuevo {router.query.mediatype}
               </a>
             </Link>
           )}
           <Link href={`/u/${router.query.username}`}>
-            <a className={styles.backBtn}>Go back to {router.query.username}</a>
+            <a className={styles.backBtn}>Volver a {router.query.username}</a>
           </Link>
         </div>
       </div>

@@ -13,7 +13,7 @@ const MediatypePlayerMediaCard = ({
   const { data: session } = useSession();
 
   const sharedTextMessage =
-    'This moment got frozen as a link in your clipboard';
+    'Este momento fue congelado como un link en tu portapapeles';
   const router = useRouter();
   const rlvRef = createRef();
   const [mediaForPlaying, setMediaForPlaying] = useState(x);
@@ -35,7 +35,7 @@ const MediatypePlayerMediaCard = ({
     <div className={styles.topicContainer} style={{}}>
       <div className={`${styles.playerWrapper} ${styles.gridPlayerWrapper}`}>
         {loadingNext ? (
-          <p>L O A D I N G N E X T</p>
+          <p>Cargando</p>
         ) : (
           <ReactPlayer
             ref={el => {
