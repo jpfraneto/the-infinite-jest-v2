@@ -1,22 +1,15 @@
 .btn {
+  background-color: black;
+  color: white;
   padding: 8px 12px;
+  margin: 0 3px;
+  border: 1px var(--orange) solid;
   border-radius: 8px;
   cursor: pointer;
-  opacity: 1;
-  animation: fadeIn 2s;
   font-family: 'Ubuntu', sans-serif;
 }
 
 .btn:hover {
-  filter: brightness(85%);
-  box-shadow: 2px 2px black;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  color: var(--orange);
+  text-shadow: 0.1px 0.1px white;
 }

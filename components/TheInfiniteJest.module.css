@@ -44,20 +44,8 @@
   animation-duration: 3s;
 }
 
-.goBackBtn {
-  background-color: black;
-  color: white;
-  border: solid white 0.5px;
-  border-radius: 8px;
-  padding: 8px;
-  cursor: pointer;
-  margin: 12px 4px 8px;
-  cursor: pointer;
-  font-family: 'Ubuntu', sans-serif;
-}
-
-.goBackBtn:hover {
-  filter: brightness(85%);
+.bottomContainer {
+  margin-top: 8px;
 }
 
 .randomBtn:hover {

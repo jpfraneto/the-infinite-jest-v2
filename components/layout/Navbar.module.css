@@ -7,12 +7,33 @@
   width: 100%;
   padding: 0.5rem 0rem;
   background-color: black;
-  color: white;
+  color: var(--orange);
   box-shadow: 0 2px 2px 2px rgb(227, 105, 10);
+}
+.navigation > div {
+  flex: 1 0 0;
+}
+
+.navigation > div:nth-child(2) {
+  text-align: center;
+}
+
+.languagePicker {
+  background-color: black;
+  color: var(--orange);
+  border: none;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.languagePicker:hover {
+  filter: brightness(85%);
 }
 
 .userBtns {
-  margin-right: 5px;
+  padding-right: 10px;
+  text-align: right;
 }
 
 .brandName {
@@ -102,6 +123,14 @@
 }
 
 .getUsernameBtn {
+}
+
+.logoContainer {
+  padding-left: 10px;
+}
+
+.logoContainer > * {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 888px) {

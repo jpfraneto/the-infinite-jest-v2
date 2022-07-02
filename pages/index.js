@@ -3,15 +3,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { quotes } from '../data/quotes';
-import MemberCircle from '../components/MemberCircle';
 import TheInfiniteJest from '../components/TheInfiniteJest';
+import Notebook from 'components/Notebook';
 
 export default function Home() {
   const [aloja, setAloja] = useState(null);
-  const [randomQuote, setRandomQuote] = useState('');
-  useEffect(() => {
-    setRandomQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-  }, []);
+  const [editNotes, setEditNotes] = useState(false);
+  const [mediaTitle, setMediaTitle] = useState('');
 
   const handleClick = async () => {
     try {
@@ -37,8 +35,12 @@ export default function Home() {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.playerLayoutWrapper}>
-        <TheInfiniteJest />
+        <TheInfiniteJest
+          setEditNotes={setEditNotes}
+          setMediaTitle={setMediaTitle}
+        />
       </div>
+      {editNotes && <Notebook mediaTitle={mediaTitle} />}
     </div>
   );
 }

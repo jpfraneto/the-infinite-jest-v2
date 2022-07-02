@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './TheInfiniteJest.module.css';
 import Link from 'next/link';
-import { GoUnmute } from 'react-icons/go';
+import Button from './layout/Button';
+import { BsShare, BsSave } from 'react-icons/bs';
+import { CgNotes } from 'react-icons/cg';
 
-const TheInfiniteJest = () => {
-  const sharedTextMessage =
-    'Este momento fue congelado como un link en tu portapapeles';
+const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
   const reactPlayerRef = useRef();
   const [loading, setLoading] = useState(true);
   const [presentRecommendation, setPresentRecommendation] = useState(null);
-  const [sharedText, setSharedText] = useState(false);
+  const [text, setText] = useState('');
   const [muted, setMuted] = useState(true);
+  const [intervalId, setIntervalId] = useState(null);
   useEffect(() => {
     const fetchRecommendation = async () => {
       const response = await fetch(
@@ -20,6 +21,8 @@ const TheInfiniteJest = () => {
       const data = await response.json();
       if (data) {
         setLoading(false);
+        console.log('HERE', data.recommendation);
+        setMediaTitle(data.recommendation.presentRecommendation.title);
         return setPresentRecommendation(data.recommendation);
       }
     };
@@ -33,10 +36,12 @@ const TheInfiniteJest = () => {
     if (data) {
       setLoading(false);
       data.recommendation.elapsedSeconds = 0;
-      setPresentRecommendation(data.recommendation);
+      setPresentRecommendation(data.recommendation.presentRecommendation.title);
+      setMediaTitle(data.recommendation.title);
     }
   };
   const handleSharePresent = () => {
+    clearInterval(intervalId);
     const currentTimestamp = Math.floor(
       reactPlayerRef.current.getCurrentTime()
     );
@@ -44,8 +49,21 @@ const TheInfiniteJest = () => {
       `${process.env.NEXT_PUBLIC_URL_PATH}/u/${presentRecommendation.presentRecommendation.username}/${presentRecommendation.presentRecommendation.mediatype}/${presentRecommendation.presentRecommendation._id}` +
         `?timestamp=${currentTimestamp}`
     );
-    setSharedText(true);
-    setTimeout(() => setSharedText(false), 4444);
+    setText('Este momento fue congelado como un link en tu portapapeles');
+    setIntervalId(setTimeout(() => setText(null), 4444));
+  };
+
+  const handleFavoriteMoment = () => {
+    clearInterval(intervalId);
+    setText('Add this moment to the users profile');
+    setIntervalId(setTimeout(() => setText(null), 4444));
+  };
+
+  const handleOpenNotepad = () => {
+    setEditNotes(prev => !prev);
+    clearInterval(intervalId);
+    setText('Add the notepad functionality');
+    setIntervalId(setTimeout(() => setText(null), 4444));
   };
 
   return (
@@ -77,18 +95,25 @@ const TheInfiniteJest = () => {
         )}
       </div>
       {presentRecommendation && (
-        <>
-          <button
-            className={`${styles.goBackBtn} ${styles.randomBtn}`}
-            onClick={handleSharePresent}
-          >
-            Comparte este momento
-          </button>
-
-          {sharedText && (
-            <p className={styles.sharedTextMessage}>{sharedTextMessage}</p>
+        <div className={styles.bottomContainer}>
+          <Button handler={handleSharePresent}>
+            <BsShare size={20} />
+          </Button>
+          <Button handler={handleFavoriteMoment}>
+            <BsSave size={20} />
+          </Button>
+          <Button handler={handleOpenNotepad}>
+            <CgNotes size={20} />
+          </Button>
+          {text && (
+            <p
+              style={{ marginTop: '3px' }}
+              className={styles.sharedTextMessage}
+            >
+              {text}
+            </p>
           )}
-        </>
+        </div>
       )}
     </>
   );

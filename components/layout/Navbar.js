@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
 import { IoMdLogOut } from 'react-icons/io';
+import canal21 from '../../public/canal21.png';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Navbar() {
@@ -29,17 +31,23 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navigation}>
-      <Link href='/'>
-        <a className={styles.brandName}>
-          21<span className={styles.restOfName}>tv </span>
-          <span className={styles.betaText}>(beta)</span>
-        </a>
-      </Link>
+      <div className={styles.logoContainer}>
+        <Link href='/' passHref>
+          <Image src={canal21} width={44} height={44} />
+        </Link>
+      </div>
 
       {/* {router.query.username && (
         <h3 className={styles.userName}>· {router.query.username} ·</h3>
       )} */}
-      {height && <span>{height}</span>}
+      {height && (
+        <div>
+          {height} |
+          <select className={styles.languagePicker} name='lang'>
+            <option value='en'>English</option>
+          </select>
+        </div>
+      )}
       <div className={styles.userBtns}>
         {session ? (
           <>

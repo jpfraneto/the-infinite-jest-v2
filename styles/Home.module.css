@@ -1,5 +1,6 @@
 .mainContainer {
   max-height: calc(100vh - 60px - 22px);
+  display: flex;
 }
 
 .firstSection {
@@ -16,4 +17,8 @@
   max-width: 888px;
   border-radius: 22px;
   text-align: center;
+}
+
+.notebook {
+  width: 50%;
 }

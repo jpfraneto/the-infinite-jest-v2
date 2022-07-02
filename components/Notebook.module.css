@@ -1,0 +1,22 @@
+.notebookContainer {
+  width: 50%;
+  padding: 4px 12px;
+  border-radius: 10px;
+}
+
+.textareaContainer {
+  width: 100%;
+  height: 80%;
+  margin-bottom: 8px;
+}
+
+.textareaContainer textarea {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: var(--orange);
+  border-radius: 8px;
+  overflow-y: scroll;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 4px;
+}
