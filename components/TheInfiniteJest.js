@@ -21,13 +21,12 @@ const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
       const data = await response.json();
       if (data) {
         setLoading(false);
-        console.log('HERE', data.recommendation);
         setMediaTitle(data.recommendation.presentRecommendation.title);
         return setPresentRecommendation(data.recommendation);
       }
     };
     fetchRecommendation();
-  }, []);
+  }, [setMediaTitle]);
   const queryNextRecommendation = async () => {
     const response = await fetch(
       'https://the-infinite-jest-server.herokuapp.com/api/present'
@@ -49,13 +48,15 @@ const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
       `${process.env.NEXT_PUBLIC_URL_PATH}/u/${presentRecommendation.presentRecommendation.username}/${presentRecommendation.presentRecommendation.mediatype}/${presentRecommendation.presentRecommendation._id}` +
         `?timestamp=${currentTimestamp}`
     );
-    setText('Este momento fue congelado como un link en tu portapapeles');
+    setText('This moment was christalized as a link in your clipboard');
     setIntervalId(setTimeout(() => setText(null), 4444));
   };
 
   const handleFavoriteMoment = () => {
     clearInterval(intervalId);
-    setText('Add this moment to the users profile');
+    setText(
+      'Add the functionality so that this moment can be saved in the users profile'
+    );
     setIntervalId(setTimeout(() => setText(null), 4444));
   };
 

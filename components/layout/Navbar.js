@@ -9,7 +9,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const [height, setHeight] = useState(null);
+  const [height, setHeight] = useState('212121');
 
   useEffect(() => {
     const getData = async () => {
@@ -33,8 +33,14 @@ export default function Navbar() {
     <nav className={styles.navigation}>
       <div className={styles.logoContainer}>
         <Link href='/' passHref>
-          <Image src={canal21} width={44} height={44} />
+          <Image
+            src={canal21}
+            width={44}
+            height={44}
+            alt='The most horrible logo in the world'
+          />
         </Link>
+        <span className={styles.restOfTitle}>BETA</span>
       </div>
 
       {/* {router.query.username && (
@@ -81,7 +87,7 @@ export default function Navbar() {
           </>
         ) : (
           <button onClick={() => signIn()} className={styles.loginBtn}>
-            Entrar / Registrarte
+            Login / Register
           </button>
         )}
       </div>
