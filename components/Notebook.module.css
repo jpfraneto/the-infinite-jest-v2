@@ -6,7 +6,7 @@
 
 .textareaContainer {
   width: 100%;
-  height: 80%;
+  height: 70%;
   margin-bottom: 8px;
 }
 
@@ -19,4 +19,32 @@
   overflow-y: scroll;
   font-family: 'Ubuntu', sans-serif;
   padding: 4px;
+}
+.textareaContainer textarea::placeholder {
+}
+
+.notesBtns {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.notesBtns:last-child {
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 777px) {
+  .notebookContainer {
+    width: 100%;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+  .textareaContainer {
+    width: 100%;
+    height: fit-content;
+
+    margin-bottom: 8px;
+  }
+  .textareaContainer textarea {
+    height: 300px;
+  }
 }

@@ -6,7 +6,12 @@ import Button from './layout/Button';
 import { BsShare, BsSave } from 'react-icons/bs';
 import { CgNotes } from 'react-icons/cg';
 
-const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
+const TheInfiniteJest = ({
+  setEditNotesDisplay,
+  setMediaTitle,
+  setPlayerReference,
+  setRecommendationId,
+}) => {
   const reactPlayerRef = useRef();
   const [loading, setLoading] = useState(true);
   const [presentRecommendation, setPresentRecommendation] = useState(null);
@@ -22,6 +27,7 @@ const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
       if (data) {
         setLoading(false);
         setMediaTitle(data.recommendation.presentRecommendation.title);
+        setRecommendationId(data.recommendation.presentRecommendation._id);
         return setPresentRecommendation(data.recommendation);
       }
     };
@@ -36,6 +42,8 @@ const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
       setLoading(false);
       data.recommendation.elapsedSeconds = 0;
       setPresentRecommendation(data.recommendation.presentRecommendation.title);
+      console.log('IN HERE, THE DATA IS: ', data);
+      setRecommendationId(data.recommendation.presentRecommendation._id);
       setMediaTitle(data.recommendation.title);
     }
   };
@@ -61,7 +69,8 @@ const TheInfiniteJest = ({ setEditNotes, setMediaTitle }) => {
   };
 
   const handleOpenNotepad = () => {
-    setEditNotes(prev => !prev);
+    setEditNotesDisplay(prev => !prev);
+    setPlayerReference(reactPlayerRef);
     clearInterval(intervalId);
     setText('Add the notepad functionality');
     setIntervalId(setTimeout(() => setText(null), 4444));

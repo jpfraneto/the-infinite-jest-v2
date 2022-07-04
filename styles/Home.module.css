@@ -1,5 +1,5 @@
 .mainContainer {
-  max-height: calc(100vh - 60px - 22px);
+  min-height: calc(100vh - 60px - 22px);
   display: flex;
 }
 
@@ -21,4 +21,13 @@
 
 .notebook {
   width: 50%;
+}
+
+@media only screen and (max-width: 777px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+  .notebook {
+    width: 100%;
+  }
 }

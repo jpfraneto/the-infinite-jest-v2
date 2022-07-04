@@ -7,9 +7,11 @@ import TheInfiniteJest from '../components/TheInfiniteJest';
 import Notebook from 'components/Notebook';
 
 export default function Home() {
-  const [aloja, setAloja] = useState(null);
-  const [editNotes, setEditNotes] = useState(false);
+  const [editNotesDisplay, setEditNotesDisplay] = useState(false);
+  const [notes, setNotes] = useState('');
   const [mediaTitle, setMediaTitle] = useState('');
+  const [playerReference, setPlayerReference] = useState(null);
+  const [recommendationId, setRecommendationId] = useState('');
 
   const handleClick = async () => {
     try {
@@ -36,11 +38,22 @@ export default function Home() {
     <div className={styles.mainContainer}>
       <div className={styles.playerLayoutWrapper}>
         <TheInfiniteJest
-          setEditNotes={setEditNotes}
+          setEditNotesDisplay={setEditNotesDisplay}
           setMediaTitle={setMediaTitle}
+          setPlayerReference={setPlayerReference}
+          setRecommendationId={setRecommendationId}
         />
       </div>
-      {editNotes && <Notebook mediaTitle={mediaTitle} />}
+      {editNotesDisplay && (
+        <Notebook
+          setEditNotesDisplay={setEditNotesDisplay}
+          playerReference={playerReference}
+          mediaTitle={mediaTitle}
+          notes={notes}
+          setNotes={setNotes}
+          recommendationId={recommendationId}
+        />
+      )}
     </div>
   );
 }
