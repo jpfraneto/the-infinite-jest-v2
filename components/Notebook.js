@@ -1,11 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Button from './layout/Button';
 import styles from './Notebook.module.css';
-import {
-  AiOutlineClockCircle,
-  AiOutlineClose,
-  AiOutlineConsoleSql,
-} from 'react-icons/ai';
+import { AiOutlineClockCircle, AiOutlineClose } from 'react-icons/ai';
 import { useSession } from 'next-auth/react';
 
 function secondsToTime(e) {
@@ -20,50 +16,63 @@ function secondsToTime(e) {
       .padStart(2, '0');
 
   return h + ':' + m + ':' + s;
-  //return `${h}:${m}:${s}`;
 }
 
 const Notebook = ({
-  mediaTitle,
   playerReference,
   notes,
   setNotes,
   setEditNotesDisplay,
-  recommendationId,
+  recommendation,
 }) => {
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
   const notebookRef = useRef();
+
   const handleSaveNote = async () => {
-    if (!session) return alert('there is no user!');
+    setLoading(true);
+    if (!session)
+      return alert('Please log in to add this notes to your profile!');
     const reqParams = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        notes: notes,
+        notes,
         username: session.user.username,
-        recommendationId: recommendationId,
+        recommendation: recommendation.presentRecommendation,
       }),
     };
-    const resp = await fetch('/api/u/notes', reqParams);
+    const resp = await fetch(
+      `/api/u/${session.user.username}/notes`,
+      reqParams
+    );
     const data = await resp.json();
-    alert('the notes were added to your profile!');
+    setLoading(false);
+    setMessage(data.message);
+    setTimeout(() => {
+      setMessage('');
+    }, 3000);
   };
   const handleCloseNotebook = () => {
     setEditNotesDisplay(false);
   };
   const handlePasteTimestamp = () => {
-    setNotes(
-      prev =>
-        prev +
-        `\n ${secondsToTime(
-          Math.floor(playerReference.current.getCurrentTime())
-        )}: `
-    );
+    setNotes(prev => {
+      return {
+        ...prev,
+        notes:
+          (prev?.notes || '') +
+          `\n ${secondsToTime(
+            Math.floor(playerReference.current.getCurrentTime())
+          )}: `,
+      };
+    });
     notebookRef.current.focus();
   };
   return (
     <div className={styles.notebookContainer}>
-      <p>{mediaTitle}</p>
+      <h3>{recommendation.presentRecommendation.name}</h3>
       <div className={styles.notesBtns}>
         <Button handler={handlePasteTimestamp}>
           <AiOutlineClockCircle size={20} />
@@ -74,13 +83,16 @@ const Notebook = ({
       </div>
       <div className={styles.textareaContainer}>
         <textarea
-          value={notes}
+          value={notes?.notes || ''}
           ref={notebookRef}
           placeholder='This software is in testing version. If you want to help me build it, feel free to fork this repo: https://github.com/jpfraneto/the-infinite-jest-v2'
-          onChange={e => setNotes(e.target.value)}
+          onChange={e => setNotes(prev => ({ ...prev, notes: e.target.value }))}
         />
       </div>
-      <Button handler={handleSaveNote}>Save notes</Button>
+      <Button handler={handleSaveNote}>
+        {loading ? 'Loading...' : 'Save notes'}
+      </Button>
+      {message && <p>{message}</p>}
     </div>
   );
 };

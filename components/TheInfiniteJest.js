@@ -5,46 +5,30 @@ import Link from 'next/link';
 import Button from './layout/Button';
 import { BsShare, BsSave } from 'react-icons/bs';
 import { CgNotes } from 'react-icons/cg';
+import { useSession } from 'next-auth/react';
 
 const TheInfiniteJest = ({
   setEditNotesDisplay,
-  setMediaTitle,
   setPlayerReference,
-  setRecommendationId,
+  recommendation,
+  setRecommendation,
+  setNotes,
 }) => {
+  const { data: session } = useSession();
   const reactPlayerRef = useRef();
-  const [loading, setLoading] = useState(true);
-  const [presentRecommendation, setPresentRecommendation] = useState(null);
+  const [presentRecommendation, setPresentRecommendation] =
+    useState(recommendation);
   const [text, setText] = useState('');
-  const [muted, setMuted] = useState(true);
   const [intervalId, setIntervalId] = useState(null);
-  useEffect(() => {
-    const fetchRecommendation = async () => {
-      const response = await fetch(
-        'https://the-infinite-jest-server.herokuapp.com/api/present'
-      );
-      const data = await response.json();
-      if (data) {
-        setLoading(false);
-        setMediaTitle(data.recommendation.presentRecommendation.title);
-        setRecommendationId(data.recommendation.presentRecommendation._id);
-        return setPresentRecommendation(data.recommendation);
-      }
-    };
-    fetchRecommendation();
-  }, [setMediaTitle]);
+
   const queryNextRecommendation = async () => {
     const response = await fetch(
       'https://the-infinite-jest-server.herokuapp.com/api/present'
     );
     const data = await response.json();
     if (data) {
-      setLoading(false);
       data.recommendation.elapsedSeconds = 0;
-      setPresentRecommendation(data.recommendation.presentRecommendation.title);
-      console.log('IN HERE, THE DATA IS: ', data);
-      setRecommendationId(data.recommendation.presentRecommendation._id);
-      setMediaTitle(data.recommendation.title);
+      setRecommendation(data.recommendation);
     }
   };
   const handleSharePresent = () => {
@@ -72,14 +56,13 @@ const TheInfiniteJest = ({
     setEditNotesDisplay(prev => !prev);
     setPlayerReference(reactPlayerRef);
     clearInterval(intervalId);
-    setText('Add the notepad functionality');
     setIntervalId(setTimeout(() => setText(null), 4444));
   };
 
   return (
     <>
       <div className={styles.playerWrapper}>
-        {loading || !presentRecommendation ? (
+        {!presentRecommendation ? (
           <div className={styles.reactPlayer}></div>
         ) : (
           <ReactPlayer

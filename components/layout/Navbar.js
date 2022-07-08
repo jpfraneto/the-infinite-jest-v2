@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.css';
-import { IoMdLogOut } from 'react-icons/io';
+import { CgNotes } from 'react-icons/cg';
 import canal21 from '../../public/canal21.png';
 import Link from 'next/link';
 import Image from 'next/image';
+import Button from './Button';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Navbar() {
@@ -78,6 +79,11 @@ export default function Navbar() {
                 Get Username!
               </button>
             )}
+            <Button
+              handler={() => router.push(`/u/${session.user.username}/notes`)}
+            >
+              <CgNotes />
+            </Button>
             <button
               onClick={() => signOut()}
               className={`${styles.loginBtn} ${styles.logoutBtn}`}
