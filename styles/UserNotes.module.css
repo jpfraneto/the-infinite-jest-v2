@@ -1,0 +1,7 @@
+.episodeLinkBtn {
+  cursor: pointer;
+}
+
+.episodeLinkBtn:hover {
+  color: orange;
+}

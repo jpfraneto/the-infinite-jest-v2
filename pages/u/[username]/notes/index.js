@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { connectToDatabase } from '../../../../lib/mongodb';
+import NotebookDisplay from 'components/NotesDisplay/NotebookDisplay';
+import styles from '../../../../styles/UserNotes.module.css';
 
 export async function getServerSideProps(context) {
   const { db } = await connectToDatabase();
@@ -12,22 +14,28 @@ export async function getServerSideProps(context) {
 }
 
 const Notes = ({ notes }) => {
+  const [chosenNote, setChosenNote] = useState(null);
   const router = useRouter();
   if (!notes) return <p>Loading!</p>;
   return (
     <div>
       <ul>
-        {notes.map(note => (
-          <div>
-            <Link href={`/u/${router.query.username}/notes/${note._id}`}>
-              {note._id}
-            </Link>
-            {note.notes.split('\n').map(x => (
-              <p>{x}</p>
-            ))}
-          </div>
-        ))}
+        {notes.map(note => {
+          return (
+            <div key={note._id}>
+              <p
+                className={styles.episodeLinkBtn}
+                onClick={() => setChosenNote(note)}
+              >
+                {note.name || ''}
+              </p>
+            </div>
+          );
+        })}
       </ul>
+      {chosenNote && (
+        <NotebookDisplay note={chosenNote} setChosenNote={setChosenNote} />
+      )}
     </div>
   );
 };

@@ -3,6 +3,25 @@ import { connectToDatabase } from '../../../../../lib/mongodb';
 const crypto = require('crypto');
 
 export default async function handler(req, res) {
+  if (req.method === 'PUT') {
+    let { db } = await connectToDatabase();
+    try {
+      const updatedMsg = await db
+        .collection('users')
+        .updateOne(
+          { username: req.body.username },
+          { $set: { 'notes.$[elem].notes': req.body.updatedText } },
+          { arrayFilters: [{ 'elem._id': req.body.noteId }] }
+        );
+      res.json({ message: 'The notes were updated successfully' });
+    } catch (error) {
+      res
+        .status(401)
+        .json({ message: 'There was an error updating the field' });
+    }
+  }
+
+  //I WANT TO UPDATE THIS NOTE!
   if (req.method === 'POST') {
     let { db } = await connectToDatabase();
     try {
